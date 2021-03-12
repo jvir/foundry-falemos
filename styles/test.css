@@ -1,0 +1,54 @@
+/* cameras */
+#camera-views-user-5HsQ9CEHeITVBVCt {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    /*width basado en configuracion*/
+    /*aqui nada mas es un wrapper */
+}
+
+.control-bar, .window-resizable-handle {
+    display:none;
+}
+
+/* aqui definimos el borde*/
+.camera-view { background-image: none; background: rgba(250,250,250,0); border: 0px; /*indicador de hablando*/ box-shadow: none;  padding: 0px !important; /*Tamaño borde*/ }
+
+
+
+.user-camera {
+    --box-shadow: 0 0 1px #222; 
+}
+
+
+.player-name {
+    background-color: rgba(250,250,250,1) !important;
+    border: 0px !important;
+    color: black;
+    font-family: Tox;
+    z-index: 101;
+}
+
+
+.player-name {
+    background-color: transparent !important;
+    color: white !important;
+    width: auto;
+    position: absolute;
+    top: 125px;
+    left: 20px;
+}
+
+
+.video-overlay {
+    position: absolute;
+    top: -10px;
+    left: -14px;
+    width: calc(100% + 28px);
+    height: calc(100% + 28px);;
+    border:none;
+    z-index: 100;
+    background-image: url("/modules/modocharla/assets/img/frames/tv.png");
+    background-size: 100% 100%;
+    overflow: visible;
+}

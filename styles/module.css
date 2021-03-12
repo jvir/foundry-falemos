@@ -1,0 +1,36 @@
+.falemos-camera-overlay {
+    display: none;
+    position: absolute;
+    background-size: 100% 100%;
+    background-repeat:no-repeat;
+    z-index: 100;
+}
+
+.falemos-chat-overlay {
+    display: none;
+    position: absolute;
+    background-size: 100% 100%;
+    background-repeat:no-repeat;
+    z-index: 100;
+}
+
+.falemos-name-overlay {
+    display: none;
+    position: absolute;
+    background-size: 100% 100%;
+    background-repeat:no-repeat;
+    z-index: 101;
+}
+
+.control-bar {
+    z-index: 102;
+}
+
+.falemos-config-title {
+    font-size: 20px;
+    background-color: white;
+}
+
+.falemos-config-header {
+ background-color:white;
+}

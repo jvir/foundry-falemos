@@ -1,0 +1,19 @@
+/* cameras */
+.camera-view {
+    background-image: none;
+    background: rgba(250,250,250,1);
+    border: 0px;
+}
+.user-camera {
+    box-shadow: 0 0 1px #222; 
+}
+.player-name {
+    background-color: rgba(250,250,250,1) !important;
+    border: 0px !important;
+    color: black;
+    font-family: Tox;
+}
+#player-list .player-name {
+    background-color: transparent !important;
+    color: white !important;
+}
