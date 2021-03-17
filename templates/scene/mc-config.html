@@ -1,6 +1,36 @@
 <header class="form-header falemos-config-title"><h3 class="form-header"><i class="fas fa-camera"></i> Falemos</h3></header>
 <header class="form-header falemos-config-header"><h3 class="form-header">&nbsp;&nbsp;&nbsp;&nbsp;{{localize "FALEMOS.General"}}</h3></header>
-<div class="form-group"><label>{{localize "FALEMOS.EnableText"}}</label><input type="checkbox" name="flags.falemos.config.enable" data-dtype="Boolean" {{checked falemosconfig.enable}}><p class="notes">{{localize "FALEMOS.EnableNotes"}}</p></div>
+<!-- enable/disable falemos -->
+<div class="form-group">
+    <label>{{localize "FALEMOS.EnableText"}}</label>
+    <input type="checkbox" name="flags.falemos.config.enable" data-dtype="Boolean" {{checked falemosconfig.enable}}>
+    <p class="notes">{{localize "FALEMOS.EnableNotes"}}</p>
+</div>
+<!-- ocultar controles -->
+<div class="form-group">
+    <label>{{localize "FALEMOS.HideNavigation"}}</label>
+    <input type="checkbox" name="flags.falemos.config.hide.navigation" data-dtype="Boolean" {{checked falemosconfig.hide.navigation}}>
+</div>    
+<div class="form-group">
+    <label>{{localize "FALEMOS.HideControls"}}</label>
+    <input type="checkbox" name="flags.falemos.config.hide.controls" data-dtype="Boolean" {{checked falemosconfig.hide.controls}}>
+</div>    
+<div class="form-group">
+    <label>{{localize "FALEMOS.HidePlayers"}}</label>
+    <input type="checkbox" name="flags.falemos.config.hide.players" data-dtype="Boolean" {{checked falemosconfig.hide.players}}>
+</div>    
+<div class="form-group">
+    <label>{{localize "FALEMOS.HideSidebar"}}</label>
+    <input type="checkbox" name="flags.falemos.config.hide.sidebar" data-dtype="Boolean" {{checked falemosconfig.hide.sidebar}}>
+</div>
+<div class="form-group">
+    <label>{{localize "FALEMOS.HideHotbar"}}</label>
+    <input type="checkbox" name="flags.falemos.config.hide.hotbar" data-dtype="Boolean" {{checked falemosconfig.hide.hotbar}}>
+</div>
+
+
+
+<div>
 
 {{#each users }}
     <header class="form-header falemos-config-header"><h3 class="form-header">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ this.name }}</h3></header>
@@ -55,7 +85,7 @@
         <select name="flags.falemos.config.{{ this._id }}.filter" data-dtype="String">
         {{#select (lookupProp ../falemosconfig this.id 'filter') }}
             {{#each ../falemos.cameraEffects }}
-                <option value="{{@key}}">{{this.name}}</option>
+                <option value="{{@key}}">{{localize this.name}}</option>
             {{/each}}
         {{/select}}
         </select>
@@ -91,4 +121,4 @@
     
     
 {{/each}}
-
+</div>

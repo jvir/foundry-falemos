@@ -24,5 +24,10 @@
     "FALEMOS.CameraNameColor": "Color",
     "FALEMOS.CameraNameOffsetX": "X",
     "FALEMOS.CameraNameOffsetY": "Y",
-    "FALEMOS.CameraNameFontSize": "tamaño"
+    "FALEMOS.CameraNameFontSize": "tamaño",
+    "FALEMOS.camera.effects.none": "Sen efecto",
+    "FALEMOS.camera.effects.bw": "Escala de grises",
+    "FALEMOS.camera.effects.sepia": "Sepia",
+    "FALEMOS.camera.effects.noise": "Ruido",
+    "FALEMOS.camera.effects.warp": "Ondas"
 }

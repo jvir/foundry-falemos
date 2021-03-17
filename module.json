@@ -26,10 +26,16 @@
   "scripts": [
     "/scripts/lib/html2canvas.js"
   ],
+  "socket": true,
   "styles": [
     "/styles/module.css"
   ],
   "languages": [
+    {
+      "lang": "gl",
+      "name": "Galego",
+      "path": "languages/gl.json"
+    },
     {
       "lang": "en",
       "name": "English",
@@ -39,11 +45,6 @@
       "lang": "es",
       "name": "Español",
       "path": "languages/es.json"
-    },
-    {
-      "lang": "gl",
-      "name": "Galego",
-      "path": "languages/gl.json"
     }
   ],
   "url": "This is auto replaced",

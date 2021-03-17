@@ -12,7 +12,13 @@
 
 This is a module for Camera management in Foundry VTT
 
+Testing Buggy versions
+
+##help:
+Name font example "url(https://fonts.gstatic.com/s/redressed/v11/x3dickHUbrmJ7wMy9Msxe_oD.woff2) format('woff2')"
+shortcut cicle UI "cntrl+alt+h"
+
 ## Changelog
 
-v0.0.1 aka buggy version
+Currently buggy versions
 
