@@ -184,6 +184,7 @@ Hooks.on('renderSceneNavigation', async function(scene, html) { //TODO get form 
                 camera.parentNode.removeAttribute('data-scene');
             })
             cameraToDOck(camerashtml);
+            hideUi({}, 'all');
         }
 })
 
@@ -213,7 +214,7 @@ Hooks.on('canvasInit', async function(){
 });
 
 function hideUi (data, mode=null){ //hide/shoe UI elements
-    if(!mode){
+    mode ? data.mode = mode : null;
         switch (data.mode){
             case 'all':
                 $('#navigation').show(); 
@@ -235,8 +236,7 @@ function hideUi (data, mode=null){ //hide/shoe UI elements
                 data.players ? $('#players').hide() : $('#players').show();
                 data.sidebar ? $('#sidebar').hide() : $('#sidebar').show();
                 data.hotbar ? $('#hotbar').hide() : $('#hotbar').show();
-        }
-    }
+        };
 }
 
 

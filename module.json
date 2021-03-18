@@ -1,6 +1,6 @@
 {
   "name": "falemos",
-  "title": "falemos (let's talk)",
+  "title": "Falemos (let's talk)",
   "description": "",
   "version": "This is auto replaced",
   "library": "false",
@@ -45,6 +45,11 @@
       "lang": "es",
       "name": "Español",
       "path": "languages/es.json"
+    },
+    {
+      "lang": "ca",
+      "name": "Catalá",
+      "path": "languages/ca.json"
     }
   ],
   "url": "This is auto replaced",
