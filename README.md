@@ -25,11 +25,14 @@ This module allows you to customise the style and position of the cameras in eac
  - Cicle UI visibility: cntrl+alt+h
 
 
-##help:
-Name font example "url(https://fonts.gstatic.com/s/redressed/v11/x3dickHUbrmJ7wMy9Msxe_oD.woff2) format('woff2')"
-shortcut cicle UI "cntrl+alt+h"
+##Thanks
+
+- To bug reporters: Viriato139ac, Gorion.
+- To translators: Gorion.
+- To all users, without them this module makes no sense.
 
 ## Changelog
 
+0.2.0 Change scene config retrieve from active to viewed.
 0.1.0 Initial Alfa version, codename (Alfalfa).
 
