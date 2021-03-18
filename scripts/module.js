@@ -18,18 +18,19 @@ Hooks.once('init', async function() {
             Warp: {name: "FALEMOS.camera.effects.warp", data: "url('#warp')"}
         },
         cameraGeometry: {
-            rectangle: {name: game.i18n.localize("FALEMOS.camera.geometry.rectangle"), data: "grayscale(1)"},
-            square: {name: game.i18n.localize("FALEMOS.camera.geometry.square"), data: "grayscale(1)"},
-            circle: {name: game.i18n.localize("FALEMOS.camera.geometry.circle"), data: "grayscale(1)"},
-            triangle: {name: game.i18n.localize("FALEMOS.camera.geometry.triagle"), data: "grayscale(1)"},
+            rectangle: {name: "FALEMOS.camera.geometry.rectangle", data: "clip-path: none;"},
+            circle: {name: "FALEMOS.camera.geometry.circle", data: "clip-path: circle(41% at 41% 50%);"},
+            triangle: {name: "FALEMOS.camera.geometry.triangle", data: "clip-path: polygon(50% 0%, 0% 100%, 100% 100%);"},
+            shield: {name: "FALEMOS.camera.geometry.shield", data: "clip-path: inset(0% 15% 0% 15% round 0% 0% 50% 50%);"}
         }
     }
     CONFIG.FALEMOS = MCCONFIG;
 });
 
 Hooks.once('ready', async function() {
-    CONFIG.debug.hooks=true
+    //CONFIG.debug.hooks=true
     
+        
     //sockets
     game.socket.on('module.falemos', async (data) => {
        onSocketData(data); 
@@ -87,10 +88,8 @@ Hooks.once('ready', async function() {
 
 Hooks.on('renderCameraViews', async function(cameraviews, html) {
     if (game.scenes.active.data.flags.falemos?.config?.enable){
-        //console.log(html.find('.camera-view'));
+
         html.find('.camera-view').each((index, camera)=>{
-//             console.log('scene');
-//             console.log(camera);
             camera.dataset.scene = game.scenes.active.data._id;
             camera.parentNode.dataset.scene = game.scenes.active.data._id;
         })
@@ -105,9 +104,7 @@ Hooks.on('renderCameraViews', async function(cameraviews, html) {
         });
         html.find('.av-control[data-action="toggle-isolate"]').click((ev)=>{
             
-            game.users.get(ev.currentTarget.closest('.camera-view').dataset.user).setFlag('falemos', 'isolated', !game.users.get(ev.currentTarget.closest('.camera-view').dataset.user).data.flags.falemos?.isolated);
-            //console.log(game.users.get(ev.currentTarget.closest('.camera-view').dataset.user).data.flags.falemos);
-            
+            game.users.get(ev.currentTarget.closest('.camera-view').dataset.user).setFlag('falemos', 'isolated', !game.users.get(ev.currentTarget.closest('.camera-view').dataset.user).data.flags.falemos?.isolated);            
             Hooks.call('updateFalemosIsolated', game.users);
             
         });
@@ -130,12 +127,7 @@ Hooks.on('updateFalemosIsolated'. async function(data) {
 
 
 Hooks.on('renderSceneConfig', async function(sceneConfig, html, data) {
-        
-//         if (game.scenes.get(data.entity._id).getFlag('falemos', 'config') === undefined)
-//         {
-//             TODO create initial config
-//         }
-        
+                
         let falemosconfig = game.scenes.get(data.entity._id).getFlag('falemos', 'config') ? game.scenes.get(data.entity._id).getFlag('falemos', 'config') : null;
         let users = game.users.entries;
                 
@@ -149,7 +141,6 @@ Hooks.on('renderSceneConfig', async function(sceneConfig, html, data) {
         // enable listeners
         html.find('.capture-current').each(function(index) {
             $(this).on("click", function(ev){
-                //console.log(ev.currentTarget.dataset.user); 
                 let offset = jQuery(`.camera-view[data-user="${ev.currentTarget.dataset.user}"] video`).first().offset()
                 jQuery(`[name='flags.falemos.config.${ev.currentTarget.dataset.user}.x']`).first().val(offset.left);
                 jQuery(`[name='flags.falemos.config.${ev.currentTarget.dataset.user}.y']`).first().val(offset.top);
@@ -167,8 +158,6 @@ Hooks.on('closeSceneConfig', async function(sceneConfig, html, data) {
     if (game.scenes.active.data.flags.falemos?.config?.enable){
         let camerashtml = jQuery("#camera-views");
         camerashtml.find('.camera-view').each((index, camera)=>{
-            //console.log('scene');
-            //console.log(camera);
             camera.dataset.scene = game.scenes.active.data._id;
             camera.parentNode.dataset.scene = game.scenes.active.data._id;
         })
@@ -182,8 +171,6 @@ Hooks.on('renderSceneNavigation', async function(scene, html) { //TODO get form 
         if (game.scenes.active.data.flags.falemos?.config?.enable){
             let camerashtml = jQuery("#camera-views");
             camerashtml.find('.camera-view').each((index, camera)=>{
-//                 console.log('scene');
-//                 console.log(camera);
                 camera.dataset.scene = game.scenes.active.data._id;
                 camera.parentNode.dataset.scene = game.scenes.active.data._id;
             })
@@ -193,8 +180,6 @@ Hooks.on('renderSceneNavigation', async function(scene, html) { //TODO get form 
         }else{
             let camerashtml = jQuery("#camera-views");
             camerashtml.find('.camera-view').each((index, camera)=>{
-//                 console.log('scene');
-//                 console.log(camera);
                 camera.removeAttribute('data-scene');
                 camera.parentNode.removeAttribute('data-scene');
             })
@@ -259,11 +244,8 @@ function cameraToDOck(html){
         game.users.entries.forEach((user)=>{
             let userCamera = html.find(`.camera-view[data-user="${user.id}"]`);
             if (userCamera.length != 1) return; //no camera, next. 
-                                            console.log(userCamera[0]);
 
             if (userCamera[0].classList.contains(`camera-box-popout`)){ //camera is docked => click to popout
-//                 console.log(user.id)
-//                 console.log(userCamera[0].querySelector(`[data-action="toggle-popout"]`));
                 userCamera[0].querySelector(`[data-action="toggle-popout"]`).click();
                 return;
             }
@@ -274,11 +256,8 @@ function camerasToPopout(html){
     game.users.entries.forEach((user)=>{
             let userCamera = html.find(`.camera-view[data-user="${user.id}"]`);
             if (userCamera.length != 1) return; //no camera, next. 
-                                            //console.log(userCamera[0]);
 
             if (userCamera[0].classList.contains(`camera-box-dock`)){ //camera is docked => click to popout
-//                 console.log(user.id)
-//                 console.log(userCamera[0].querySelector(`[data-action="toggle-popout"]`));
                 userCamera[0].querySelector(`[data-action="toggle-popout"]`).click();
                 return;
             }
@@ -286,19 +265,13 @@ function camerasToPopout(html){
 }
 
 function camerasStyling(html){
-    //console.log('camerastiling');
-    //console.log(html);
+
     game.users.entries.forEach((user)=>{        
             let popout = html.find(`#camera-views-user-${user.id}`)[0];
             if(!popout) return;
-            //console.log('userStyle');
-            //console.log(popout);
             let box = popout.querySelector(".camera-view");
             let currentCamPop = new CameraPopoutAppWrapper(this, box.dataset.user, $(popout));
             currentCamPop.setPosition({ left: game.scenes.active.data.flags.falemos.config[user.id].x , top: game.scenes.active.data.flags.falemos.config[user.id].y, width: game.scenes.active.data.flags.falemos.config[user.id].width });
-//             console.log(game.scenes.active.data.flags.falemos[user.id]);
-//             console.log(html.find('video'));
-            //html.find('video') ? html.find('video')[0].style.filter= game.scenes.active.data.flags.falemos.config[user.id].filter : comsole.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
             if(game.scenes.active.data.flags.falemos.config[user.id].cameraNameFont) {jQuery(`#camera-views-user-${user.id} .falemos-name-overlay`)[0].innerHTML = game.scenes.active.data.flags.falemos.config[user.id].cameraName;}
 
     })
@@ -315,6 +288,7 @@ function createSceneStyles(){
                 
                 
                 let filterKey = game.scenes.active.data.flags.falemos.config[user.id].filter;
+                let geometryKey = game.scenes.active.data.flags.falemos.config[user.id].geometry ? game.scenes.active.data.flags.falemos.config[user.id].geometry : "rectangle";
                 
                 
                 let overlayImg = game.scenes.active.data.flags.falemos.config[user.id].overlayImg;
@@ -337,6 +311,7 @@ function createSceneStyles(){
                 css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .player-name { display: none; }\r\n `;//hidde player name
                 //custom style
                 css += `.camera-view[data-user="${user.id}"][data-scene="${scene.data._id}"] video { filter: ${CONFIG.FALEMOS.cameraEffects[filterKey].data}; }\r\n `; //video filter
+                css += `.camera-view[data-user="${user.id}"][data-scene="${scene.data._id}"] video { ${CONFIG.FALEMOS.cameraGeometry[geometryKey].data} }\r\n `; //video geometry
                 css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .falemos-camera-overlay { display: inherit; background-image: url('${overlayImg}'); width: calc(100% + ${overlayHSize}px); height: calc(100% + ${overlayVSize}px); top: -${overlayTop}px; left: -${overlayLeft}px; }\r\n `;//show camera overlay
                 css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .falemos-chat-overlay { display: inherit; width: 300px; top: calc(100% + 10px); left: 0px; }\r\n `;//positioning chat overlay
                 css += `@font-face{font-family: ${scene.data._id}${user.id}; src: ${game.scenes.active.data.flags.falemos.config[user.id].cameraNameFont};}\r\n`;
@@ -360,10 +335,6 @@ function onSocketData(data){
 
 
 Handlebars.registerHelper('lookupProp', function (obj, key, prop) {
-    //console.log('lookupProp');
-    //console.log(obj);
-    //console.log(key);
-    //console.log(prop);
     if (!obj) return null;
     return obj[key] && obj[key][prop];
 });

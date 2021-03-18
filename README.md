@@ -10,9 +10,20 @@
 
 # Falemos (Let's talk)
 
-This is a module for Camera management in Foundry VTT
+This is a module for Camera management in Foundry VTT. Falemos is a Galician word meaning "let's talk".
 
-Testing Buggy versions
+This module allows you to customise the style and position of the cameras in each scene and can be used for direct streaming from the foundry screen or simply for a more interesting presentation.
+
+##Features by scene:
+- Hide/Show controls (navigation, sidebar, controls, hotbar, players).
+- Custom camera positon by player.
+- Custom camera overlay by player.
+- Custom video geometry.
+- Custom video filters.
+- Custom name with custom color, font and position by player.
+- Shorcuts
+ - Cicle UI visibility: cntrl+alt+h
+
 
 ##help:
 Name font example "url(https://fonts.gstatic.com/s/redressed/v11/x3dickHUbrmJ7wMy9Msxe_oD.woff2) format('woff2')"
@@ -20,5 +31,5 @@ shortcut cicle UI "cntrl+alt+h"
 
 ## Changelog
 
-Currently buggy versions
+0.1.0 Initial Alfa version, codename (Alfalfa).
 
