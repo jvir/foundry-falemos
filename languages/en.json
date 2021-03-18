@@ -43,5 +43,6 @@
     "FALEMOS.HideControls": "Hide controls",
     "FALEMOS.HidePlayers": "Hide players",
     "FALEMOS.HideSidebar": "Hide sidebar",
-    "FALEMOS.HideHotbar": "Hide hotbar"
+    "FALEMOS.HideHotbar": "Hide hotbar",
+    "FALEMOS.CameraNameColorNotes": "Set the colour, position and size of the banner"
 }
