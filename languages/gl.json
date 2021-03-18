@@ -12,6 +12,7 @@
     "FALEMOS.CameraGeometryText": "Geometría",
     "FALEMOS.CameraEffectNotes": "Efecto a aplicar o video",
     "FALEMOS.CameraNameColorText": "Color do Nome",
+    "FALEMOS.CameraNameColorNotes": "Configura a Cor, possición e tamaño do rótulo",
     "FALEMOS.CameraOverlayNotes": "Selecciona a imaxe que queres sobrepor a cámara",
     "FALEMOS.CameraOverlayText": "Imaxe sobreposta",
     "FALEMOS.Left": "Esquerda",
