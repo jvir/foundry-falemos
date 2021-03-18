@@ -43,5 +43,6 @@
     "FALEMOS.HideControls": "Ocultar controles",
     "FALEMOS.HidePlayers": "Ocultar jugadores",
     "FALEMOS.HideSidebar": "Ocultar barra lateral",
-    "FALEMOS.HideHotbar": "Ocultar barra de atajos"
+    "FALEMOS.HideHotbar": "Ocultar barra de atajos",
+    "FALEMOS.CameraNameColorNotes": "Configura el color, posición y tamaño del rotulo"
 }
