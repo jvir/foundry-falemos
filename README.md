@@ -8,7 +8,7 @@ This is a module for Camera management in Foundry VTT. Falemos is a Galician wor
 
 This module allows you to customise the style and position of the cameras in each scene and can be used for direct streaming from the foundry screen or simply for a more interesting presentation.
 
-##Features by scene:
+## Features by scene:
 - Hide/Show controls (navigation, sidebar, controls, hotbar, players).
 - Custom camera positon by player.
 - Custom camera overlay by player.
@@ -19,7 +19,28 @@ This module allows you to customise the style and position of the cameras in eac
  - Cicle UI visibility: cntrl+alt+h
 
 
-##Thanks
+## Usage
+
+Falemos is scene-dependent. In the configuration of each scene we have the configuration parameters:
+
+- Global
+ - General enabled/disabled control.
+ - UI elements display control.
+
+![Global config](https://github.com/jvir/foundry-falemos/blob/main/doc/img/globalconfig.png?raw=true)
+
+
+- Per user:
+ - Camera position and size.
+ - image overlay.
+ - Image overlay settings
+ - Geometry and effect applicable to the video
+ - Colour, position, size and font of the label.
+
+![User config](https://github.com/jvir/foundry-falemos/blob/main/doc/img/userconfig.png?raw=true)
+
+
+## Thanks
 
 - To bug reporters: Viriato139ac, Gorion.
 - To translators: Gorion.
