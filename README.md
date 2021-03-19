@@ -16,7 +16,7 @@ This module allows you to customise the style and position of the cameras in eac
 - Custom video filters.
 - Custom name with custom color, font and position by player.
 - Shorcuts
- - Cicle UI visibility: cntrl+alt+h
+    - Cicle UI visibility: cntrl+alt+h
 
 
 ## Usage
@@ -24,18 +24,18 @@ This module allows you to customise the style and position of the cameras in eac
 Falemos is scene-dependent. In the configuration of each scene we have the configuration parameters:
 
 - Global
- - General enabled/disabled control.
- - UI elements display control.
+    - General enabled/disabled control.
+    - UI elements display control.
 
 ![Global config](https://github.com/jvir/foundry-falemos/blob/main/doc/img/globalconfig.png?raw=true)
 
 
 - Per user:
- - Camera position and size.
- - image overlay.
- - Image overlay settings
- - Geometry and effect applicable to the video
- - Colour, position, size and font of the label.
+    - Camera position and size.
+    - image overlay.
+    - Image overlay settings
+    - Geometry and effect applicable to the video
+    - Colour, position, size and font of the label.
 
 ![User config](https://github.com/jvir/foundry-falemos/blob/main/doc/img/userconfig.png?raw=true)
 
