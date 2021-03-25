@@ -68,7 +68,7 @@ Hooks.once('ready', async function() {
             
         };
         if (e.ctrlKey && e.altKey && e.which == 72) { //TODO toggle UI visibility in current scene (H) ONLY GM
-            if (!game.user.isGm) return;
+            if (!game.user.isGM) return;
             let tempUI = game.scenes.viewed.data.flags?.falemos?.config?.hide?.mode
             switch (tempUI) {
                 case 'all':
