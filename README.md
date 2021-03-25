@@ -16,10 +16,14 @@ This module allows you to customise the style and position of the cameras in eac
 - Custom video filters.
 - Custom name with custom color, font and position by player.
 - Shorcuts
-    - Cicle UI visibility: cntrl+alt+h
+    - Cicle UI visibility (Onlye GM): ctrl+alt+h(ide)
+    - Cicle Scene Fit: ctrl+alt+f(it)
 
 
 ## Usage
+
+**NOTE:** *If you have used Falemos before your old scenes will still work the same, but it is advisable to change them to the new percentage system as the old pixel system is considered deprecated and will be removed in future versions.
+The new system is considered better as it respects the proportions on any screen size and the GM can know that all players see it the same (same proportions).*
 
 Falemos is scene-dependent. In the configuration of each scene we have the configuration parameters:
 
@@ -31,23 +35,25 @@ Falemos is scene-dependent. In the configuration of each scene we have the confi
 
 
 - Per user:
-    - Camera position and size.
+    - Camera position and size (units are in percent of windows size).
     - image overlay.
-    - Image overlay settings
+    - Image overlay settings (units are in percent of camera size).
     - Geometry and effect applicable to the video
     - Colour, position, size and font of the label.
+    - Set optional scene fit, scene fit, an adjusted scene has the consequence that the cameras remain in the same position in the image and can always be used to simulate the anchoring of the camera to an area of the image.
 
 ![User config](https://github.com/jvir/foundry-falemos/blob/main/doc/img/userconfig.png?raw=true)
 
 
 ## Thanks
 
-- To bug reporters: Viriato139ac, Gorion.
+- To bug reporters: Viriato139ac, Gorion, Dick-K.
 - To translators: Gorion.
 - To all users, without them this module makes no sense.
 
 ## Changelog
 
-0.2.0 Change scene config retrieve from active to viewed.
-0.1.0 Initial Alfa version, codename (Alfalfa).
+- 0.3.0 Scene fit options by user, change fixed px units to relative vw units, hotkey for cicle fit options by user.
+- 0.2.0 Change scene config retrieve from active to viewed.
+- 0.1.0 Initial Alfa version, codename (Alfalfa).
 

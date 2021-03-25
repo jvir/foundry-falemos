@@ -44,5 +44,10 @@
     "FALEMOS.HidePlayers": "Hide players",
     "FALEMOS.HideSidebar": "Hide sidebar",
     "FALEMOS.HideHotbar": "Hide hotbar",
-    "FALEMOS.CameraNameColorNotes": "Set the colour, position and size of the banner"
+    "FALEMOS.CameraNameColorNotes": "Set the colour, position and size of the banner",
+    "FALEMOS.scene.fit.nofit": "No fit",
+    "FALEMOS.scene.fit.cover": "Fit to cover",
+    "FALEMOS.scene.fit.contain": "Fit to contain",
+    "FALEMOS.SceneFitText": "Scene fit",
+    "FALEMOS.SceneFitNotes": "Fit the scene so that the image covers the entire scene or so that the image is seen in its entirety."
 }

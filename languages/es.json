@@ -44,5 +44,10 @@
     "FALEMOS.HidePlayers": "Ocultar jugadores",
     "FALEMOS.HideSidebar": "Ocultar barra lateral",
     "FALEMOS.HideHotbar": "Ocultar barra de atajos",
-    "FALEMOS.CameraNameColorNotes": "Configura el color, posición y tamaño del rotulo"
+    "FALEMOS.CameraNameColorNotes": "Configura el color, posición y tamaño del rotulo",
+    "FALEMOS.scene.fit.nofit": "Sin ajuste de escena",
+    "FALEMOS.scene.fit.cover": "Cubrir con la imagen",
+    "FALEMOS.scene.fit.contain": "Contener la imagen",
+    "FALEMOS.SceneFitText": "Ajuste de la escena",
+    "FALEMOS.SceneFitNotes": "Ajusta la escena para que la imagen la cubra entera ou para que la imagen se vea entera"
 }

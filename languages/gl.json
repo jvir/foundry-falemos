@@ -44,5 +44,10 @@
     "FALEMOS.HideControls": "Ocultar controis",
     "FALEMOS.HidePlayers": "Ocultar xogadores",
     "FALEMOS.HideSidebar": "Ocultar barra lateral",
-    "FALEMOS.HideHotbar": "Ocultar barra de atallos"
+    "FALEMOS.HideHotbar": "Ocultar barra de atallos",
+    "FALEMOS.scene.fit.nofit": "Sen axuste de escea",
+    "FALEMOS.scene.fit.cover": "Cubrir coa imaxe",
+    "FALEMOS.scene.fit.contain": "Conter a imaxe",
+    "FALEMOS.SceneFitText": "Axuste de escea",
+    "FALEMOS.SceneFitNotes": "Axusta a escea para que a image a cubra enteira ou para que a imaxe se vexa enteira"
 }
