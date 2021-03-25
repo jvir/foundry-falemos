@@ -133,7 +133,7 @@ Hooks.on('renderCameraViews', async function(cameraviews, html) {
         
         camerasToPopout(html);
         camerasStyling(html);
-        canvasFit();
+        canvasFit(game.scenes.viewed.data.flags.falemos.config[game.userId].fit, true);
     }
             
 });
