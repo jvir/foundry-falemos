@@ -35,6 +35,7 @@ Hooks.once('init', async function() {
 Hooks.once('ready', async function() {
     //CONFIG.debug.hooks=true
     versionChangesPopup();
+    //_addChatListeners();
         
     //sockets
     game.socket.on('module.falemos', async (data) => {
@@ -50,6 +51,7 @@ Hooks.once('ready', async function() {
     //shorcuts
     document.onkeydown = function(e) {//TODO use sockets for all players
         if (e.ctrlKey && e.altKey && e.which == 70) { //TODO toggle UI fit options in current scene (F)
+            console.log(`${game.user.name} Toggle fit scene mode`);
             let tempFit = game.scenes.viewed.data.flags?.falemos?.config[game.userId]?.fit
             switch (tempFit) {
                 case 'cover':
@@ -69,6 +71,7 @@ Hooks.once('ready', async function() {
         };
         if (e.ctrlKey && e.altKey && e.which == 72) { //TODO toggle UI visibility in current scene (H) ONLY GM
             if (!game.user.isGM) return;
+            console.log('GM Toggle UI visibiity');
             let tempUI = game.scenes.viewed.data.flags?.falemos?.config?.hide?.mode
             switch (tempUI) {
                 case 'all':
@@ -165,8 +168,8 @@ Hooks.on('renderSceneConfig', async function(sceneConfig, html, data) {
         html.find('.capture-current').each(function(index) {
             $(this).on("click", function(ev){
                 let offset = jQuery(`.camera-view[data-user="${ev.currentTarget.dataset.user}"] video`).first().offset()
-                jQuery(`[name='flags.falemos.config.${ev.currentTarget.dataset.user}.x']`).first().val(offset.left);
-                jQuery(`[name='flags.falemos.config.${ev.currentTarget.dataset.user}.y']`).first().val(offset.top);
+                jQuery(`[name='flags.falemos.config.${ev.currentTarget.dataset.user}.x']`).first().val(offset.left/(window.innerWidth/100));
+                jQuery(`[name='flags.falemos.config.${ev.currentTarget.dataset.user}.y']`).first().val(offset.top/(window.innerWidth/100));
             });
         });
         
@@ -445,8 +448,8 @@ function createSceneStyles(imageFormat=null){
                     let maxWidth = (game.scenes.viewed.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.data.flags.falemos.config[user.id].width;
                     cssWidth = `max-width: ${maxWidth}px !important;`;
                     
-                    let maxTop =(game.scenes.viewed.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.data.flags.falemos.config[user.id].y;
-                    currentTop = Math.min(maxTop, game.scenes.viewed.data.flags.falemos.config[user.id].y*window.innerWidth/100);
+                    let maxTop =(game.scenes.viewed.data.height * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.data.flags.falemos.config[user.id].y;
+                    currentTop = Math.min(maxTop, game.scenes.viewed.data.flags.falemos.config[user.id].y*window.innerHeight/100);
                     
                     let maxLeft =(game.scenes.viewed.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.data.flags.falemos.config[user.id].x;
                     currentLeft = Math.min(maxLeft, game.scenes.viewed.data.flags.falemos.config[user.id].x*window.innerWidth/100);
@@ -455,8 +458,8 @@ function createSceneStyles(imageFormat=null){
                     let minWidth = (game.scenes.viewed.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.data.flags.falemos.config[user.id].width;
                     cssWidth = `min-width: ${minWidth}px !important;`;
 
-                    let minTop =(game.scenes.viewed.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.data.flags.falemos.config[user.id].y;
-                    currentTop = Math.max(minTop, game.scenes.viewed.data.flags.falemos.config[user.id].y*window.innerWidth/100);
+                    let minTop =(game.scenes.viewed.data.height * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.data.flags.falemos.config[user.id].y;
+                    currentTop = Math.max(minTop, game.scenes.viewed.data.flags.falemos.config[user.id].y*window.innerHeight/100);
                     
                     let minLeft =(game.scenes.viewed.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.data.flags.falemos.config[user.id].x;
                     currentLeft = Math.max(minLeft, game.scenes.viewed.data.flags.falemos.config[user.id].x*window.innerWidth/100);
@@ -466,6 +469,7 @@ function createSceneStyles(imageFormat=null){
                 css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] {
                             width: ${game.scenes.viewed.data.flags.falemos.config[user.id].width}vw !important; 
                             ${cssWidth}
+                            height: auto !important; 
                             top: ${currentTop}px !important;
                             left: ${currentLeft}px !important; }`;
         
@@ -514,7 +518,8 @@ function onSocketData(data){
             break;
         default:
             console.error(event + " not is a Falemos event");
-            break;
+            break;const resultado = document.querySelector('.resultado');
+        resultado.textContent = `Te gusta el sabor ${event.target.value}`
     }
 }
 
@@ -563,8 +568,40 @@ function versionChangesPopup(){
 }
 
 
+/*
+function _addChatListeners(){
+    // selecciona el nodo target
+    var chatLog = document.querySelector('#chat-log');
+
+    // Crea una instancia de observer
+    var chatObserver = new MutationObserver(async function(mutations) {
+    mutations.forEach(function(mutation) {
+        console.log(mutation.type);
+        console.log(mutation);
+        if (mutation.addedNodes.length >0){
+            
+                html2canvas(mutation.addedNodes[0], {
+                    onrendered: function (canvas) {
+                        console.log(canvas.toDataURL());
+                    }     
+                });
 
 
+        }
+    });
+    });
+
+    // Configura el observer:
+    var config = { attributes: true, childList: true, characterData: true };
+
+    // pasa al observer el nodo y la configuracion
+    chatObserver.observe(chatLog, config);
+
+    // Posteriormente, puede detener la observacion
+    //chatObserver.disconnect();
+
+
+}*/
 
 
 
