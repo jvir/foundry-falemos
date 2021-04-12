@@ -48,6 +48,7 @@ Falemos is scene-dependent. In the configuration of each scene we have the confi
 ## Thanks
 
 - To bug reporters: Viriato139ac, Gorion, Dick-K.
+- To pull requesters: Viriato189ac.
 - To translators: Gorion.
 - To all users, without them this module makes no sense.
 
