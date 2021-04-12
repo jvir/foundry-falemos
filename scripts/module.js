@@ -169,7 +169,7 @@ Hooks.on('renderSceneConfig', async function(sceneConfig, html, data) {
             $(this).on("click", function(ev){
                 let offset = jQuery(`.camera-view[data-user="${ev.currentTarget.dataset.user}"] video`).first().offset()
                 jQuery(`[name='flags.falemos.config.${ev.currentTarget.dataset.user}.x']`).first().val(offset.left/(window.innerWidth/100));
-                jQuery(`[name='flags.falemos.config.${ev.currentTarget.dataset.user}.y']`).first().val(offset.top/(window.innerWidth/100));
+                jQuery(`[name='flags.falemos.config.${ev.currentTarget.dataset.user}.y']`).first().val(offset.top/(window.innerHeight/100));
             });
         });
         
@@ -442,7 +442,7 @@ function createSceneStyles(imageFormat=null){
                 
                 let cssWidth = "";
                 let currentLeft = game.scenes.viewed.data.flags.falemos.config[user.id].x*window.innerWidth/100;
-                let currentTop = game.scenes.viewed.data.flags.falemos.config[user.id].y*window.innerWidth/100;
+                let currentTop = game.scenes.viewed.data.flags.falemos.config[user.id].y*window.innerHeight/100;
                 
                 if (imageFormat == 'contain'){
                     let maxWidth = (game.scenes.viewed.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.data.flags.falemos.config[user.id].width;
