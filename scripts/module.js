@@ -19,7 +19,7 @@ Hooks.once('init', async function() {
         },
         cameraGeometry: {
             rectangle: {name: "FALEMOS.camera.geometry.rectangle", data: "clip-path: none;"},
-            circle: {name: "FALEMOS.camera.geometry.circle", data: "clip-path: circle(41% at 41% 50%);"},
+            circle: {name: "FALEMOS.camera.geometry.circle", data: "clip-path: circle(41% at 50% 50%);"},
             triangle: {name: "FALEMOS.camera.geometry.triangle", data: "clip-path: polygon(50% 0%, 0% 100%, 100% 100%);"},
             shield: {name: "FALEMOS.camera.geometry.shield", data: "clip-path: inset(0% 15% 0% 15% round 0% 0% 50% 50%);"}
         },
