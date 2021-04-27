@@ -531,7 +531,8 @@ function versionChangesPopup(){
             <h3>Changes in version 0.4.0</h3>
             <p>The old configuration units for the camera in pixels (prior 0.3.0) not work anymore<br/></p>
             <p>New geometries for camera.</p>
-            <p>Collapse Falemos configuracion by default.</p>`,
+            <p>Collapse Falemos configuracion by default.</p>
+            <p><input type="checkbox" name="hide" data-dtype="Boolean">Don't show this screen again.</p>`,
       buttons: {
       ok: {
         icon: '<i class="fas fa-check"></i>',
