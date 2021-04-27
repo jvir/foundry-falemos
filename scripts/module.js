@@ -541,7 +541,7 @@ function versionChangesPopup(){
       },
       default: "OK",
       close: html => {
-        if (html.find("input[name ='hide']").is(":checked")) game.settings.set("falemos","NoteV0.3.0",true);
+        if (html.find("input[name ='hide']").is(":checked")) game.settings.set("falemos","NoteV0.4.0",true);
       }
     });
     d.render(true);
