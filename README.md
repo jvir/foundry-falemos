@@ -22,9 +22,6 @@ This module allows you to customise the style and position of the cameras in eac
 
 ## Usage
 
-**NOTE:** *If you have used Falemos before your old scenes will still work the same, but it is advisable to change them to the new percentage system as the old pixel system is considered deprecated and will be removed in future versions.
-The new system is considered better as it respects the proportions on any screen size and the GM can know that all players see it the same (same proportions).*
-
 Falemos is scene-dependent. In the configuration of each scene we have the configuration parameters:
 
 - Global
@@ -47,12 +44,11 @@ Falemos is scene-dependent. In the configuration of each scene we have the confi
 
 ## Thanks
 
-- To bug reporters: Viriato139ac, Gorion, Dick-K.
-- To pull requesters: Viriato139ac, Xurxo Diz.
-- To translators: Gorion, Xurxo Diz.
+- To contributors (bug reporters, pull requesters, translators): Viriato139ac, Gorion, Dick-K, Xurxo Diz, Montver, Cal.
 - To all users, without them this module makes no sense.
 
 ## Changelog
+- 0.4.0 Collapse configuration by default, new camera geometries.
 - 0.3.5 Fix circle video position (thanks for report to Viriato139AC), updated translations.
 - 0.3.3 Fix issue 7 by lozalojo, add missing localization strings, fix calculate current cam position button, fix camera height under certain circunstances.
 - 0.3.0 Scene fit options by user, change fixed px units to relative vw units, hotkey for cicle fit options by user.

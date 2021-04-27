@@ -34,3 +34,5 @@
 .falemos-config-header {
  background-color:white;
 }
+
+#falemos-config-scene.falemos-hidden { display: none}
