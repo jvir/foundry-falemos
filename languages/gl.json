@@ -52,5 +52,10 @@
     "FALEMOS.scene.fit.cover": "Cubrir coa imaxe",
     "FALEMOS.scene.fit.contain": "Conter a imaxe",
     "FALEMOS.SceneFitText": "Axuste de escena",
-    "FALEMOS.SceneFitNotes": "Axusta a escena para que a imaxe a cubra enteira ou para que a imaxe se vexa enteira"
+    "FALEMOS.SceneFitNotes": "Axusta a escena para que a imaxe a cubra enteira ou para que a imaxe se vexa enteira",
+    "FALEMOS.ExportConfigToMacro": "Crear macro",
+    "FALEMOS.ExportConfigToMacroNotes": "Garda a configuración gardada desta escena nunha macro, o usala establece na escena visible a mesma configuración. Sirve para facer plantillas de esceas (Ex: '3 cámaras verticais grandes - scifi').",
+    "FALEMOS.DialogTitleSaveSceneConfig": "Gardar escena en macro",
+    "FALEMOS.DialogContentMacroName": "Nome da macro",
+    "FALEMOS.CreateMacro": "Crear macro"
 }

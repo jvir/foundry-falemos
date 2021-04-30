@@ -3,6 +3,10 @@
     <header class="form-header falemos-config-header"><h3 class="form-header">&nbsp;&nbsp;&nbsp;&nbsp;{{localize "FALEMOS.General"}}</h3></header>
     <!-- enable/disable falemos -->
     <div class="form-group">
+         <button type="button" onclick="game.falemos.sceneConfigToMacro('{{sceneid}}')"><i class="fas fa-file-export"></i>{{localize "FALEMOS.ExportConfigToMacro"}}</button> 
+        <p class="notes">{{localize "FALEMOS.ExportConfigToMacroNotes"}}</p>
+    </div>
+    <div class="form-group">
         <label>{{localize "FALEMOS.EnableText"}}</label>
         <input type="checkbox" name="flags.falemos.config.enable" data-dtype="Boolean" {{checked falemosconfig.enable}}>
         <p class="notes">{{localize "FALEMOS.EnableNotes"}}</p>

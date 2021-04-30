@@ -46,6 +46,66 @@ Hooks.once('ready', async function() {
        onSocketData(data); 
     });
     
+    game.falemos  = {
+        getSceneConfig: function (sceneId){
+                                    let data = {...game.scenes.get(sceneId).data.flags.falemos.config};
+                                    
+                                    console.log(data);
+                                    
+                                    let i = 0;
+                                                        
+                                    for(var propertyName in data) {
+                                        if (data[propertyName].fit){
+                                            data[i] = data[propertyName];
+                                            delete data[propertyName];
+                                            i++;
+                                        }
+                                        
+                                    }
+                                    
+                                    return data;
+                                },
+        putSceneConfig: function (sceneId, json) {
+            if (!sceneId) {sceneId=game.scenes.viewed.data._id}
+            
+            console.log(sceneId);
+            console.log(json);
+            
+            let data= JSON.parse(json);
+            for(var propertyName in data) {
+                if (data[propertyName].fit){
+                    if (game.users.entries[propertyName]){
+                        data[game.users.entries[propertyName].data._id] = data[propertyName];
+                        delete data[propertyName];
+                    }
+                }
+            }
+            console.log(data);
+            game.scenes.get(sceneId).setFlag('falemos', 'config', data);
+        },
+        sceneConfigToMacro: function (sceneId) {
+            if (!sceneId) {sceneId=game.scenes.viewed.data._id}
+            let data = game.falemos.getSceneConfig(sceneId);
+            let dataJSON = JSON.stringify(data).replace(/[\']/g, "&apos;");
+
+            new Dialog({
+                title: 'Falemos: ' + game.i18n.localize("FALEMOS.DialogTitleSaveSceneConfig"),
+                content: `<table style="width:100%"><tr><th style="width:50%"><label>${game.i18n.localize("FALEMOS.DialogContentMacroName")}:</label></th><td style="width:50%"><input type="text" name="falemosMacroName"/></td></tr></table>`,
+                buttons: {
+                    Create : { label : game.i18n.localize("FALEMOS.CreateMacro"), callback : (html) => {     const macro = Macro.create({
+                                                                                name: html.find("input").val(),
+                                                                                type: 'script',
+                                                                                img: "modules/falemos/assets/img/falemos.svg",
+                                                                                command: "let sceneData = `" +dataJSON+ "`; game.falemos.putSceneConfig(null, sceneData);",
+                                                                            });            
+                                                                        }
+                    }
+                },
+            }).render(true);
+            
+        }
+    };
+    
     
     //svg filters
     let svghtml = await renderTemplate("modules/falemos/templates/filter/filter.html", {});
@@ -162,7 +222,7 @@ Hooks.on('renderSceneConfig', async function(sceneConfig, html, data) {
         let users = game.users.entries;
                 
         //renderTemplate con campos y data saliendo de los flags        
-        let mchtml = await renderTemplate("modules/falemos/templates/scene/mc-config.html", {falemosconfig: falemosconfig, users:users, falemos: CONFIG.FALEMOS})
+        let mchtml = await renderTemplate("modules/falemos/templates/scene/mc-config.html", {falemosconfig: falemosconfig, users:users, sceneid: data.entity._id, falemos: CONFIG.FALEMOS})
         
         
         //insert mc html template
@@ -508,8 +568,9 @@ function onSocketData(data){
 
 
 
-
-
+var foobar = {
+ foo: function(){ return "bar" ;}
+};
 
 
 
@@ -518,6 +579,12 @@ function onSocketData(data){
 function versionChangesPopup(){
 
     game.settings.register("falemos", "NoteV0.4.0", {
+        scope: "world",
+        config: false,
+        default: false,
+        type: Boolean,
+    });
+    game.settings.register("falemos", "NoteV0.5.0", {
         scope: "world",
         config: false,
         default: false,
@@ -542,6 +609,27 @@ function versionChangesPopup(){
       default: "OK",
       close: html => {
         if (html.find("input[name ='hide']").is(":checked")) game.settings.set("falemos","NoteV0.4.0",true);
+      }
+    });
+    d.render(true);
+  }
+  if (game.settings.get("falemos","NoteV0.5.0") == false && game.user.isGM) {
+    let d = new Dialog({
+      title: "falemos update 0.5.0",
+      content: `
+            <h3>Changes in version 0.5.0</h3>
+            <p>Export scene config to macro<br/></p>
+            <p>Use export macros for fast scene changes.</p>
+            <p><input type="checkbox" name="hide" data-dtype="Boolean">Don't show this screen again.</p>`,
+      buttons: {
+      ok: {
+        icon: '<i class="fas fa-check"></i>',
+        label: "OK"
+      }
+      },
+      default: "OK",
+      close: html => {
+        if (html.find("input[name ='hide']").is(":checked")) game.settings.set("falemos","NoteV0.5.0",true);
       }
     });
     d.render(true);

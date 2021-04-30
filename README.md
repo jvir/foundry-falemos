@@ -15,6 +15,7 @@ This module allows you to customise the style and position of the cameras in eac
 - Custom video geometry.
 - Custom video filters.
 - Custom name with custom color, font and position by player.
+- Template macros. Export the scene settings to a macro for later reuse.
 - Shorcuts
     - Cicle UI visibility (Onlye GM): ctrl+alt+h(ide)
     - Cicle Scene Fit: ctrl+alt+f(it)
@@ -27,6 +28,7 @@ Falemos is scene-dependent. In the configuration of each scene we have the confi
 - Global
     - General enabled/disabled control.
     - UI elements display control.
+    - Export to macro.
 
 ![Global config](https://github.com/jvir/foundry-falemos/blob/main/doc/img/globalconfig.png?raw=true)
 
@@ -48,6 +50,7 @@ Falemos is scene-dependent. In the configuration of each scene we have the confi
 - To all users, without them this module makes no sense.
 
 ## Changelog
+- 0.5.0 Export config to macro template.
 - 0.4.0 Collapse configuration by default, new camera geometries.
 - 0.3.5 Fix circle video position (thanks for report to Viriato139AC), updated translations.
 - 0.3.3 Fix issue 7 by lozalojo, add missing localization strings, fix calculate current cam position button, fix camera height under certain circunstances.
