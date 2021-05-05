@@ -333,6 +333,12 @@ Hooks.on('canvasPan', async function(canvas, view){
     
 });
 
+Hooks.on('renderDrawingHUD', async function(app, html, data){//TODO
+      console.log(html);
+      html.find('.control-icon.sort-down');
+})
+
+
 function canvasFit(mode='contain', force=false){ //TODO avoid view parameter for get scale x and y
     
     if(!canvas) return;

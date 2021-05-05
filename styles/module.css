@@ -36,3 +36,5 @@
 }
 
 #falemos-config-scene.falemos-hidden { display: none}
+
+#camera-views{z-index: 29;}

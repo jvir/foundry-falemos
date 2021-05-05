@@ -53,7 +53,7 @@
     "FALEMOS.scene.fit.contain": "Fit to contain",
     "FALEMOS.SceneFitText": "Scene fit",
     "FALEMOS.SceneFitNotes": "Fit the scene so that the image covers the entire scene or so that the image is seen in its entirety.",
-    "FALEMOS.ExportConfigToMacro": "Crear macro",
+    "FALEMOS.ExportConfigToMacro": "Create macro",
     "FALEMOS.ExportConfigToMacroNotes": "Saves the saved settings of this scene in a macro, when used it sets the same settings in the visible scene. Used to make scene templates (Ex: '3 large vertical cameras - scifi')..",
     "FALEMOS.DialogTitleSaveSceneConfig": "Save scene in macro",
     "FALEMOS.DialogContentMacroName": "Macro name",
