@@ -46,15 +46,8 @@ Falemos is scene-dependent. In the configuration of each scene we have the confi
 
 ## Thanks
 
-- To contributors (bug reporters, pull requesters, translators): Viriato139ac, Gorion, Dick-K, Xurxo Diz, Montver, Cal.
+- To contributors (bug reporters, pull requesters, translators): Viriato139ac, Gorion, Dick-K, Xurxo Diz, Montver, Cal, BabyfaceFinlayson, ScriptFeliz, sladecraven.
 - To all users, without them this module makes no sense.
 
-## Changelog
-- 0.5.0 Export config to macro template.
-- 0.4.0 Collapse configuration by default, new camera geometries.
-- 0.3.5 Fix circle video position (thanks for report to Viriato139AC), updated translations.
-- 0.3.3 Fix issue 7 by lozalojo, add missing localization strings, fix calculate current cam position button, fix camera height under certain circunstances.
-- 0.3.0 Scene fit options by user, change fixed px units to relative vw units, hotkey for cicle fit options by user.
-- 0.2.0 Change scene config retrieve from active to viewed.
-- 0.1.0 Initial Alfa version, codename (Alfalfa).
+
 
