@@ -43,6 +43,10 @@ Falemos is scene-dependent. In the configuration of each scene we have the confi
 
 ![User config](https://github.com/jvir/foundry-falemos/blob/main/doc/img/userconfig.png?raw=true)
 
+## Example: Setting up the black castle
+
+https://user-images.githubusercontent.com/5990316/117966894-be6de600-b324-11eb-8ff8-c9ceaa30229b.mp4
+
 
 ## Thanks
 
