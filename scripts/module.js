@@ -41,6 +41,24 @@ Hooks.once('ready', async function() {
     versionChangesPopup();
     //_addChatListeners();
         
+    //config Audio to always
+    game.settings.register("falemos", "enableAlwaysMicrophone", {
+        config: true,
+        scope: "client",
+        name: game.i18n.localize("WEBRTC.VoiceMode") +" '"+ game.i18n.localize("WEBRTC.VoiceModeAlways") +"'",
+        hint: "Check this option to always transmit voice",
+        type: Boolean,
+        default: true
+    });
+
+
+    let rtcconfiguration = Object.assign({}, game.settings.get("core", "rtcClientSettings"));
+    if (rtcconfiguration != "always" && game.settings.get('falemos', 'enableAlwaysMicrophone')){
+        rtcconfiguration.voice.mode = "always";
+        game.settings.set("core", "rtcClientSettings", rtcconfiguration);
+    }
+    
+
     //sockets
     game.socket.on('module.falemos', async (data) => {
        onSocketData(data); 

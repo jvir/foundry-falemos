@@ -16,6 +16,7 @@ This module allows you to customise the style and position of the cameras in eac
 - Custom video filters.
 - Custom name with custom color, font and position by player.
 - Template macros. Export the scene settings to a macro for later reuse.
+- Default transmit voice to "Always active". Can be disabled in the module settings
 - Shorcuts
     - Cicle UI visibility (Onlye GM): ctrl+alt+h(ide)
     - Cicle Scene Fit: ctrl+alt+f(it)
