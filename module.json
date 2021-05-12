@@ -4,14 +4,15 @@
   "description": "",
   "version": "This is auto replaced",
   "library": "false",
-  "manifestPlusVersion": "1.0.0",
+  "manifestPlusVersion": "1.2.0",
   "minimumCoreVersion": "0.7.9",
   "compatibleCoreVersion": "0.7.9",
   "authors": [
     {
       "name": "jvir",
       "url": "https://github.com/jvir",
-      "discord": "JuanV"
+      "discord": "JuanV",
+      "ko-fi": "juanv"
     }
   ],
   "dependencies": [
@@ -56,9 +57,26 @@
   "manifest": "This is auto replaced",
   "download": "This is auto replaced",
   "media": [
-    {
+  {
       "type": "icon",
-      "url": "https://avatars2.githubusercontent.com/u/71292812?s=400&u=ccdb4eeb7abf551ca8f314e5a9bfd0479a4d3d41&v=4"
-    }
-  ]
+      "url": "https://github.com/jvir/foundry-falemos/blob/main/doc/icon/falemos.svg?raw=true"
+  },
+  {
+    "type": "screenshot",
+    "url": "https://github.com/jvir/foundry-falemos/blob/main/doc/img/globalconfig.png?raw=true",
+    "caption": "Global configuration"
+  },
+  {
+    "type": "screenshot",
+    "url": "https://github.com/jvir/foundry-falemos/blob/main/doc/img/userconfig.png?raw=true",
+    "caption": "User camera configuration"
+  },
+  {
+    "type": "video",
+    "url": "https://github.com/jvir/foundry-falemos/blob/main/doc/vid/scenecastleblack.webm?raw=true",
+    "loop": true,
+    "thumbnail": "https://github.com/jvir/foundry-falemos/blob/main/doc/vid/scenecastleblack.jpg?raw=true",
+    "caption": "Castle black scene camera configuration"
+  }
+]
 }
