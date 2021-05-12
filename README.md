@@ -45,7 +45,10 @@ Falemos is scene-dependent. In the configuration of each scene we have the confi
 
 ## Example: Setting up the black castle
 
-https://user-images.githubusercontent.com/5990316/117966894-be6de600-b324-11eb-8ff8-c9ceaa30229b.mp4
+
+https://user-images.githubusercontent.com/5990316/117968116-207b1b00-b326-11eb-8c54-c96a2bdf9ac5.mp4
+
+
 
 
 ## Thanks
