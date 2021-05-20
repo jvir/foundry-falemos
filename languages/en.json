@@ -57,5 +57,19 @@
     "FALEMOS.ExportConfigToMacroNotes": "Saves the saved settings of this scene in a macro, when used it sets the same settings in the visible scene. Used to make scene templates (Ex: '3 large vertical cameras - scifi')..",
     "FALEMOS.DialogTitleSaveSceneConfig": "Save scene in macro",
     "FALEMOS.DialogContentMacroName": "Macro name",
-    "FALEMOS.CreateMacro": "Create macro"
+    "FALEMOS.CreateMacro": "Create macro",
+	"FALEMOS.vaccinator.title": "Falemos' autoconfig parameters",
+	"FALEMOS.vaccinator.width": "Width",
+	"FALEMOS.vaccinator.height": "Height",
+	"FALEMOS.vaccinator.margins": "Margins (Left/Top/Right/Bottom)",
+	"FALEMOS.vaccinator.rows": "Number of rows",
+	"FALEMOS.vaccinator.columns": "Number of columns",
+	"FALEMOS.vaccinator.separation": "Minimum separation between frames",
+	"FALEMOS.vaccinator.gmposition": "GM position",
+	"FALEMOS.vaccinator.emptyslots": "Empty slots (comma separators)",
+	"FALEMOS.vaccinator.frame": "Frame",
+	"FALEMOS.vaccinator.overlays": "Frame overlay offsets (Left/Top/Right/Bottom)",
+	"FALEMOS.vaccinator.names": "Names (comma separators)",
+	"FALEMOS.vaccinator.apply": "Save",
+	"FALEMOS.vaccinator.cancel": "Cancel"
 }
