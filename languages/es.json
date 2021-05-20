@@ -38,6 +38,9 @@
     "FALEMOS.camera.geometry.rectangle": "Rectángulo",
     "FALEMOS.camera.geometry.circle": "Círculo",
     "FALEMOS.camera.geometry.triangle": "Triángulo",
+    "FALEMOS.camera.geometry.rhombus": "Rombo",
+    "FALEMOS.camera.geometry.hexagon": "Hexágono",
+    "FALEMOS.camera.geometry.star": "Estrella",
     "FALEMOS.camera.geometry.shield": "Escudo",
     "FALEMOS.HideNavigation": "Ocultar navegación",
     "FALEMOS.HideControls": "Ocultar controles",
@@ -49,5 +52,10 @@
     "FALEMOS.scene.fit.cover": "Cubrir con la imagen",
     "FALEMOS.scene.fit.contain": "Contener la imagen",
     "FALEMOS.SceneFitText": "Ajuste de la escena",
-    "FALEMOS.SceneFitNotes": "Ajusta la escena para que la imagen la cubra entera ou para que la imagen se vea entera"
+    "FALEMOS.SceneFitNotes": "Ajusta la escena para que la imagen la cubra entera ou para que la imagen se vea entera",
+    "FALEMOS.ExportConfigToMacro": "Crear macro",
+    "FALEMOS.ExportConfigToMacroNotes": "Guarda la configuración guardada de esta escena en una macro, al usarla establece en la escena visible la misma configuración. Sirve para hacer plantillas de escenas (Ex: '3 cámaras verticales grandes - scifi').",
+    "FALEMOS.DialogTitleSaveSceneConfig": "Guardar escena en macro",
+    "FALEMOS.DialogContentMacroName": "Nombre de la macro",
+    "FALEMOS.CreateMacro": "Crear macro"
 }

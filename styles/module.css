@@ -34,3 +34,7 @@
 .falemos-config-header {
  background-color:white;
 }
+
+#falemos-config-scene.falemos-hidden { display: none}
+
+#camera-views{z-index: 29;}

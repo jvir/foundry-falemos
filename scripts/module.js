@@ -15,12 +15,16 @@ Hooks.once('init', async function() {
             BW: {name: "FALEMOS.camera.effects.bw", data: "grayscale(1)"},
             Sepia: {name: "FALEMOS.camera.effects.sepia", data: "sepia(1)"},
             Noise: {name: "FALEMOS.camera.effects.noise", data: "url('#noise')"},
-            Warp: {name: "FALEMOS.camera.effects.warp", data: "url('#warp')"}
+            Warp: {name: "FALEMOS.camera.effects.warp", data: "url('#warp')"},
+            //test: {name: "FALEMOS.camera.effects.test", data: "url('#heavycloud')"}
         },
         cameraGeometry: {
             rectangle: {name: "FALEMOS.camera.geometry.rectangle", data: "clip-path: none;"},
-            circle: {name: "FALEMOS.camera.geometry.circle", data: "clip-path: circle(41% at 41% 50%);"},
+            circle: {name: "FALEMOS.camera.geometry.circle", data: "clip-path: circle(41% at 50% 50%);"},
             triangle: {name: "FALEMOS.camera.geometry.triangle", data: "clip-path: polygon(50% 0%, 0% 100%, 100% 100%);"},
+            rhombus: {name: "FALEMOS.camera.geometry.rhombus", data: "clip-path: polygon(50% 0%, 83.4% 50%, 50% 100%, 16.6% 50%);"},
+            hexagon: {name: "FALEMOS.camera.geometry.hexagon", data: "clip-path: polygon(25% 0%, 75% 0%, 95% 50%, 75% 100%, 25% 100%, 5% 50%);"},
+            star: {name: "FALEMOS.camera.geometry.star", data: "clip-path: polygon(50% 0, 61% 25%, 90% 25%, 74% 50%, 90% 75%, 61% 75%, 50% 100%, 38% 75%, 10% 75%, 26% 50%, 10% 25%, 38% 25%);"},
             shield: {name: "FALEMOS.camera.geometry.shield", data: "clip-path: inset(0% 15% 0% 15% round 0% 0% 50% 50%);"}
         },
         sceneFit: {
@@ -37,10 +41,88 @@ Hooks.once('ready', async function() {
     versionChangesPopup();
     //_addChatListeners();
         
+    //config Audio to always
+    game.settings.register("falemos", "enableAlwaysMicrophone", {
+        config: true,
+        scope: "client",
+        name: game.i18n.localize("WEBRTC.VoiceMode") +" '"+ game.i18n.localize("WEBRTC.VoiceModeAlways") +"'",
+        hint: "Check this option to always transmit voice",
+        type: Boolean,
+        default: true
+    });
+
+
+    let rtcconfiguration = Object.assign({}, game.settings.get("core", "rtcClientSettings"));
+    if (rtcconfiguration != "always" && game.settings.get('falemos', 'enableAlwaysMicrophone')){
+        rtcconfiguration.voice.mode = "always";
+        game.settings.set("core", "rtcClientSettings", rtcconfiguration);
+    }
+    
+
     //sockets
     game.socket.on('module.falemos', async (data) => {
        onSocketData(data); 
     });
+    
+    game.falemos  = {
+        getSceneConfig: function (sceneId){
+                                    let data = {...game.scenes.get(sceneId).data.flags.falemos.config};
+                                    
+                                    console.log(data);
+                                    
+                                    let i = 0;
+                                                        
+                                    for(var propertyName in data) {
+                                        if (data[propertyName].fit){
+                                            data[i] = data[propertyName];
+                                            delete data[propertyName];
+                                            i++;
+                                        }
+                                        
+                                    }
+                                    
+                                    return data;
+                                },
+        putSceneConfig: function (sceneId, json) {
+            if (!sceneId) {sceneId=game.scenes.viewed.data._id}
+            
+            console.log(sceneId);
+            console.log(json);
+            
+            let data= JSON.parse(json);
+            for(var propertyName in data) {
+                if (data[propertyName].fit){
+                    if (game.users.entries[propertyName]){
+                        data[game.users.entries[propertyName].data._id] = data[propertyName];
+                        delete data[propertyName];
+                    }
+                }
+            }
+            console.log(data);
+            game.scenes.get(sceneId).setFlag('falemos', 'config', data);
+        },
+        sceneConfigToMacro: function (sceneId) {
+            if (!sceneId) {sceneId=game.scenes.viewed.data._id}
+            let data = game.falemos.getSceneConfig(sceneId);
+            let dataJSON = JSON.stringify(data).replace(/[\']/g, "&apos;");
+
+            new Dialog({
+                title: 'Falemos: ' + game.i18n.localize("FALEMOS.DialogTitleSaveSceneConfig"),
+                content: `<table style="width:100%"><tr><th style="width:50%"><label>${game.i18n.localize("FALEMOS.DialogContentMacroName")}:</label></th><td style="width:50%"><input type="text" name="falemosMacroName"/></td></tr></table>`,
+                buttons: {
+                    Create : { label : game.i18n.localize("FALEMOS.CreateMacro"), callback : (html) => {     const macro = Macro.create({
+                                                                                name: html.find("input").val(),
+                                                                                type: 'script',
+                                                                                img: "modules/falemos/assets/img/falemos.svg",
+                                                                                command: "let sceneData = `" +dataJSON+ "`; game.falemos.putSceneConfig(null, sceneData);",
+                                                                            });            
+                                                                        }
+                    }
+                },
+            }).render(true);
+            
+        }
+    };
     
     
     //svg filters
@@ -158,7 +240,7 @@ Hooks.on('renderSceneConfig', async function(sceneConfig, html, data) {
         let users = game.users.entries;
                 
         //renderTemplate con campos y data saliendo de los flags        
-        let mchtml = await renderTemplate("modules/falemos/templates/scene/mc-config.html", {falemosconfig: falemosconfig, users:users, falemos: CONFIG.FALEMOS})
+        let mchtml = await renderTemplate("modules/falemos/templates/scene/mc-config.html", {falemosconfig: falemosconfig, users:users, sceneid: data.entity._id, falemos: CONFIG.FALEMOS})
         
         
         //insert mc html template
@@ -169,7 +251,7 @@ Hooks.on('renderSceneConfig', async function(sceneConfig, html, data) {
             $(this).on("click", function(ev){
                 let offset = jQuery(`.camera-view[data-user="${ev.currentTarget.dataset.user}"] video`).first().offset()
                 jQuery(`[name='flags.falemos.config.${ev.currentTarget.dataset.user}.x']`).first().val(offset.left/(window.innerWidth/100));
-                jQuery(`[name='flags.falemos.config.${ev.currentTarget.dataset.user}.y']`).first().val(offset.top/(window.innerWidth/100));
+                jQuery(`[name='flags.falemos.config.${ev.currentTarget.dataset.user}.y']`).first().val(offset.top/(window.innerHeight/100));
             });
         });
         
@@ -269,6 +351,12 @@ Hooks.on('canvasPan', async function(canvas, view){
     
 });
 
+Hooks.on('renderDrawingHUD', async function(app, html, data){//TODO
+      console.log(html);
+      html.find('.control-icon.sort-down');
+})
+
+
 function canvasFit(mode='contain', force=false){ //TODO avoid view parameter for get scale x and y
     
     if(!canvas) return;
@@ -330,14 +418,6 @@ function hideUi (data, mode=null){ //hide/shoe UI elements
         };
 }
 
-//if famelos is enabled return px or vw units based in current values. This function exists to maintain backwards compatibility.
-function getCameraMode(sceneId){
-    if (!game.scenes.get(sceneId).data.flags?.falemos?.config?.enable){
-        console.err('this scene have not config for Falemos, sceneId: '+ sceneId);
-        return;
-    }
-    return Object.values(game.scenes.get(sceneId).data.flags.falemos.config).find(el=>el.x>100) ? 'px': 'vw';
-}
 
 
 function cameraToDOck(html){
@@ -425,24 +505,11 @@ function createSceneStyles(imageFormat=null){
             css += `.camera-view[data-user="${user.id}"][data-scene="${scene.data._id}"] video { ${CONFIG.FALEMOS.cameraGeometry[geometryKey].data} }\r\n `; //video geometry
             
             
-            let mode = getCameraMode(scene.data._id);
-            
-            if (mode=='px'){//old fixed units
-                console.warn(`Scene [${scene.data._id} - ${scene.data.name}] use old fixed units, please reconfigure using percent values for sizes and positions (ex: 0.1 or 12.3 but not 150`);
-                
-                css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .falemos-camera-overlay { display: inherit; background-image: url('${overlayImg}'); width: calc(100% + ${overlayHSize}px); height: calc(100% + ${overlayVSize}px); top: -${overlayTop}px; left: -${overlayLeft}px; }\r\n `;//show camera overlay
-                
-                //css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .falemos-chat-overlay { display: inherit; width: 300px; top: calc(100% + 10px); left: 0px; }\r\n `;//positioning chat overlay
-                
-                css += `@font-face{font-family: ${scene.data._id}${user.id}; src: ${game.scenes.viewed.data.flags.falemos.config[user.id].cameraNameFont};}\r\n`;
-                
-                css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .falemos-name-overlay { display: inherit; top: ${game.scenes.viewed.data.flags.falemos.config[user.id].cameraNameOffsetY}px; left:${game.scenes.viewed.data.flags.falemos.config[user.id].cameraNameOffsetX}px; font-family: ${scene.data._id}${user.id}; font-size: ${game.scenes.viewed.data.flags.falemos.config[user.id].cameraNameFontSize}px; color: ${game.scenes.viewed.data.flags.falemos.config[user.id].cameraNameColor}}\r\n `;//show name overlay */
-            
-            }else{//new relative units (vw) TODO: tener en cuenta para modo cover cual es el lado del cual no se ve aprte de la imagen (ahora solo funciona si el width se ve entero
+            //new relative units (vw) TODO: tener en cuenta para modo cover cual es el lado del cual no se ve aprte de la imagen (ahora solo funciona si el width se ve entero
                 
                 let cssWidth = "";
                 let currentLeft = game.scenes.viewed.data.flags.falemos.config[user.id].x*window.innerWidth/100;
-                let currentTop = game.scenes.viewed.data.flags.falemos.config[user.id].y*window.innerWidth/100;
+                let currentTop = game.scenes.viewed.data.flags.falemos.config[user.id].y*window.innerHeight/100;
                 
                 if (imageFormat == 'contain'){
                     let maxWidth = (game.scenes.viewed.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.data.flags.falemos.config[user.id].width;
@@ -494,7 +561,6 @@ function createSceneStyles(imageFormat=null){
                             font-family: ${scene.data._id}${user.id}; 
                             font-size: ${game.scenes.viewed.data.flags.falemos.config[user.id].cameraNameFontSize}vw; 
                             color: ${game.scenes.viewed.data.flags.falemos.config[user.id].cameraNameColor}}\r\n `;//show name overlay
-            }
             
             
             
@@ -526,8 +592,9 @@ function onSocketData(data){
 
 
 
-
-
+var foobar = {
+ foo: function(){ return "bar" ;}
+};
 
 
 
@@ -535,23 +602,28 @@ function onSocketData(data){
 
 function versionChangesPopup(){
 
-    game.settings.register("falemos", "NoteV0.3.0", {
+    game.settings.register("falemos", "NoteV0.4.0", {
+        scope: "world",
+        config: false,
+        default: false,
+        type: Boolean,
+    });
+    game.settings.register("falemos", "NoteV0.5.0", {
         scope: "world",
         config: false,
         default: false,
         type: Boolean,
     });
     
-  if (game.settings.get("falemos","NoteV0.3.0") == false && game.user.isGM) {
+  if (game.settings.get("falemos","NoteV0.4.0") == false && game.user.isGM) {
     let d = new Dialog({
-      title: "falemos update 0.3.0",
+      title: "falemos update 0.4.0",
       content: `
-            <h3>Changes in version 0.3.0</h3>
-            <p>The configuration units for the camera change from pixels to % screen to achieve an adaptive layout for the window. The previous pixel scenes still work but should be adapted to the new units as in the future the pixel scenes will no longer work.<br/>
-            Also the overlay and label units have been changed to a percentage of the camera size for the same purpose as mentioned above.</p>
-            <p>An optional scene setting is added, allowing the scene to be set to cover (the whole window is displayed without empty spaces) or contain (the image is always displayed in its full aspect ratio).</p>
-            <p>All this together allows a camera to adjust to a part of the scene image as if it were part of the scene.</p>
-            <p><input type="checkbox" name="hide" data-dtype="Boolean">Don't show this screen again</p>`,
+            <h3>Changes in version 0.4.0</h3>
+            <p>The old configuration units for the camera in pixels (prior 0.3.0) not work anymore<br/></p>
+            <p>New geometries for camera.</p>
+            <p>Collapse Falemos configuracion by default.</p>
+            <p><input type="checkbox" name="hide" data-dtype="Boolean">Don't show this screen again.</p>`,
       buttons: {
       ok: {
         icon: '<i class="fas fa-check"></i>',
@@ -560,7 +632,28 @@ function versionChangesPopup(){
       },
       default: "OK",
       close: html => {
-        if (html.find("input[name ='hide']").is(":checked")) game.settings.set("falemos","NoteV0.3.0",true);
+        if (html.find("input[name ='hide']").is(":checked")) game.settings.set("falemos","NoteV0.4.0",true);
+      }
+    });
+    d.render(true);
+  }
+  if (game.settings.get("falemos","NoteV0.5.0") == false && game.user.isGM) {
+    let d = new Dialog({
+      title: "falemos update 0.5.0",
+      content: `
+            <h3>Changes in version 0.5.0</h3>
+            <p>Export scene config to macro<br/></p>
+            <p>Use export macros for fast scene changes.</p>
+            <p><input type="checkbox" name="hide" data-dtype="Boolean">Don't show this screen again.</p>`,
+      buttons: {
+      ok: {
+        icon: '<i class="fas fa-check"></i>',
+        label: "OK"
+      }
+      },
+      default: "OK",
+      close: html => {
+        if (html.find("input[name ='hide']").is(":checked")) game.settings.set("falemos","NoteV0.5.0",true);
       }
     });
     d.render(true);

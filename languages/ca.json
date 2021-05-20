@@ -43,5 +43,11 @@
     "FALEMOS.Right": "Dreta",
     "FALEMOS.Top": "Superior",
     "FALEMOS.CameraNameFontSize": "tamany",
-    "FALEMOS.CameraNameFontNotes": "Ex: 'url(https://fonts.gstatic.com/s/redressed/v11/x3dickHUbrmJ7wMy9Msxe_oD.woff2) format('woff2');'"
+    "FALEMOS.CameraNameFontNotes": "Ex: 'url(https://fonts.gstatic.com/s/redressed/v11/x3dickHUbrmJ7wMy9Msxe_oD.woff2) format('woff2');'",
+    "FALEMOS.scene.fit.cover": "Cobrir amb la imatge",
+    "FALEMOS.scene.fit.contain": "Conté la imatge",
+    "FALEMOS.SceneFitText": "Ajust d'escena",
+    "FALEMOS.CameraNameColorNotes": "Configura el color, posició i mida del rètol",
+    "FALEMOS.scene.fit.nofit": "Sense ajust d’escena",
+    "FALEMOS.SceneFitNotes": "Ajusta l'escena de manera que la imatge la cobreixi totalment o perquè la imatge sembli plena"
 }

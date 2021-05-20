@@ -372,6 +372,13 @@
             </feTurbulence>
             <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="30" xChannelSelector="R" yChannelSelector="R"></feDisplacementMap>
         </filter>
+
+        <filter id="heavycloud" color-interpolation-filters="sRGB" x="0%" y="0%" height="100%" width="100%">
+            <feTurbulence type="turbulence" baseFrequency="0.5" id="turbulence2" numOctaves="1" result="turbulence2" seed="5">
+                <animate id="noiseAnimate2" attributeName="baseFrequency" values="0.5;.6;.8"  dur="10s" repeatCount="indefinite"></animate>
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence2" scale="30" xChannelSelector="R" yChannelSelector="R"></feDisplacementMap>
+        </filter>
         
     </defs>
   </svg>

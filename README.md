@@ -15,6 +15,8 @@ This module allows you to customise the style and position of the cameras in eac
 - Custom video geometry.
 - Custom video filters.
 - Custom name with custom color, font and position by player.
+- Template macros. Export the scene settings to a macro for later reuse.
+- Default transmit voice to "Always active". Can be disabled in the module settings
 - Shorcuts
     - Cicle UI visibility (Onlye GM): ctrl+alt+h(ide)
     - Cicle Scene Fit: ctrl+alt+f(it)
@@ -22,14 +24,12 @@ This module allows you to customise the style and position of the cameras in eac
 
 ## Usage
 
-**NOTE:** *If you have used Falemos before your old scenes will still work the same, but it is advisable to change them to the new percentage system as the old pixel system is considered deprecated and will be removed in future versions.
-The new system is considered better as it respects the proportions on any screen size and the GM can know that all players see it the same (same proportions).*
-
 Falemos is scene-dependent. In the configuration of each scene we have the configuration parameters:
 
 - Global
     - General enabled/disabled control.
     - UI elements display control.
+    - Export to macro.
 
 ![Global config](https://github.com/jvir/foundry-falemos/blob/main/doc/img/globalconfig.png?raw=true)
 
@@ -44,17 +44,18 @@ Falemos is scene-dependent. In the configuration of each scene we have the confi
 
 ![User config](https://github.com/jvir/foundry-falemos/blob/main/doc/img/userconfig.png?raw=true)
 
+## Example: Setting up the black castle
+
+
+https://user-images.githubusercontent.com/5990316/117968116-207b1b00-b326-11eb-8c54-c96a2bdf9ac5.mp4
+
+
+
 
 ## Thanks
 
-- To bug reporters: Viriato139ac, Gorion, Dick-K.
-- To translators: Gorion.
+- To contributors (bug reporters, pull requesters, translators): Viriato139ac, Gorion, Dick-K, Xurxo Diz, Montver, Cal, BabyfaceFinlayson, ScriptFeliz, sladecraven.
 - To all users, without them this module makes no sense.
 
-## Changelog
 
-- 0.3.3 Fix issue 7 by lozalojo, add missing localization strings, fix calculate current cam position button, fix camera height under certain circunstances.
-- 0.3.0 Scene fit options by user, change fixed px units to relative vw units, hotkey for cicle fit options by user.
-- 0.2.0 Change scene config retrieve from active to viewed.
-- 0.1.0 Initial Alfa version, codename (Alfalfa).
 
