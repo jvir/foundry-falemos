@@ -419,8 +419,22 @@ new Dialog({
       console.log(resultadofinal);
       console.log("---------------------------------");
 
+      // calculos del tamaño de fuente
+      const porcNombre = 75;
+      let xNombre;
+      let cName;
+      let sNombre;
       let sceneData1 = {};
-      for (let i = 0; i < resultadofinal.length; i++)
+      for (let i = 0; i < resultadofinal.length; i++) {
+        cName = resultadofinal[i][18];
+        cName === undefined
+          ? (sNombre = null)
+          : (sNombre =
+              ((resultadofinal[i][14] / cName.length) * porcNombre * 2) / 100);
+        cName === undefined
+          ? (xNombre = null)
+          : (xNombre = 100 * (1 - porcNombre / 100) * 0.65);
+
         sceneData1[i.toString()] = {
           x: resultadofinal[i][12],
           y: resultadofinal[i][13],
@@ -432,14 +446,15 @@ new Dialog({
           overlayBottom: Number(ioverlays[3]),
           geometry: geometria,
           filter: efecto,
-          cameraName: resultadofinal[i][18],
-          cameraNameOffsetX: null,
+          cameraName: cName,
+          cameraNameOffsetX: xNombre,
           cameraNameOffsetY: null,
-          cameraNameFontSize: null,
+          cameraNameFontSize: sNombre,
           cameraNameColor: "#000000",
           cameraNameFont: fuente,
           fit: ajuste,
         };
+      }
       let sceneData2 = {
         enable: true,
         hide: {
