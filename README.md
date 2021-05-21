@@ -20,6 +20,7 @@ This module allows you to customise the style and position of the cameras in eac
 - Shorcuts
     - Cicle UI visibility (Onlye GM): ctrl+alt+h(ide)
     - Cicle Scene Fit: ctrl+alt+f(it)
+    - Execute Falemos Vaccinator by Viriato139ac: ctrl+alt+v(accinator)
 
 
 ## Usage
