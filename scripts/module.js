@@ -64,6 +64,19 @@ Hooks.once('ready', async function() {
        onSocketData(data); 
     });
     
+    //create macro vaccinator if not exist
+    if(!game.macros.getName('Falemos Vaccinator by Viriato139ac')){
+        console.log('Creating Falemos Vaccinator Macro by Viriato139ac');
+        fetch('/modules/falemos/scripts/utils/falemosVaccinator.js').then(res => res.text()).then((content) => {
+                                                                                                                    let macro = Macro.create({
+                                                                                                                                    name: 'Falemos Vaccinator by Viriato139ac',
+                                                                                                                                    type: 'script',
+                                                                                                                                    img: "modules/falemos/assets/img/falemos.svg",
+                                                                                                                                    command: content
+                                                                                                                                });      
+                                                                                                                        });
+    }
+    
     game.falemos  = {
         getSceneConfig: function (sceneId){
                                     let data = {...game.scenes.get(sceneId).data.flags.falemos.config};
@@ -92,8 +105,8 @@ Hooks.once('ready', async function() {
             let data= JSON.parse(json);
             for(var propertyName in data) {
                 if (data[propertyName].fit){
-                    if (game.users.entries[propertyName]){
-                        data[game.users.entries[propertyName].data._id] = data[propertyName];
+                    if (game.users.get(propertyName)){
+                        data[game.users.get(propertyName).data._id] = data[propertyName];
                         delete data[propertyName];
                     }
                 }
@@ -110,7 +123,7 @@ Hooks.once('ready', async function() {
                 title: 'Falemos: ' + game.i18n.localize("FALEMOS.DialogTitleSaveSceneConfig"),
                 content: `<table style="width:100%"><tr><th style="width:50%"><label>${game.i18n.localize("FALEMOS.DialogContentMacroName")}:</label></th><td style="width:50%"><input type="text" name="falemosMacroName"/></td></tr></table>`,
                 buttons: {
-                    Create : { label : game.i18n.localize("FALEMOS.CreateMacro"), callback : (html) => {     const macro = Macro.create({
+                    Create : { label : game.i18n.localize("FALEMOS.CreateMacro"), callback : (html) => {     let macro = Macro.create({
                                                                                 name: html.find("input").val(),
                                                                                 type: 'script',
                                                                                 img: "modules/falemos/assets/img/falemos.svg",
@@ -121,7 +134,19 @@ Hooks.once('ready', async function() {
                 },
             }).render(true);
             
-        }
+        },
+        camToTile: function (userId){
+            let video = document.querySelectorAll(`.camera-view[data-user="${userId}"] video`)[0];
+
+            let sprite = new PIXI.Sprite(PIXI.Texture.from(video));
+
+            canvas.app.stage.addChild(sprite);
+
+            sprite.width = canvas.dimensions.width;
+            sprite.height = canvas.dimensions.height;
+
+            sprite.texture.baseTexture.resource.source.play();
+        },
     };
     
     
@@ -176,10 +201,7 @@ Hooks.once('ready', async function() {
                         game.scenes.viewed.setFlag('falemos', 'config.hide.mode', 'none');
                     }
                     
-            }
-            
-            
-            
+            }            
             //scene.update({id: game.scenes.viewed.data._id, 'flags.falemos.config.hide': currentVisibility});
 //             .then(function(){
 //                 game.socket.emit('module.falemos', {event: "toggleUiHotkey", action:'command', data: {command: 'game.scenes.viewed.view()'}});
@@ -187,6 +209,10 @@ Hooks.once('ready', async function() {
 //             });
             
         };
+        if (e.ctrlKey && e.altKey && e.which == 86) {//run Falemos Vaccinator by Viriato139ac [V]
+                console.log('Executing Falemos Vaccinator by Viriato139ac');
+                game.macros.getName('Falemos Vaccinator by Viriato139ac').execute();
+            };
     };
     
     
@@ -207,7 +233,8 @@ Hooks.on('renderCameraViews', async function(cameraviews, html) {
         })
         
         html.find('.control-bar.bottom').each((index, avcontrol) => {
-            avcontrol.insertAdjacentHTML('beforeend', '<a class="av-control toggle" title="" data-action="toggle-isolate"><i class="fas fa-users"></i></a>')
+            //avcontrol.insertAdjacentHTML('beforeend', '<a class="av-control toggle" title="" data-action="toggle-isolate"><i class="fas fa-users"></i></a>');
+            avcontrol.insertAdjacentHTML('beforeend', '<a class="av-control toggle" title="" data-action="toggle-tile"><i class="fas fa-map"></i></a>');
         });
         html.find('.av-control[data-action="toggle-isolate"]').click((ev)=>{
             
@@ -215,7 +242,11 @@ Hooks.on('renderCameraViews', async function(cameraviews, html) {
             Hooks.call('updateFalemosIsolated', game.users);
             
         });
-        
+        html.find('.av-control[data-action="toggle-tile"]').click((ev)=>{
+            game.falemos.camToTile(ev.currentTarget.closest('.camera-view').dataset.user);
+        });
+
+
         camerasToPopout(html);
         camerasStyling(html);
         canvasFit(game.scenes.viewed.data.flags.falemos.config[game.userId].fit, true);
@@ -237,7 +268,7 @@ Hooks.on('updateFalemosIsolated'. async function(data) {
 Hooks.on('renderSceneConfig', async function(sceneConfig, html, data) {
                 
         let falemosconfig = game.scenes.get(data.entity._id).getFlag('falemos', 'config') ? game.scenes.get(data.entity._id).getFlag('falemos', 'config') : null;
-        let users = game.users.entries;
+        let users = Array.from(game.users);
                 
         //renderTemplate con campos y data saliendo de los flags        
         let mchtml = await renderTemplate("modules/falemos/templates/scene/mc-config.html", {falemosconfig: falemosconfig, users:users, sceneid: data.entity._id, falemos: CONFIG.FALEMOS})
@@ -357,9 +388,10 @@ Hooks.on('renderDrawingHUD', async function(app, html, data){//TODO
 })
 
 
-function canvasFit(mode='contain', force=false){ //TODO avoid view parameter for get scale x and y
+function canvasFit(mode='contain', force=false){
     
     if(!canvas) return;
+    if(mode=='nofit') return;
     
     
     let view = {
@@ -421,7 +453,7 @@ function hideUi (data, mode=null){ //hide/shoe UI elements
 
 
 function cameraToDOck(html){
-        game.users.entries.forEach((user)=>{
+        Array.from(game.users).forEach((user)=>{
             let userCamera = html.find(`.camera-view[data-user="${user.id}"]`);
             if (userCamera.length != 1) return; //no camera, next. 
 
@@ -433,7 +465,7 @@ function cameraToDOck(html){
 }
 
 function camerasToPopout(html){
-    game.users.entries.forEach((user)=>{
+    Array.from(game.users).forEach((user)=>{
             let userCamera = html.find(`.camera-view[data-user="${user.id}"]`);
             if (userCamera.length != 1) return; //no camera, next. 
 
@@ -446,7 +478,7 @@ function camerasToPopout(html){
 
 function camerasStyling(html){
 
-    game.users.entries.forEach((user)=>{        
+    Array.from(game.users).forEach((user)=>{        
             //let popout = html.find(`#camera-views-user-${user.id}`)[0];
             //if(!popout) return;
             //let box = popout.querySelector(".camera-view");
@@ -471,7 +503,7 @@ function createSceneStyles(imageFormat=null){
     
     let css=""
     let scene = game.scenes.viewed;
-    game.users.entries.forEach((user)=>{
+    Array.from(game.users).forEach((user)=>{
         if (scene.data.flags.falemos && scene.data.flags.falemos.config.enable === true){
             
             
@@ -592,9 +624,6 @@ function onSocketData(data){
 
 
 
-var foobar = {
- foo: function(){ return "bar" ;}
-};
 
 
 

@@ -57,5 +57,19 @@
     "FALEMOS.ExportConfigToMacroNotes": "Garda a configuración gardada desta escena nunha macro, o usala establece na escena visible a mesma configuración. Sirve para facer plantillas de esceas (Ex: '3 cámaras verticais grandes - scifi').",
     "FALEMOS.DialogTitleSaveSceneConfig": "Gardar escena en macro",
     "FALEMOS.DialogContentMacroName": "Nome da macro",
-    "FALEMOS.CreateMacro": "Crear macro"
+    "FALEMOS.CreateMacro": "Crear macro",
+    "FALEMOS.vaccinator.title": "Parámetros de autoconfiguración de Falemos",
+	"FALEMOS.vaccinator.width": "Ancho",
+	"FALEMOS.vaccinator.height": "Alto",
+	"FALEMOS.vaccinator.margins": "Márxenes (Esq/Enr/Der/Deb)",
+	"FALEMOS.vaccinator.rows": "Número de filas",
+	"FALEMOS.vaccinator.columns": "Número de columnas",
+	"FALEMOS.vaccinator.separation": "Separación mínima entre marcos",
+	"FALEMOS.vaccinator.gmposition": "Posición do DX",
+	"FALEMOS.vaccinator.emptyslots": "Ocos valeiros (separados por comas)",
+	"FALEMOS.vaccinator.frame": "Marco",
+	"FALEMOS.vaccinator.overlays": "Axustes do marco (Esq/Enr/Der/Deb)",
+	"FALEMOS.vaccinator.names": "Nomes (separados por comas)",
+	"FALEMOS.vaccinator.apply": "Gardar",
+	"FALEMOS.vaccinator.cancel": "Cancelar"
 }

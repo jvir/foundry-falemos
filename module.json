@@ -6,7 +6,7 @@
   "library": "false",
   "manifestPlusVersion": "1.2.0",
   "minimumCoreVersion": "0.7.9",
-  "compatibleCoreVersion": "0.7.9",
+  "compatibleCoreVersion": "0.8.6",
   "authors": [
     {
       "name": "jvir",
@@ -74,9 +74,15 @@
   {
     "type": "video",
     "url": "https://github.com/jvir/foundry-falemos/blob/main/doc/vid/scenecastleblack.webm?raw=true",
-    "loop": true,
+    "loop": false,
     "thumbnail": "https://github.com/jvir/foundry-falemos/blob/main/doc/vid/scenecastleblack.jpg?raw=true",
     "caption": "Castle black scene camera configuration"
+  },
+  {
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=ZMiOIz7-2Fc",
+    "loop": false,
+    "caption": "Falemos Vaccinator by Viriato139ac"
   }
 ]
 }
