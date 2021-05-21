@@ -1,5 +1,5 @@
 ﻿//
-// falemos vaccinator 0.6
+// falemos vaccinator 0.7
 // by Viriato139ac
 //
 
@@ -195,63 +195,154 @@ new Dialog({
     <input type="number" id="ancho" name="ancho" min=1 value=${
       window.innerWidth
     }>
-  </div>
-  <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.height")}:</label>
     <input type="number" id="alto" name="alto" min=1 value=${
       window.innerHeight
     }>
   </div>
+  <p class="notes">
+  <b>${game.i18n.localize(
+    "FALEMOS.vaccinator.width"
+  )}</b>: ${game.i18n.localize(
+    "FALEMOS.vaccinator.widthHint"
+  )}; <b>${game.i18n.localize(
+    "FALEMOS.vaccinator.height"
+  )}</b>: ${game.i18n.localize("FALEMOS.vaccinator.heightHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.margins")}:</label>
     <input type="number" id="marizq" name="marizq" min=0 value=${
       2 * document.getElementById("controls").clientWidth
     }>
-<input type="number" id="mararr" name="mararr" min=0 value=${
-    document.getElementById("scene-list").clientHeight
-  }>
-<input type="number" id="marder" name="marder" min=0 value=${
+    <input type="number" id="mararr" name="mararr" min=0 value=${
+      document.getElementById("scene-list").clientHeight
+    }>
+  <input type="number" id="marder" name="marder" min=0 value=${
     document.getElementById("sidebar").offsetWidth
   }>
-<input type="number" id="maraba" name="maraba" min=0 value=${
+  <input type="number" id="maraba" name="maraba" min=0 value=${
     document.getElementById("macro-list").clientHeight
   }>
   </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.marginsHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.rows")}:</label>
     <input type="number" id="nRows" name="nRows" min=1 value=2>
-  </div>
-  <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.columns")}:</label>
     <input type="number" id="nCols" name="nCols" min=1 value=2>
   </div>
+  <p class="notes"><b>${game.i18n.localize(
+    "FALEMOS.vaccinator.rows"
+  )}</b>: ${game.i18n.localize(
+    "FALEMOS.vaccinator.rowsHint"
+  )}; <b>${game.i18n.localize(
+    "FALEMOS.vaccinator.columns"
+  )}</b>: ${game.i18n.localize("FALEMOS.vaccinator.columnsHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.separation")}:</label>
     <input type="number" id="sepmin" name="sepmin" min=0 value=10>
   </div>
+  <p class="notes">${game.i18n.localize(
+    "FALEMOS.vaccinator.separationHint"
+  )}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.gmposition")}:</label>
     <input type="number" id="posgm" name="posgm" min=1 value=1>
-  </div>
-  <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.emptyslots")}:</label>
-    <input type="text" id="huecos" name="huecos" value="3">
+    <input type="text" id="huecos" name="huecos" value="">
   </div>
+  <p class="notes"><b>${game.i18n.localize(
+    "FALEMOS.vaccinator.gmposition"
+  )}</b>: ${game.i18n.localize(
+    "FALEMOS.vaccinator.gmpositionHint"
+  )}; <b>${game.i18n.localize(
+    "FALEMOS.vaccinator.emptyslots"
+  )}</b>:  ${game.i18n.localize("FALEMOS.vaccinator.emptyslotsHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.frame")}:</label>
     <input type="text" id="marco" name="marco" value="">
-  </div>  
+  </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.frameHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.overlays")}:</label>
     <input type="number" id="oveizq" name="oveizq" min="0" value="0">
-<input type="number" id="ovearr" name="ovearr" min="0" value="0">
-<input type="number" id="oveder" name="oveder" min="0" value="0">
-<input type="number" id="oveaba" name="oveaba" min="0" value="0">
+    <input type="number" id="ovearr" name="ovearr" min="0" value="0">
+    <input type="number" id="oveder" name="oveder" min="0" value="0">
+    <input type="number" id="oveaba" name="oveaba" min="0" value="0">
   </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.overlaysHint")}</p>
+  <div class="form-group">
+  <label>${game.i18n.localize("FALEMOS.CameraGeometryText")}:</label>
+  <select id="geometria" name="geometria">
+    <option value="rectangle">${game.i18n.localize(
+      "FALEMOS.camera.geometry.rectangle"
+    )}</option>
+    <option value="circle">${game.i18n.localize(
+      "FALEMOS.camera.geometry.circle"
+    )}</option>
+    <option value="triangle">${game.i18n.localize(
+      "FALEMOS.camera.geometry.triangle"
+    )}</option>
+    <option value="rhombus">${game.i18n.localize(
+      "FALEMOS.camera.geometry.rhombus"
+    )}</option>
+    <option value="hexagon">${game.i18n.localize(
+      "FALEMOS.camera.geometry.hexagon"
+    )}</option>
+    <option value="star">${game.i18n.localize(
+      "FALEMOS.camera.geometry.star"
+    )}</option>
+    <option value="shield">${game.i18n.localize(
+      "FALEMOS.camera.geometry.shield"
+    )}</option>
+  </select>
+  </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.CameraGeometryNotes")}</p>
+  <div class="form-group">
+    <label>${game.i18n.localize("FALEMOS.CameraEffectText")}:</label>
+    <select id="efecto" name="efecto">
+      <option value="NONE">${game.i18n.localize(
+        "FALEMOS.camera.effects.none"
+      )}</option>
+      <option value="BW">${game.i18n.localize(
+        "FALEMOS.camera.effects.bw"
+      )}</option>
+      <option value="Sepia">${game.i18n.localize(
+        "FALEMOS.camera.effects.sepia"
+      )}</option>
+      <option value="Noise">${game.i18n.localize(
+        "FALEMOS.camera.effects.noise"
+      )}</option>
+      <option value="Warp">${game.i18n.localize(
+        "FALEMOS.camera.effects.warp"
+      )}</option>
+    </select>
+  </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.CameraEffectNotes")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.names")}:</label>
-    <input type="text" id="nombres" name="nombres" value="a,b,c">
+    <input type="text" id="nombres" name="nombres" value="">
   </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.namesHint")}</p>
+  <div class="form-group">
+    <label>${game.i18n.localize("FALEMOS.CameraNameFontText")}:</label>
+    <input type="text" id="fuente" name="fuente" value="url(&quot;//db.onlinewebfonts.com/t/fe2027c27b6a24505f548c6fd2e1076d.woff&quot;) format(&quot;woff&quot;)">
+  </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.CameraNameFontNotes")}</p>
+  <div class="form-group">
+    <label>${game.i18n.localize("FALEMOS.SceneFitText")}:</label>
+    <select id="ajuste" name="ajuste">
+      <option value="nofit">${game.i18n.localize(
+        "FALEMOS.scene.fit.nofit"
+      )}</option>
+      <option value="cover">${game.i18n.localize(
+        "FALEMOS.scene.fit.cover"
+      )}</option>
+      <option value="contain">${game.i18n.localize(
+        "FALEMOS.scene.fit.contain"
+      )}</option>
+    </select>
+  </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.SceneFitNotes")}</p>
 </form>
 `,
   buttons: {
@@ -285,6 +376,10 @@ new Dialog({
       let oveder = html.find('[name="oveder"]')[0].value || 0;
       let oveaba = html.find('[name="oveaba"]')[0].value || 0;
       let nombres = html.find('[name="nombres"]')[0].value;
+      let geometria = html.find('[name="geometria"]')[0].value;
+      let efecto = html.find('[name="efecto"]')[0].value;
+      let fuente = html.find('[name="fuente"]')[0].value;
+      let ajuste = html.find('[name="ajuste"]')[0].value;
 
       const idimensiones = [ancho, alto];
       const imargenes = [marizq, mararr, marder, maraba];
@@ -335,15 +430,15 @@ new Dialog({
           overlayRight: Number(ioverlays[2]),
           overlayTop: Number(ioverlays[1]),
           overlayBottom: Number(ioverlays[3]),
-          geometry: "rectangle",
-          filter: "NONE",
+          geometry: geometria,
+          filter: efecto,
           cameraName: resultadofinal[i][18],
           cameraNameOffsetX: null,
           cameraNameOffsetY: null,
           cameraNameFontSize: null,
           cameraNameColor: "#000000",
-          cameraNameFont: "",
-          fit: "nofit",
+          cameraNameFont: fuente,
+          fit: ajuste,
         };
       let sceneData2 = {
         enable: true,
