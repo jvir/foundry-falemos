@@ -77,7 +77,7 @@
     "FALEMOS.vaccinator.emptyslotsHint": "Empty slots where no cameras are allocated (comma separators), numbered from 1 to rows*columns",
 	"FALEMOS.vaccinator.frame": "Frame",
     "FALEMOS.vaccinator.frameHint": "Image over the cameras",
-	"FALEMOS.vaccinator.overlays": "Frame overlay offsets",
+	"FALEMOS.vaccinator.overlays": "Offsets",
     "FALEMOS.vaccinator.overlaysHint": "Percentage the frame is extended to the left/top/right/bottom beyond camera limits",
 	"FALEMOS.vaccinator.names": "Names",
     "FALEMOS.vaccinator.namesHint": "Names below cameras (comma separators)",

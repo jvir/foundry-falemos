@@ -320,12 +320,12 @@ new Dialog({
   <p class="notes">${game.i18n.localize("FALEMOS.CameraEffectNotes")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.names")}:</label>
-    <input type="text" id="nombres" name="nombres" value="a,b,c">
+    <input type="text" id="nombres" name="nombres" value="">
   </div>
   <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.namesHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.CameraNameFontText")}:</label>
-    <input type="text" id="fuente" name="fuente" value="">
+    <input type="text" id="fuente" name="fuente" value="url(&quot;//db.onlinewebfonts.com/t/fe2027c27b6a24505f548c6fd2e1076d.woff&quot;) format(&quot;woff&quot;)">
   </div>
   <p class="notes">${game.i18n.localize("FALEMOS.CameraNameFontNotes")}</p>
   <div class="form-group">

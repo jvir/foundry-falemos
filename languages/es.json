@@ -77,7 +77,7 @@
     "FALEMOS.vaccinator.emptyslotsHint": "Huecos vacíos, en los que no se colocan cámaras (separados por comas), numeración de 1 a filas*columnas",
 	"FALEMOS.vaccinator.frame": "Marco",
     "FALEMOS.vaccinator.frameHint": "Imagen que se superpone a todas las cámaras",
-	"FALEMOS.vaccinator.overlays": "Ajustes del marco",
+	"FALEMOS.vaccinator.overlays": "Ajustes",
     "FALEMOS.vaccinator.overlaysHint": "El porcentaje que se extiende a izquierda/arriba/derecha/abajo el marco más allá de la cámara",
 	"FALEMOS.vaccinator.names": "Nombres",
     "FALEMOS.vaccinator.namesHint": "Nombres que se pondrán debajo de las cámaras (separados por comas)",
