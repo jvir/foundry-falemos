@@ -76,7 +76,7 @@ Hooks.once('ready', async function() {
                                                                                                                                 });      
                                                                                                                         });
     }
-    
+    //exposed functions
     game.falemos  = {
         getSceneConfig: function (sceneId){
                                     let data = {...game.scenes.get(sceneId).data.flags.falemos.config};
@@ -101,14 +101,20 @@ Hooks.once('ready', async function() {
             
             console.log(sceneId);
             console.log(json);
-            
             let data= JSON.parse(json);
+            console.log(data);
+            
+            let i = 0;
+            let users = Array.from(game.users);     
+            
             for(var propertyName in data) {
+                console.log(propertyName);console.log(data);
                 if (data[propertyName].fit){
-                    if (game.users.get(propertyName)){
-                        data[game.users.get(propertyName).data._id] = data[propertyName];
+                    if (users[i]){
+                        data[users[i].data._id] = data[propertyName];
                         delete data[propertyName];
                     }
+                    i++;
                 }
             }
             console.log(data);
