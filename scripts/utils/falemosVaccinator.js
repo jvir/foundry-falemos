@@ -196,62 +196,73 @@ new Dialog({
       window.innerWidth
     }>
   </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.widthHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.height")}:</label>
     <input type="number" id="alto" name="alto" min=1 value=${
       window.innerHeight
     }>
   </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.heightHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.margins")}:</label>
     <input type="number" id="marizq" name="marizq" min=0 value=${
       2 * document.getElementById("controls").clientWidth
     }>
-<input type="number" id="mararr" name="mararr" min=0 value=${
+    <input type="number" id="mararr" name="mararr" min=0 value=${
     document.getElementById("scene-list").clientHeight
   }>
-<input type="number" id="marder" name="marder" min=0 value=${
+  <input type="number" id="marder" name="marder" min=0 value=${
     document.getElementById("sidebar").offsetWidth
   }>
-<input type="number" id="maraba" name="maraba" min=0 value=${
+  <input type="number" id="maraba" name="maraba" min=0 value=${
     document.getElementById("macro-list").clientHeight
   }>
   </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.marginsHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.rows")}:</label>
     <input type="number" id="nRows" name="nRows" min=1 value=2>
   </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.rowsHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.columns")}:</label>
     <input type="number" id="nCols" name="nCols" min=1 value=2>
   </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.columnsHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.separation")}:</label>
     <input type="number" id="sepmin" name="sepmin" min=0 value=10>
   </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.separationHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.gmposition")}:</label>
     <input type="number" id="posgm" name="posgm" min=1 value=1>
   </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.gmpositionHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.emptyslots")}:</label>
     <input type="text" id="huecos" name="huecos" value="3">
   </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.emptyslotsHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.frame")}:</label>
     <input type="text" id="marco" name="marco" value="">
-  </div>  
+  </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.frameHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.overlays")}:</label>
     <input type="number" id="oveizq" name="oveizq" min="0" value="0">
-<input type="number" id="ovearr" name="ovearr" min="0" value="0">
-<input type="number" id="oveder" name="oveder" min="0" value="0">
-<input type="number" id="oveaba" name="oveaba" min="0" value="0">
+    <input type="number" id="ovearr" name="ovearr" min="0" value="0">
+    <input type="number" id="oveder" name="oveder" min="0" value="0">
+    <input type="number" id="oveaba" name="oveaba" min="0" value="0">
   </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.overlaysHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.names")}:</label>
     <input type="text" id="nombres" name="nombres" value="a,b,c">
   </div>
+  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.namesHint")}</p>
 </form>
 `,
   buttons: {
