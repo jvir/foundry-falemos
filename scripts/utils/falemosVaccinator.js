@@ -36,6 +36,11 @@ let temp3 = temp2.sort(function (a, b) {
 const slotsOptimo = temp3[0];
 //console.log(slotsOptimo.rows + 'x' + slotsOptimo.columns)
 
+// Empty slots
+let temp4 = [];
+for (let i=numeroJugadores+1;i<=slotsOptimo.slots;i++) temp4.push(i);
+const emptySlots = temp4.join();
+
 function twoDimensionArray(a, b) {
   let arr = [];
   for (let i = 0; i < a; i++) {
@@ -304,7 +309,7 @@ new Dialog({
     <label>${game.i18n.localize("FALEMOS.vaccinator.gmposition")}:</label>
     <input type="number" id="posgm" name="posgm" min=1 value=1>
     <label>${game.i18n.localize("FALEMOS.vaccinator.emptyslots")}:</label>
-    <input type="text" id="huecos" name="huecos" value="">
+    <input type="text" id="huecos" name="huecos" value="${emptySlots}">
   </div>
   <p class="notes"><b>${game.i18n.localize(
     "FALEMOS.vaccinator.gmposition"
