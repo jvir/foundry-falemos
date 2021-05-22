@@ -38,7 +38,7 @@ const slotsOptimo = temp3[0];
 
 // Empty slots
 let temp4 = [];
-for (let i=numeroJugadores+1;i<=slotsOptimo.slots;i++) temp4.push(i);
+for (let i = numeroJugadores + 1; i <= slotsOptimo.slots; i++) temp4.push(i);
 const emptySlots = temp4.join();
 
 function twoDimensionArray(a, b) {
@@ -489,15 +489,23 @@ new Dialog({
       let cName;
       let sNombre;
       let sceneData1 = {};
+
+      const ljug = inames.map((num) => num.length);
+
+      inames[0] === "" && inames.length === 1
+        ? (sNombre = null)
+        : (sNombre =
+            ((resultadofinal[0][14] / Math.max(...ljug)) * porcNombre * 2) /
+            100);
+
       for (let i = 0; i < resultadofinal.length; i++) {
         cName = resultadofinal[i][18];
-        cName === undefined
-          ? (sNombre = null)
-          : (sNombre =
-              ((resultadofinal[i][14] / cName.length) * porcNombre * 2) / 100);
+
         cName === undefined
           ? (xNombre = null)
-          : (xNombre = 100 * (1 - porcNombre / 100) * 0.5);
+          : (xNombre =
+              100 * (1 - porcNombre / 100) * 0.5 +
+              ((1 - cName.length / Math.max(...ljug)) * porcNombre) / 2);
 
         sceneData1[i.toString()] = {
           x: resultadofinal[i][12],
