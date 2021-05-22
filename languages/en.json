@@ -65,6 +65,7 @@
     "FALEMOS.vaccinator.heightHint": "Screen height in pixels",
 	"FALEMOS.vaccinator.margins": "Margins",
     "FALEMOS.vaccinator.marginsHint": "Space in pixels to leave at left/top/right/bottom of the cameras layout",
+    "FALEMOS.vaccinator.users": "Users",
 	"FALEMOS.vaccinator.rows": "Rows",
     "FALEMOS.vaccinator.rowsHint": "Number de rows of the cameras layout",
 	"FALEMOS.vaccinator.columns": "Columns",
