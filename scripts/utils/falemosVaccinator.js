@@ -1,5 +1,5 @@
 ﻿//
-// falemos vaccinator 0.8
+// falemos vaccinator 0.9
 // by Viriato139ac
 //
 
@@ -230,6 +230,7 @@ function falemosCalculator(
 // Aquí se comienza a definir el formulario de entrada de datos
 
 let applyChanges = false;
+let saveMacro = false;
 new Dialog({
   title: `${game.i18n.localize("FALEMOS.vaccinator.title")}`,
   content: `
@@ -424,13 +425,21 @@ new Dialog({
 `,
   buttons: {
     yes: {
-      icon: "<i class='fas fa-check'></i>",
+      icon: "<i class='fas fa-check-circle'></i>",
       label: `${game.i18n.localize("FALEMOS.vaccinator.apply")}`,
       callback: () => (applyChanges = true),
     },
     no: {
-      icon: "<i class='fas fa-times'></i>",
+      icon: "<i class='fas fa-times-circle'></i>",
       label: `${game.i18n.localize("FALEMOS.vaccinator.cancel")}`,
+    },
+    save: {
+      icon: "<i class='fas fa-plus-circle'></i>",
+      label: `${game.i18n.localize("FALEMOS.ExportConfigToMacro")}`,
+      callback: () => {
+        applyChanges = true;
+        saveMacro = true;
+      },
     },
   },
   default: "yes",
@@ -526,7 +535,9 @@ new Dialog({
               100 * (1 - porcNombre / 100) * 0.5 +
               ((1 - cName.length / Math.max(...ljug)) * porcNombre) / 2);
 
-        cName === undefined ? (yNombre = null) : (yNombre = 100 + Number(oveaba));
+        cName === undefined
+          ? (yNombre = null)
+          : (yNombre = 100 + Number(oveaba));
 
         if (imarcos.length === 1) {
           nMarco = imarcos[0];
@@ -575,5 +586,6 @@ new Dialog({
 
       game.falemos.putSceneConfig(null, JSON.stringify(sceneData));
     }
+    if (saveMacro) game.falemos.sceneConfigToMacro();
   },
 }).render(true);
