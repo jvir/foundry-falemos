@@ -3,7 +3,7 @@
 // by Viriato139ac
 //
 
-// número de jugadores, nombres y huecos optimos
+// Número de jugadores y listado de nombres
 
 let jugadores = [];
 for (let user of game.users.keys()) {
@@ -13,6 +13,8 @@ for (let user of game.users.keys()) {
 
 const numeroJugadores = jugadores.length;
 const nombresJugadores = jugadores.join();
+
+// Calculo de la composición óptima en base al número de jugadores, 7 jugadores = 2x4, 4 jugadores = 2x2, lo hace minimizando filas+columnas
 
 let temp1 = [];
 let k = 1;
@@ -36,7 +38,7 @@ let temp3 = temp2.sort(function (a, b) {
 const slotsOptimo = temp3[0];
 //console.log(slotsOptimo.rows + 'x' + slotsOptimo.columns)
 
-// Empty slots
+// Cálculo de los huecos vacíos por defecto, basado en el número de jugadores y los huecos disponibles
 let temp4 = [];
 for (let i = numeroJugadores + 1; i <= slotsOptimo.slots; i++) temp4.push(i);
 const emptySlots = temp4.join();
@@ -55,6 +57,8 @@ function twoDimensionArray(a, b) {
   }
   return arr;
 }
+
+// Esta función calcula las posiciones y anchos de los jugadores óptimas para una composición dada
 
 function falemosCalculator(
   idimensiones,
@@ -134,23 +138,6 @@ function falemosCalculator(
         (Number(irejilla[i]) + 1)
     );
   // console.log("Espacios: " + espacios);
-
-  /*
-  function twoDimensionArray(a, b) {
-    let arr = [];
-    for (let i = 0; i < a; i++) {
-      for (let j = 0; j < b; j++) {
-        arr[i] = [];
-      }
-    }
-    for (let i = 0; i < a; i++) {
-      for (let j = 0; j < b; j++) {
-        arr[i][j] = j;
-      }
-    }
-    return arr;
-  }
-*/
 
   const resultado = twoDimensionArray(
     Number(irejilla[0]) * Number(irejilla[1]),
@@ -240,21 +227,36 @@ function falemosCalculator(
   return resultadofinal;
 }
 
+// Aquí se comienza a definir el formulario de entrada de datos
+
 let applyChanges = false;
 new Dialog({
   title: `${game.i18n.localize("FALEMOS.vaccinator.title")}`,
   content: `
   <script>function selectImage(){
-    const fp = new FilePicker({
+    const fp1 = new FilePicker({
        type: "image",
        button: "image-picker",
        callback: (url) => {
-          $("#marco").val(url);
+          $("#marcos").val(url);
        }
     });
-    fp.browse();
+    fp1.browse();
     }
   </script>
+  <script>function selectImageMult() {
+    const fp2 = new FilePicker({
+       type: "image",
+       button: "image-picker",
+       callback: (url) => {
+        $("#marcos").val() === ""
+        ? $("#marcos").val(url) 
+        : $("#marcos").val([$("#marcos").val(),url].join());
+       }
+    });
+    fp2.browse();
+    }
+  </script>  
   <form>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.width")}:</label>
@@ -330,13 +332,13 @@ new Dialog({
     "FALEMOS.vaccinator.emptyslots"
   )}</b>:  ${game.i18n.localize("FALEMOS.vaccinator.emptyslotsHint")}</p>
   <div class="form-group">
-    <label>${game.i18n.localize("FALEMOS.vaccinator.frame")}:</label>
-    <input type="text" id="marco" name="marco" value="">
-    <button id="marcoSeleccionar" onclick="selectImage()" type="button">${game.i18n.localize(
+    <label>${game.i18n.localize("FALEMOS.vaccinator.frames")}:</label>
+    <input type="text" id="marcos" name="marcos" value="">
+    <button id="marcosSeleccionar" onclick="selectImageMult()" type="button">${game.i18n.localize(
       "File Path"
     )}</button>
   </div>
-  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.frameHint")}</p>
+  <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.framesHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.overlays")}:</label>
     <input type="number" id="oveizq" name="oveizq" min="0" value="0">
@@ -445,7 +447,7 @@ new Dialog({
       let sepmin = html.find('[name="sepmin"]')[0].value || 0;
       let posgm = html.find('[name="posgm"]')[0].value || 1;
       let huecos = html.find('[name="huecos"]')[0].value;
-      let marco = html.find('[name="marco"]')[0].value;
+      let marcos = html.find('[name="marcos"]')[0].value;
       let oveizq = html.find('[name="oveizq"]')[0].value || 0;
       let ovearr = html.find('[name="ovearr"]')[0].value || 0;
       let oveder = html.find('[name="oveder"]')[0].value || 0;
@@ -465,13 +467,14 @@ new Dialog({
       const ihuecosvaciostxt = huecos.split(",");
       const ihuecosvacios = ihuecosvaciostxt.map((num) => Number(num));
       const inames = nombres.split(",");
+      const imarcos = marcos.split(",");
 
       console.log("---------------------------------");
       console.log("----   Falemos vaccinator   -----");
       console.log("---------------------------------");
       console.log("Dimensiones: " + idimensiones);
       console.log("Márgenes: " + imargenes);
-      console.log("Marco: " + marco);
+      console.log("Marcos: " + imarcos);
       console.log("Overlays del marco: " + ioverlays);
       console.log("Rejilla: " + irejilla);
       console.log("Separación mínima: " + iseparacionminima);
@@ -497,11 +500,13 @@ new Dialog({
       console.log(resultadofinal);
       console.log("---------------------------------");
 
-      // calculos del tamaño de fuente
+      // calculos del tamaño de fuente, en base a la longitud del texto del usuario y el hueco disponible (el ancho del marco)
       const porcNombre = 75;
       let xNombre;
+      let yNombre;
       let cName;
       let sNombre;
+      let nMarco;
       let sceneData1 = {};
 
       const ljug = inames.map((num) => num.length);
@@ -521,11 +526,19 @@ new Dialog({
               100 * (1 - porcNombre / 100) * 0.5 +
               ((1 - cName.length / Math.max(...ljug)) * porcNombre) / 2);
 
+        cName === undefined ? (yNombre = null) : (yNombre = 100 + Number(oveaba));
+
+        if (imarcos.length === 1) {
+          nMarco = imarcos[0];
+        } else {
+          i < imarcos.length ? (nMarco = imarcos[i]) : (nMarco = "");
+        }
+
         sceneData1[i.toString()] = {
           x: resultadofinal[i][12],
           y: resultadofinal[i][13],
           width: resultadofinal[i][14],
-          overlayImg: marco,
+          overlayImg: nMarco,
           overlayLeft: Number(ioverlays[0]),
           overlayRight: Number(ioverlays[2]),
           overlayTop: Number(ioverlays[1]),
@@ -534,7 +547,7 @@ new Dialog({
           filter: efecto,
           cameraName: cName,
           cameraNameOffsetX: xNombre,
-          cameraNameOffsetY: null,
+          cameraNameOffsetY: yNombre,
           cameraNameFontSize: sNombre,
           cameraNameColor: "#000000",
           cameraNameFont: fuente,
