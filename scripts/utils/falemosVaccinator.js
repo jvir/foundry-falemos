@@ -244,7 +244,18 @@ let applyChanges = false;
 new Dialog({
   title: `${game.i18n.localize("FALEMOS.vaccinator.title")}`,
   content: `
-<form>
+  <script>function selectImage(){
+    const fp = new FilePicker({
+       type: "image",
+       button: "image-picker",
+       callback: (url) => {
+          $("#marco").val(url);
+       }
+    });
+    fp.browse();
+    }
+  </script>
+  <form>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.width")}:</label>
     <input type="number" id="ancho" name="ancho" min=1 value=${
@@ -321,6 +332,9 @@ new Dialog({
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.frame")}:</label>
     <input type="text" id="marco" name="marco" value="">
+    <button id="marcoSeleccionar" onclick="selectImage()" type="button">${game.i18n.localize(
+      "File Path"
+    )}</button>
   </div>
   <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.frameHint")}</p>
   <div class="form-group">
