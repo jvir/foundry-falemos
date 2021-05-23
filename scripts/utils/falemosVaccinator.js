@@ -1,7 +1,60 @@
 ﻿//
-// falemos vaccinator 0.7
+// falemos vaccinator 0.8
 // by Viriato139ac
 //
+
+// número de jugadores, nombres y huecos optimos
+
+let jugadores = [];
+for (let user of game.users.keys()) {
+  // console.log(game.users.get(user)._data.name)
+  jugadores.push(game.users.get(user)._data.name);
+}
+
+const numeroJugadores = jugadores.length;
+const nombresJugadores = jugadores.join();
+
+let temp1 = [];
+let k = 1;
+for (let i = 0; i < numeroJugadores; i++) {
+  for (let j = 0; j < numeroJugadores; j++) {
+    temp1.push({
+      rows: i + 1,
+      columns: j + 1,
+      slots: (j + 1) * (i + 1),
+      sum: j + i + 2,
+      valid: (j + 1) * (i + 1) >= numeroJugadores,
+    });
+    k++;
+  }
+}
+
+let temp2 = temp1.filter((nnn) => nnn.valid);
+let temp3 = temp2.sort(function (a, b) {
+  return a.sum - b.sum || a.rows - b.rows;
+});
+const slotsOptimo = temp3[0];
+//console.log(slotsOptimo.rows + 'x' + slotsOptimo.columns)
+
+// Empty slots
+let temp4 = [];
+for (let i = numeroJugadores + 1; i <= slotsOptimo.slots; i++) temp4.push(i);
+const emptySlots = temp4.join();
+
+function twoDimensionArray(a, b) {
+  let arr = [];
+  for (let i = 0; i < a; i++) {
+    for (let j = 0; j < b; j++) {
+      arr[i] = [];
+    }
+  }
+  for (let i = 0; i < a; i++) {
+    for (let j = 0; j < b; j++) {
+      arr[i][j] = j;
+    }
+  }
+  return arr;
+}
 
 function falemosCalculator(
   idimensiones,
@@ -82,6 +135,7 @@ function falemosCalculator(
     );
   // console.log("Espacios: " + espacios);
 
+  /*
   function twoDimensionArray(a, b) {
     let arr = [];
     for (let i = 0; i < a; i++) {
@@ -96,6 +150,7 @@ function falemosCalculator(
     }
     return arr;
   }
+*/
 
   const resultado = twoDimensionArray(
     Number(irejilla[0]) * Number(irejilla[1]),
@@ -225,10 +280,16 @@ new Dialog({
   </div>
   <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.marginsHint")}</p>
   <div class="form-group">
+  <label>${game.i18n.localize("FALEMOS.vaccinator.users")}:</label>
+  <input type="number" id="nuusers" name="nuusers" value=${numeroJugadores} disabled><br><br>
     <label>${game.i18n.localize("FALEMOS.vaccinator.rows")}:</label>
-    <input type="number" id="nRows" name="nRows" min=1 value=2>
+    <input type="number" id="nRows" name="nRows" min=1 value=${
+      slotsOptimo.rows
+    }>
     <label>${game.i18n.localize("FALEMOS.vaccinator.columns")}:</label>
-    <input type="number" id="nCols" name="nCols" min=1 value=2>
+    <input type="number" id="nCols" name="nCols" min=1 value=${
+      slotsOptimo.columns
+    }>
   </div>
   <p class="notes"><b>${game.i18n.localize(
     "FALEMOS.vaccinator.rows"
@@ -248,7 +309,7 @@ new Dialog({
     <label>${game.i18n.localize("FALEMOS.vaccinator.gmposition")}:</label>
     <input type="number" id="posgm" name="posgm" min=1 value=1>
     <label>${game.i18n.localize("FALEMOS.vaccinator.emptyslots")}:</label>
-    <input type="text" id="huecos" name="huecos" value="">
+    <input type="text" id="huecos" name="huecos" value="${emptySlots}">
   </div>
   <p class="notes"><b>${game.i18n.localize(
     "FALEMOS.vaccinator.gmposition"
@@ -320,7 +381,7 @@ new Dialog({
   <p class="notes">${game.i18n.localize("FALEMOS.CameraEffectNotes")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.names")}:</label>
-    <input type="text" id="nombres" name="nombres" value="">
+    <input type="text" id="nombres" name="nombres" value="${nombresJugadores}">
   </div>
   <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.namesHint")}</p>
   <div class="form-group">
@@ -403,6 +464,9 @@ new Dialog({
       console.log("Posición GM: " + iposiciongm);
       console.log("Huecos vacíos: " + ihuecosvacios);
       console.log("Nombres: " + inames);
+      console.log("Número de jugadores: " + numeroJugadores);
+      console.log("Nombres de jugadores: " + nombresJugadores);
+
       console.log("---------------------------------");
 
       let resultadofinal = falemosCalculator(
@@ -419,8 +483,30 @@ new Dialog({
       console.log(resultadofinal);
       console.log("---------------------------------");
 
+      // calculos del tamaño de fuente
+      const porcNombre = 75;
+      let xNombre;
+      let cName;
+      let sNombre;
       let sceneData1 = {};
-      for (let i = 0; i < resultadofinal.length; i++)
+
+      const ljug = inames.map((num) => num.length);
+
+      inames[0] === "" && inames.length === 1
+        ? (sNombre = null)
+        : (sNombre =
+            ((resultadofinal[0][14] / Math.max(...ljug)) * porcNombre * 2) /
+            100);
+
+      for (let i = 0; i < resultadofinal.length; i++) {
+        cName = resultadofinal[i][18];
+
+        cName === undefined
+          ? (xNombre = null)
+          : (xNombre =
+              100 * (1 - porcNombre / 100) * 0.5 +
+              ((1 - cName.length / Math.max(...ljug)) * porcNombre) / 2);
+
         sceneData1[i.toString()] = {
           x: resultadofinal[i][12],
           y: resultadofinal[i][13],
@@ -432,14 +518,15 @@ new Dialog({
           overlayBottom: Number(ioverlays[3]),
           geometry: geometria,
           filter: efecto,
-          cameraName: resultadofinal[i][18],
-          cameraNameOffsetX: null,
+          cameraName: cName,
+          cameraNameOffsetX: xNombre,
           cameraNameOffsetY: null,
-          cameraNameFontSize: null,
+          cameraNameFontSize: sNombre,
           cameraNameColor: "#000000",
           cameraNameFont: fuente,
           fit: ajuste,
         };
+      }
       let sceneData2 = {
         enable: true,
         hide: {
