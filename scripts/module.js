@@ -72,7 +72,7 @@ Hooks.once('ready', async function() {
     
     if(!game.macros.getName('Falemos Vaccinator by Viriato139ac') || game.macros.getName('Falemos Vaccinator by Viriato139ac').getFlag('falemos', 'vaccinatorVersion') === undefined || game.macros.getName('Falemos Vaccinator by Viriato139ac').getFlag('falemos', 'vaccinatorVersion') < falemosVersion || game.macros.getName('Falemos Vaccinator by Viriato139ac').getFlag('falemos', 'vaccinatorVersion') == 1){
         console.log('Creating Falemos Vaccinator Macro by Viriato139ac');
-        
+        if (game.macros.getName('Falemos Vaccinator by Viriato139ac')) game.macros.getName('Falemos Vaccinator by Viriato139ac').delete();
         fetch('/modules/falemos/scripts/utils/falemosVaccinator.js').then(res => res.text()).then((content) => {
                                                                                                                     Macro.create({
                                                                                                                                 name: 'Falemos Vaccinator by Viriato139ac',
@@ -395,7 +395,7 @@ Hooks.on('rtcSettingsChanged', async function(cameraviews, html) {//TODO: for is
 });
 
 Hooks.on('canvasInit', async function(){
-    game.scenes.viewed.setFlag('falemos','config.hide.mode','scene');
+    game.scenes.viewed.setFlag('falemos','config.hide.mode','scene');//TODO unused
 });
 
 Hooks.on('canvasPan', async function(canvas, view){

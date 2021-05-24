@@ -1,4 +1,4 @@
-﻿//
+//
 // falemos vaccinator 0.8
 // by Viriato139ac
 //
@@ -386,7 +386,7 @@ new Dialog({
   <p class="notes">${game.i18n.localize("FALEMOS.vaccinator.namesHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.CameraNameFontText")}:</label>
-    <input type="text" id="fuente" name="fuente" value="url(&quot;//db.onlinewebfonts.com/t/fe2027c27b6a24505f548c6fd2e1076d.woff&quot;) format(&quot;woff&quot;)">
+    <input type="text" id="fuente" name="fuente" value="url('//db.onlinewebfonts.com/t/fe2027c27b6a24505f548c6fd2e1076d.woff') format('woff')">
   </div>
   <p class="notes">${game.i18n.localize("FALEMOS.CameraNameFontNotes")}</p>
   <div class="form-group">
