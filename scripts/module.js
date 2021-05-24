@@ -70,18 +70,19 @@ Hooks.once('ready', async function() {
     if (Number.isNaN(falemosVersion)) falemosVersion = 1; //used in testing enviroment
     console.log('falemos vaccinator version: ' + falemosVersion);
     
-    if(!game.macros.getName('Falemos Vaccinator by Viriato139ac') || game.macros.getName('Falemos Vaccinator by Viriato139ac').getFlag('falemos', 'vaccinatorVersion') === undefined || game.macros.getName('Falemos Vaccinator by Viriato139ac').getFlag('falemos', 'vaccinatorVersion') < falemosVersion){
+    if(!game.macros.getName('Falemos Vaccinator by Viriato139ac') || game.macros.getName('Falemos Vaccinator by Viriato139ac').getFlag('falemos', 'vaccinatorVersion') === undefined || game.macros.getName('Falemos Vaccinator by Viriato139ac').getFlag('falemos', 'vaccinatorVersion') < falemosVersion || game.macros.getName('Falemos Vaccinator by Viriato139ac').getFlag('falemos', 'vaccinatorVersion') == 1){
         console.log('Creating Falemos Vaccinator Macro by Viriato139ac');
         
         fetch('/modules/falemos/scripts/utils/falemosVaccinator.js').then(res => res.text()).then((content) => {
-                                                                                                                    let macro = Macro.create({
-                                                                                                                                    name: 'Falemos Vaccinator by Viriato139ac',
-                                                                                                                                    type: 'script',
-                                                                                                                                    img: "modules/falemos/assets/img/falemos.svg",
-                                                                                                                                    command: content
-                                                                                                                                });      
-                                                                                                                        });
-                                                                                                                        macro.setFlag('falemos', 'vaccinatorVersion', falemosVersion);
+                                                                                                                    Macro.create({
+                                                                                                                                name: 'Falemos Vaccinator by Viriato139ac',
+                                                                                                                                type: 'script',
+                                                                                                                                img: "modules/falemos/assets/img/falemos.svg",
+                                                                                                                                command: content
+                                                                                                                            });      
+                                                                                                                    }).then(() => {
+                                                                                                                        game.macros.getName('Falemos Vaccinator by Viriato139ac').setFlag('falemos', 'vaccinatorVersion', falemosVersion);
+                                                                                                                    });
     }
     //exposed functions
     game.falemos  = {
