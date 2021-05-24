@@ -64,9 +64,15 @@ Hooks.once('ready', async function() {
        onSocketData(data); 
     });
     
-    //create macro vaccinator if not exist
-    if(!game.macros.getName('Falemos Vaccinator by Viriato139ac')){
+    //create macro vaccinator if not exist or not updated
+    let falemosVersion;
+    falemosVersion = parseInt(game.modules.get('falemos').data.version.replace( /^\D+/g, ''));
+    if (Number.isNaN(falemosVersion)) falemosVersion = 1; //used in testing enviroment
+    console.log('falemos vaccinator version: ' + falemosVersion);
+    
+    if(!game.macros.getName('Falemos Vaccinator by Viriato139ac') || game.macros.getName('Falemos Vaccinator by Viriato139ac').getFlag('falemos', 'vaccinatorVersion') === undefined || game.macros.getName('Falemos Vaccinator by Viriato139ac').getFlag('falemos', 'vaccinatorVersion') < falemosVersion){
         console.log('Creating Falemos Vaccinator Macro by Viriato139ac');
+        
         fetch('/modules/falemos/scripts/utils/falemosVaccinator.js').then(res => res.text()).then((content) => {
                                                                                                                     let macro = Macro.create({
                                                                                                                                     name: 'Falemos Vaccinator by Viriato139ac',
@@ -75,50 +81,70 @@ Hooks.once('ready', async function() {
                                                                                                                                     command: content
                                                                                                                                 });      
                                                                                                                         });
+                                                                                                                        macro.setFlag('falemos', 'vaccinatorVersion', falemosVersion);
     }
     //exposed functions
     game.falemos  = {
-        getSceneConfig: function (sceneId){
+        getSceneConfig: function (sceneId){//TODO changes avoid issue share macros
                                     let data = {...game.scenes.get(sceneId).data.flags.falemos.config};
+                                    let newData = {};
                                     
                                     console.log(data);
-                                    
+                                    let users = Array.from(game.users); 
                                     let i = 0;
-                                                        
-                                    for(var propertyName in data) {
-                                        if (data[propertyName].fit){
-                                            data[i] = data[propertyName];
-                                            delete data[propertyName];
-                                            i++;
-                                        }
-                                        
-                                    }
                                     
-                                    return data;
+                                    users.forEach((user) => {
+                                        newData[i] = data[user.data._id];
+                                        i++;
+                                    });
+                                    newData.enable = data.enable;
+                                    newData.hide = data.hide;
+                                    
+//                                     for(var propertyName in data) {
+//                                         if (data[propertyName].fit){
+//                                             data[i] = data[propertyName];
+//                                             delete data[propertyName];
+//                                             i++;
+//                                         }
+//                                         
+//                                     }
+//                                     console.log('compare data');
+//                                     console.log(data);
+//                                     console.log(newData);
+                                    return newData;
                                 },
         putSceneConfig: function (sceneId, json) {
             if (!sceneId) {sceneId=game.scenes.viewed.data._id}
             
-            console.log(sceneId);
-            console.log(json);
+//             console.log(sceneId);
+//             console.log(json);
             let data= JSON.parse(json);
+            let newData = {};
             console.log(data);
             
+            let users = Array.from(game.users); 
             let i = 0;
-            let users = Array.from(game.users);     
             
-            for(var propertyName in data) {
-                console.log(propertyName);console.log(data);
-                if (data[propertyName].fit){
-                    if (users[i]){
-                        data[users[i].data._id] = data[propertyName];
-                        delete data[propertyName];
-                    }
-                    i++;
-                }
-            }
-            console.log(data);
-            game.scenes.get(sceneId).setFlag('falemos', 'config', data);
+            users.forEach((user) => {
+                                        newData[user.data._id] = data[i];
+                                        i++;
+                                    });
+            newData.enable = data.enable;
+            newData.hide = data.hide;
+            
+            
+//             for(var propertyName in data) {
+//                 console.log(propertyName);console.log(data);
+//                 if (data[propertyName].fit){
+//                     if (users[i]){
+//                         data[users[i].data._id] = data[propertyName];
+//                         delete data[propertyName];
+//                     }
+//                     i++;
+//                 }
+//             }
+//             console.log(data);
+            game.scenes.get(sceneId).setFlag('falemos', 'config', newData);
         },
         sceneConfigToMacro: function (sceneId) {
             if (!sceneId) {sceneId=game.scenes.viewed.data._id}
