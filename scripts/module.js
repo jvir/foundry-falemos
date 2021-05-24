@@ -38,7 +38,7 @@ Hooks.once('init', async function() {
 
 Hooks.once('ready', async function() {
     //CONFIG.debug.hooks=true
-    versionChangesPopup();
+    //versionChangesPopup();
     //_addChatListeners();
         
     //config Audio to always
@@ -169,16 +169,20 @@ Hooks.once('ready', async function() {
             
         },
         camToTile: function (userId){
+            if (game.falemos.sprite && !game.falemos.sprite._destroyed) {
+                game.falemos.sprite.destroy();
+                return;
+            }
             let video = document.querySelectorAll(`.camera-view[data-user="${userId}"] video`)[0];
 
-            let sprite = new PIXI.Sprite(PIXI.Texture.from(video));
+            game.falemos.sprite = new PIXI.Sprite(PIXI.Texture.from(video));
 
-            canvas.app.stage.addChild(sprite);
+            canvas.app.stage.addChild(game.falemos.sprite);
 
-            sprite.width = canvas.dimensions.width;
-            sprite.height = canvas.dimensions.height;
+            game.falemos.sprite.width = canvas.dimensions.width;
+            game.falemos.sprite.height = canvas.dimensions.height;
 
-            sprite.texture.baseTexture.resource.source.play();
+            game.falemos.sprite.texture.baseTexture.resource.source.play();
         },
     };
     
@@ -661,7 +665,7 @@ function onSocketData(data){
 
 
 
-
+/*
 function versionChangesPopup(){
 
     game.settings.register("falemos", "NoteV0.4.0", {
@@ -720,7 +724,7 @@ function versionChangesPopup(){
     });
     d.render(true);
   }
-}
+}*/
 
 
 /*
