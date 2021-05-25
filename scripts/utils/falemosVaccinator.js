@@ -257,6 +257,70 @@ new Dialog({
     });
     fp2.browse();
     }
+  </script>
+  <script>function simularTabla(nuFilas, nuColumnas,nuJugadores,poGM,poHuecos,naJugadores){
+    nuFilas= Number(nuFilas)
+    nuColumnas= Number(nuColumnas)
+    nuJugadores= Number(nuJugadores)
+    poGM= Number(poGM)
+    // Si hay más jugadores que la disposición
+    nuJugadores = Math.min(nuFilas*nuColumnas,nuJugadores);
+    // Si GM> nuJugadores o GM<1
+    if (poGM<1) poGM=1;
+    if (poGM>nuJugadores) poGM=nuJugadores;
+    let poHuecosa = poHuecos.split(",").map(num => Number(num));
+    let naJugadoresa = naJugadores.split(",");
+    // Si GM es una de las posiciones vacías, se elimina esa posición vacía
+    if (!poHuecosa.every((num) => num !== poGM))
+    poHuecosa = poHuecosa.filter((num) => num !== poGM);
+    //console.log('GM:' + poGM + ' Ju:' + nuJugadores + ' Hu:' + poHuecosa)
+	//console.log('Nombres:' + naJugadoresa)
+    let tabla = '<table align="center" style="margin: 0px auto;"">' + '\\n' + '<tbody>\\n';
+    let k = 1;
+    let h = 1;
+    let l = 1;
+    for (let i=0;i<nuFilas;i++){
+        tabla = tabla + '<tr>\\n';
+        for (let j=0;j<nuColumnas;j++){
+		    //console.log(i+1 + 'x' + j+1 + '=' + k + h + l);
+            if (poHuecosa.some(num => num === k)){
+                tabla = tabla + '<td style="text-align:center;background-color:#EC7063">' + '${game.i18n.localize("FALEMOS.vaccinator.simulateEmpty")}' + '</td>\\n';
+            }else if(k === poGM){
+                if(naJugadoresa[0]=== undefined || naJugadoresa[0]===""){
+                    tabla = tabla + '<td style="text-align:center;background-color:#3498DB">' + '${game.i18n.localize("FALEMOS.vaccinator.simulateEmpty")}' + '</td>\\n';
+                }else{
+                    tabla = tabla + '<td style="text-align:center;background-color:#3498DB">' + naJugadoresa[0] + '</td>\\n';
+                }
+            }else if(l>(nuJugadores-1)){
+                tabla = tabla + '<td style="text-align:center;background-color:#EC7063">' + '${game.i18n.localize("FALEMOS.vaccinator.simulateEmpty")}' + '</td>\\n';
+            }else if(naJugadoresa[h]=== undefined || naJugadoresa[h]===""){
+                tabla = tabla + '<td style="text-align:center;background-color:#F7DC6F">' + '${game.i18n.localize("FALEMOS.vaccinator.simulateUndefined")}' + '</td>\\n';
+                l++;
+            }else{
+                tabla = tabla + '<td style="text-align:center;background-color:#58D68D">' + naJugadoresa[h]+ '</td>\\n';
+                h++;
+                l++;
+            }
+            k++
+        }    
+        tabla = tabla + '</tr>\\n';
+    }
+    tabla = tabla + '</tbody>\\n</table>';
+    //console.log(tabla)
+    new Dialog({
+        title: '${game.i18n.localize("FALEMOS.vaccinator.simulateTable")}',
+        content: tabla ,
+        buttons: {
+          yes: {
+            icon: "<i class='fas fa-chevron-circle-left'></i>",
+            label: '${game.i18n.localize("FALEMOS.vaccinator.return")}',
+          },
+        },
+        default: "yes",
+        close: (html) => {
+        },
+      }).render(true);
+    }
   </script>  
   <form>
   <div class="form-group">
@@ -317,14 +381,14 @@ new Dialog({
     <input type="number" id="posgm" name="posgm" min=1 value=1>
     <label>${game.i18n.localize("FALEMOS.vaccinator.emptyslots")}:</label>
     <input type="text" id="huecos" name="huecos" value="${emptySlots}">
+	<button id="simular" onclick='simularTabla(document.getElementById("nRows").value,
+		document.getElementById("nCols").value,
+		document.getElementById("nuusers").value,
+		document.getElementById("posgm").value,
+		document.getElementById("huecos").value,
+		document.getElementById("nombres").value)' type="button">${game.i18n.localize("FALEMOS.vaccinator.simulate")}</button>
   </div>
-  <p class="notes"><b>${game.i18n.localize(
-    "FALEMOS.vaccinator.gmposition"
-  )}</b>: ${game.i18n.localize(
-    "FALEMOS.vaccinator.gmpositionHint"
-  )}; <b>${game.i18n.localize(
-    "FALEMOS.vaccinator.emptyslots"
-  )}</b>:  ${game.i18n.localize("FALEMOS.vaccinator.emptyslotsHint")}</p>
+  <p class="notes"><b>${game.i18n.localize("FALEMOS.vaccinator.gmposition")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.gmpositionHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.emptyslots")}</b>:  ${game.i18n.localize("FALEMOS.vaccinator.emptyslotsHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.simulate")}</b>:  ${game.i18n.localize("FALEMOS.vaccinator.simulateHint")}</p>
   <div class="form-group">
     <label>${game.i18n.localize("FALEMOS.vaccinator.separation")}:</label>
     <input type="number" id="sepmin" name="sepmin" min=0 value=10>

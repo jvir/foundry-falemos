@@ -79,6 +79,11 @@
     "FALEMOS.vaccinator.gmpositionHint": "Dónde se colocará el GM, numeración de 1 a filas*columnas. En una composición 2x3, la posición (2,2) es la número 5",
 	"FALEMOS.vaccinator.emptyslots": "Huecos",
     "FALEMOS.vaccinator.emptyslotsHint": "Huecos vacíos, en los que no se colocan cámaras (separados por comas), numeración de 1 a filas*columnas",
+	"FALEMOS.vaccinator.simulate": "Simular",
+	"FALEMOS.vaccinator.simulateHint": "Genera una tabla con la simulación de la disposición actual",
+	"FALEMOS.vaccinator.simulateTable": "Disposición simulada",
+	"FALEMOS.vaccinator.simulateEmpty": "Vacío",
+	"FALEMOS.vaccinator.simulateUndefined": "No definido",
 	"FALEMOS.vaccinator.frames": "Marcos",
     "FALEMOS.vaccinator.framesHint": "Imágenes que se superponen a todas las cámaras. Selección multiple; si solo se escoje una, se usará para todos los usuarios, si se escogen varias (separadas por comas), se asignarán a cada uno de los jugadores por orden",
 	"FALEMOS.vaccinator.overlays": "Ajustes",
@@ -86,5 +91,6 @@
 	"FALEMOS.vaccinator.names": "Nombres",
     "FALEMOS.vaccinator.namesHint": "Nombres que se pondrán debajo de las cámaras (separados por comas)",
 	"FALEMOS.vaccinator.apply": "Guardar",
-	"FALEMOS.vaccinator.cancel": "Cancelar"
+	"FALEMOS.vaccinator.cancel": "Cancelar",
+	"FALEMOS.vaccinator.return": "Volver"
 }

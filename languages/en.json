@@ -79,6 +79,11 @@
     "FALEMOS.vaccinator.gmpositionHint": "Where to allocate GM, numbered from 1 to rows*columns. Position (2,2) of a 2x3 composition is 5",
 	"FALEMOS.vaccinator.emptyslots": "Empty",
     "FALEMOS.vaccinator.emptyslotsHint": "Empty slots where no cameras are allocated (comma separators), numbered from 1 to rows*columns",
+	"FALEMOS.vaccinator.simulate": "Simulate",
+	"FALEMOS.vaccinator.simulateHint": "Shows a table with a simulation of the current layout",
+	"FALEMOS.vaccinator.simulateTable": "Simulated layout",
+	"FALEMOS.vaccinator.simulateEmpty": "Empty",
+	"FALEMOS.vaccinator.simulateUndefined": "Undefined",
 	"FALEMOS.vaccinator.frames": "Frames",
     "FALEMOS.vaccinator.framesHint": "Images over the cameras. Multiple selection; if there is only one image, it will be used for all users, in there are multiple images (comma separators) it will be assigned to users in order",
 	"FALEMOS.vaccinator.overlays": "Offsets",
@@ -86,5 +91,6 @@
 	"FALEMOS.vaccinator.names": "Names",
     "FALEMOS.vaccinator.namesHint": "Names below cameras (comma separators)",
 	"FALEMOS.vaccinator.apply": "Save",
-	"FALEMOS.vaccinator.cancel": "Cancel"
+	"FALEMOS.vaccinator.cancel": "Cancel",
+	"FALEMOS.vaccinator.return": "Return"
 }
