@@ -379,6 +379,49 @@
             </feTurbulence>
             <feDisplacementMap in="SourceGraphic" in2="turbulence2" scale="30" xChannelSelector="R" yChannelSelector="R"></feDisplacementMap>
         </filter>
+
+        <filter id="bluefill" x="0%" y="0%" width="100%" height="100%">
+            <feFlood flood-color="blue" result="blueA"/>
+            <feColorMatrix type="matrix" in="SourceGraphic" result="blueB" values="
+                                    1   0  0  0 0  
+                                    0   1  0  0 0   
+                                    0   0  1  0 0   
+                                    1   1  1  0 0
+                            "/>
+            <feMerge>
+                <feMergeNode in="blueA"/>
+                <feMergeNode in="blueB"/>
+            </feMerge>
+        </filter>
         
+        <filter id="redfill" x="0%" y="0%" width="100%" height="100%">
+            <feFlood flood-color="red" result="redA"/>
+            <feColorMatrix type="matrix" in="SourceGraphic" result="redB" values="
+                                    1   0  0  0 0  
+                                    0   1  0  0 0   
+                                    0   0  1  0 0   
+                                    1   1  1  0 0
+                            "/>
+            <feMerge>
+                <feMergeNode in="redA"/>
+                <feMergeNode in="redB"/>
+            </feMerge>
+        </filter>
+
+        <filter id="greenfill" x="0%" y="0%" width="100%" height="100%">
+            <feFlood flood-color="green" result="greenA"/>
+            <feColorMatrix type="matrix" in="SourceGraphic" result="greenB" values="
+                                    1   0  0  0 0  
+                                    0   1  0  0 0   
+                                    0   0  1  0 0   
+                                    1   1  1  0 0
+                            "/>
+            <feMerge>
+                <feMergeNode in="greenA"/>
+                <feMergeNode in="greenB"/>
+            </feMerge>
+        </filter>
+
+
     </defs>
   </svg>

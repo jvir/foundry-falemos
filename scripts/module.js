@@ -16,6 +16,9 @@ Hooks.once('init', async function() {
             Sepia: {name: "FALEMOS.camera.effects.sepia", data: "sepia(1)"},
             Noise: {name: "FALEMOS.camera.effects.noise", data: "url('#noise')"},
             Warp: {name: "FALEMOS.camera.effects.warp", data: "url('#warp')"},
+            Blue: {name: "FALEMOS.camera.effects.blue", data: "url('#bluefill')"},
+            Red: {name: "FALEMOS.camera.effects.red", data: "url('#redfill')"},
+            Green: {name: "FALEMOS.camera.effects.green", data: "url('#greenfill')"},
             //test: {name: "FALEMOS.camera.effects.test", data: "url('#heavycloud')"}
         },
         cameraGeometry: {
@@ -70,22 +73,24 @@ Hooks.once('ready', async function() {
         falemosVersion = parseInt(game.modules.get('falemos').data.version.replace( /^\D+/g, ''));
         if (Number.isNaN(falemosVersion)) falemosVersion = 1; //used in testing enviroment
         console.log('falemos vaccinator version: ' + falemosVersion);
+        let vaccinatorMacro = game.macros.getName('Falemos Vaccinator by Viriato139ac');
         
-        if(!game.macros.getName('Falemos Vaccinator by Viriato139ac') || game.macros.getName('Falemos Vaccinator by Viriato139ac').getFlag('falemos', 'vaccinatorVersion') === undefined || game.macros.getName('Falemos Vaccinator by Viriato139ac').getFlag('falemos', 'vaccinatorVersion') < falemosVersion || game.macros.getName('Falemos Vaccinator by Viriato139ac').getFlag('falemos', 'vaccinatorVersion') == 1){
+        if(!vaccinatorMacro || vaccinatorMacro.getFlag('falemos', 'vaccinatorVersion') === undefined || vaccinatorMacro.getFlag('falemos', 'vaccinatorVersion') < falemosVersion || vaccinatorMacro.getFlag('falemos', 'vaccinatorVersion') == 1){
             console.log('Creating Falemos Vaccinator Macro by Viriato139ac');
-            if (game.macros.getName('Falemos Vaccinator by Viriato139ac')) game.macros.getName('Falemos Vaccinator by Viriato139ac').delete();
+            if (vaccinatorMacro){
+                vaccinatorMacro.delete();
+            }
             fetch('/modules/falemos/scripts/utils/falemosVaccinator.js').then(res => res.text()).then((content) => {
-                                                                                                                        Macro.create({
-                                                                                                                                    name: 'Falemos Vaccinator by Viriato139ac',
-                                                                                                                                    type: 'script',
-                                                                                                                                    img: "modules/falemos/assets/img/falemos.svg",
-                                                                                                                                    command: content
-                                                                                                                                });      
-                                                                                                                        }).then(() => {
-                                                                                                                            game.macros.getName('Falemos Vaccinator by Viriato139ac').setFlag('falemos', 'vaccinatorVersion', falemosVersion);
-                                                                                                                        });
-        }
-    }
+                                                                                                                Macro.create({
+                                                                                                                            name: 'Falemos Vaccinator by Viriato139ac',
+                                                                                                                            type: 'script',
+                                                                                                                            img: "modules/falemos/assets/img/falemos.svg",
+                                                                                                                            command: content,
+                                                                                                                            flags: {'falemos': {'vaccinatorVersion': falemosVersion}}
+                                                                                                                        });      
+                                                                                                                });    
+        };    
+    };
     
     //exposed functions
     game.falemos  = {
