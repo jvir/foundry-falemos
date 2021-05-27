@@ -58,6 +58,12 @@ function twoDimensionArray(a, b) {
   return arr;
 }
 
+// Redondear 2 decimales
+
+function redondear2dec(num) {
+	return (Math.round(num*100))/100
+}
+
 // Esta función calcula las posiciones y anchos de los jugadores óptimas para una composición dada
 
 function falemosCalculator(
@@ -151,39 +157,39 @@ function falemosCalculator(
       let resultadoi = [
         i + 1,
         j + 1,
-        Math.round(
+        redondear2dec(
           coorini[0] +
             espacios[0] * (j + 1) +
             ventanafinallayout[0] * j +
             (ventanafinal[0] * Number(ioverlays[0])) / 100
         ),
-        Math.round(
+        redondear2dec(
           coorini[1] +
             espacios[1] * (i + 1) +
             ventanafinallayout[1] * i +
             (ventanafinal[1] * Number(ioverlays[1])) / 100
         ),
-        Math.round(ventanafinal[0]),
-        Math.round(ventanafinal[1]),
+        redondear2dec(ventanafinal[0]),
+        redondear2dec(ventanafinal[1]),
         espacios[0],
         espacios[1],
-        Math.round(
+        redondear2dec(
           coorini[0] +
             espacios[0] * (j + 1) +
             ventanafinallayout[0] * j +
             (ventanafinal[0] * Number(ioverlays[0])) / 100 -
             (ventanafinal[0] * Number(ioverlays[0])) / 100
         ),
-        Math.round(
+        redondear2dec(
           coorini[1] +
             espacios[1] * (i + 1) +
             ventanafinallayout[1] * i +
             (ventanafinal[1] * Number(ioverlays[1])) / 100 -
             (ventanafinal[1] * Number(ioverlays[1])) / 100
         ),
-        Math.round(ventanafinallayout[0]),
-        Math.round(ventanafinallayout[1]),
-        Math.round(
+        redondear2dec(ventanafinallayout[0]),
+        redondear2dec(ventanafinallayout[1]),
+        redondear2dec(
           ((coorini[0] +
             espacios[0] * (j + 1) +
             ventanafinallayout[0] * j +
@@ -191,7 +197,7 @@ function falemosCalculator(
             Number(idimensiones[0])) *
             100
         ),
-        Math.round(
+        redondear2dec(
           ((coorini[1] +
             espacios[1] * (i + 1) +
             ventanafinallayout[1] * i +
@@ -199,8 +205,8 @@ function falemosCalculator(
             Number(idimensiones[1])) *
             100
         ),
-        Math.round((ventanafinal[0] / Number(idimensiones[0])) * 100),
-        Math.round((ventanafinal[1] / Number(idimensiones[1])) * 100),
+        redondear2dec((ventanafinal[0] / Number(idimensiones[0])) * 100),
+        redondear2dec((ventanafinal[1] / Number(idimensiones[1])) * 100),
       ];
 
       resultadoi.push(ihuecosvacios.every((num) => num !== k + 1));
