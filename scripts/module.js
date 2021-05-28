@@ -19,6 +19,7 @@ Hooks.once('init', async function() {
             Blue: {name: "FALEMOS.camera.effects.blue", data: "url('#bluefill')"},
             Red: {name: "FALEMOS.camera.effects.red", data: "url('#redfill')"},
             Green: {name: "FALEMOS.camera.effects.green", data: "url('#greenfill')"},
+            Edges: {name: "FALEMOS.camera.effects.edges", data: "url('#edges')"},
             //test: {name: "FALEMOS.camera.effects.test", data: "url('#heavycloud')"}
         },
         cameraGeometry: {

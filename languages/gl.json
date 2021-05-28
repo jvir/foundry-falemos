@@ -39,6 +39,7 @@
     "FALEMOS.camera.effects.blue": "Recheo azul",
     "FALEMOS.camera.effects.red": "Recheo vermello",
     "FALEMOS.camera.effects.green": "Recheo verde",
+    "FALEMOS.camera.effects.edges": "Bordes",
     "FALEMOS.camera.geometry.rectangle": "Rectángulo",
     "FALEMOS.camera.geometry.circle": "Círculo",
     "FALEMOS.camera.geometry.triangle": "Triángulo",

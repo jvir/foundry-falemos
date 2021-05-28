@@ -37,6 +37,7 @@
     "FALEMOS.camera.effects.warp": "Waves",
     "FALEMOS.camera.effects.blue": "Blue fill",
     "FALEMOS.camera.effects.red": "Red fill",
+    "FALEMOS.camera.effects.edges": "Edges",
     "FALEMOS.camera.effects.green": "Blue fill",
     "FALEMOS.camera.geometry.rectangle": "Rectangle",
     "FALEMOS.camera.geometry.circle": "Circle",
