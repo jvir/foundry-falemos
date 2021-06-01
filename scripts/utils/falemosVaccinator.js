@@ -7,8 +7,8 @@
 
 let jugadores = [];
 for (let user of game.users.keys()) {
-  // console.log(game.users.get(user)._data.name)
-  jugadores.push(game.users.get(user)._data.name);
+  // console.log(game.users.get(user).data.name)
+  jugadores.push(game.users.get(user).data.name);
 }
 
 const numeroJugadores = jugadores.length;
