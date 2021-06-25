@@ -353,7 +353,7 @@ new Dialog({
       2 * document.getElementById("controls").clientWidth
     }>
     <input type="number" id="mararr" name="mararr" min=0 value=${
-      document.getElementById("scene-list").clientHeight
+      document.getElementById("scene-list") === null ? 50 : document.getElementById("scene-list").clientHeight
     }>
   <input type="number" id="marder" name="marder" min=0 value=${
     document.getElementById("sidebar").offsetWidth
@@ -656,6 +656,6 @@ new Dialog({
 
       game.falemos.putSceneConfig(null, JSON.stringify(sceneData));
     }
-    if (saveMacro) game.falemos.sceneConfigToMacro();
+    if (saveMacro) game.falemos.sceneConfigToMacro(game.scenes.viewed.data._id);
   },
 }).render(true);
