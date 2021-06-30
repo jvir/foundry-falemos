@@ -656,6 +656,6 @@ new Dialog({
 
       game.falemos.putSceneConfig(null, JSON.stringify(sceneData));
     }
-    if (saveMacro) game.falemos.sceneConfigToMacro(game.scenes.viewed.data._id);
+    if (saveMacro) game.falemos.sceneConfigToMacro();
   },
 }).render(true);
