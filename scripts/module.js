@@ -259,6 +259,10 @@ Hooks.once('ready', async function() {
                 console.log('Executing Falemos Vaccinator by Viriato139ac');
                 game.macros.getName('Falemos Vaccinator by Viriato139ac').execute();
             };
+        if (e.ctrlKey && e.altKey && e.which == 68) {// Cicle enable/disable Falemos [D]
+            console.log('Executing enable/disable Falemos shorcut');
+            game.scenes.viewed.setFlag('falemos', 'config.enable', !game.scenes.viewed.data.flags.falemos.config.enable);
+        };
     };
     
     
@@ -407,9 +411,10 @@ Hooks.on('rtcSettingsChanged', async function(cameraviews, html) {//TODO: for is
 
 });
 
+/*
 Hooks.on('canvasInit', async function(){
     game.scenes.viewed.setFlag('falemos','config.hide.mode','scene');//TODO unused
-});
+});*/
 
 Hooks.on('canvasPan', async function(canvas, view){
     

@@ -19,6 +19,7 @@ This module allows you to customise the style and position of the cameras in eac
 - Default transmit voice to "Always active". Can be disabled in the module settings
 - Camera to background. Place a camera in the background, this allows you to use virtual cameras to show other applications or to make freehand drawings.
 - Shorcuts
+    - Cicle enable/disable Falemos in current scene: ctrl+alt+d(isable)
     - Cicle UI visibility (Onlye GM): ctrl+alt+h(ide)
     - Cicle Scene Fit: ctrl+alt+f(it)
     - Execute Falemos Vaccinator by Viriato139ac: ctrl+alt+v(accinator)
