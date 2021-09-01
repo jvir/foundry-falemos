@@ -287,7 +287,8 @@ function falemosCalculator(
 // Aquí se comienza a definir el formulario de entrada de datos
 
 let applyChanges = false;
-let saveMacro = false;
+let saveCustomMacro = false;
+let saveDisableMacro = false;
 
 const myDialogOptions2 = {
   width: 640,
@@ -647,10 +648,6 @@ const myDialogOptions1 = {
 	  saveDisableMacro = false;
 	  },
     },
-    cancel: {
-      icon: "<i class='fas fa-times-circle'></i>",
-      label: `${game.i18n.localize("FALEMOS.vaccinator.cancel")}`,
-    },
     macrocustom: {
       icon: "<i class='fas fa-plus-circle'></i>",
       label: `${game.i18n.localize("FALEMOS.vaccinator.ExportCustomToMacro")}`,
@@ -661,7 +658,7 @@ const myDialogOptions1 = {
       },
     },
     macrodisable: {
-      icon: "<i class='fas fa-plus-circle'></i>",
+      icon: "<i class='fas fa-minus-circle'></i>",
       label: `${game.i18n.localize("FALEMOS.vaccinator.ExportDisableToMacro")}`,
       callback: () => {
         applyChanges = false;
@@ -669,8 +666,17 @@ const myDialogOptions1 = {
 		saveDisableMacro = true;
       },
     },
+    cancel: {
+      icon: "<i class='fas fa-times-circle'></i>",
+      label: `${game.i18n.localize("FALEMOS.vaccinator.cancel")}`,
+      callback: () => {
+	  applyChanges = false;
+	  saveCustomMacro = false;
+	  saveDisableMacro = false;
+	  },
+    },
   },
-  default: "yes",
+  default: "cancel",
   close: (html) => {
     if (applyChanges) {
       let ancho = html.find('[name="ancho"]')[0].value || 1;
