@@ -77,8 +77,6 @@
     "FALEMOS.vaccinator.columnsHint": "Number de columns of the cameras layout",
 	"FALEMOS.vaccinator.separation": "Separation",
     "FALEMOS.vaccinator.separationHint": "Minimum separation in px between too consecutive cameras",
-	"FALEMOS.vaccinator.notepositions": "Important",
-    "FALEMOS.vaccinator.notepositionsHint": "When referencing positions in Vaccinator, note that positions are relative to the ordering of players used by falemos, that is: Falemos first order by role priority and then by user name, if you have doubts about it, just open any scene configuration and scroll down to falemos configuration to see the users ordering, so that position 3 is the third user that appears at falemos config",
 	"FALEMOS.vaccinator.emptyslots": "Empty",
     "FALEMOS.vaccinator.emptyslotsHint": "Empty slots where no cameras are allocated (comma separators), numbered from 1 to rows*columns",
 	"FALEMOS.vaccinator.usernames": "Users",
