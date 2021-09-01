@@ -156,9 +156,9 @@ Hooks.once('ready', async function() {
 //             console.log(data);
             game.scenes.get(sceneId).setFlag('falemos', 'config', newData);
         },
-        sceneConfigToMacro: function (sceneId) {
-            if (!sceneId) {sceneId=game.scenes.viewed.data._id}
-            let data = game.falemos.getSceneConfig(sceneId);
+        sceneConfigToMacro: function (sceneId, data) {
+            if (!sceneId) sceneId = game.scenes.viewed.data._id;
+            if (!data) data = game.falemos.getSceneConfig(sceneId);
             let dataJSON = JSON.stringify(data).replace(/[\']/g, "&apos;");
 
             new Dialog({
