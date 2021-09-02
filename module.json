@@ -5,14 +5,19 @@
   "version": "This is auto replaced",
   "library": "false",
   "manifestPlusVersion": "1.2.0",
-  "minimumCoreVersion": "0.7.9",
-  "compatibleCoreVersion": "0.8.8",
+  "minimumCoreVersion": "0.8.5",
+  "compatibleCoreVersion": "0.8.9",
   "authors": [
     {
       "name": "jvir",
       "url": "https://github.com/jvir",
       "discord": "JuanV",
       "ko-fi": "juanv"
+    },
+    {
+      "name": "Viriato139AC",
+      "url": "https://github.com/lozalojo",
+      "discord": "Viriato139AC"
     }
   ],
   "dependencies": [
