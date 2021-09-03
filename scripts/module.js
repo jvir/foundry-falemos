@@ -50,7 +50,7 @@ Hooks.once('ready', async function() {
         config: true,
         scope: "client",
         name: game.i18n.localize("WEBRTC.VoiceMode") +" '"+ game.i18n.localize("WEBRTC.VoiceModeAlways") +"'",
-        hint: "Check this option to always transmit voice",
+        hint: game.i18n.localize("FALEMOS.VoiceModeAlwaysHint"),
         type: Boolean,
         default: true
     });
