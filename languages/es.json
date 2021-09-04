@@ -49,8 +49,8 @@
     "FALEMOS.HideNavigation": "Ocultar navegación",
     "FALEMOS.HideControls": "Ocultar controles",
     "FALEMOS.HidePlayers": "Ocultar jugadores",
-    "FALEMOS.HideSidebar": "Ocultar barra lateral",
-    "FALEMOS.HideHotbar": "Ocultar barra de atajos",
+    "FALEMOS.HideSidebar": "Ocultar barra",
+    "FALEMOS.HideHotbar": "Ocultar atajos",
     "FALEMOS.CameraNameColorNotes": "Configura el color, posición y tamaño del rotulo",
     "FALEMOS.scene.fit.nofit": "Sin ajuste de escena",
     "FALEMOS.scene.fit.cover": "Cubrir con la imagen",
@@ -62,6 +62,7 @@
     "FALEMOS.DialogTitleSaveSceneConfig": "Guardar escena en macro",
     "FALEMOS.DialogContentMacroName": "Nombre de la macro",
     "FALEMOS.CreateMacro": "Crear macro",
+	"FALEMOS.VoiceModeAlwaysHint": "Active esta opción para transmitir siempre voz",
 	"FALEMOS.vaccinator.title": "Parámetros de autoconfiguración de Falemos",
 	"FALEMOS.vaccinator.width": "Ancho",
     "FALEMOS.vaccinator.widthHint": "Ancho de la pantalla en px",
@@ -104,5 +105,6 @@
 	"FALEMOS.vaccinator.canvas": "Lienzo",
 	"FALEMOS.vaccinator.world": "Mundo",
 	"FALEMOS.vaccinator.layout": "Composición",
-	"FALEMOS.vaccinator.othersettings": "Otros ajustes"
+	"FALEMOS.vaccinator.othersettings": "Otros ajustes",
+	"FALEMOS.vaccinator.hideHint": "Elija qué elementos del lienzo desea ocultar cuando se habilite Falemos"
 }

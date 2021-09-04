@@ -1,5 +1,5 @@
 //
-// falemos vaccinator 0.10
+// falemos vaccinator 0.11
 // by Viriato139ac
 //
 
@@ -282,7 +282,7 @@ let saveCustomMacro = false;
 let saveDisableMacro = false;
 
 const myDialogOptions2 = {
-  width: 640,
+  width: 800,
   height: 800,
   top: 500,
   left: 500
@@ -486,46 +486,61 @@ function simularTabla(
     <table class="tg">
     <tbody>
       <tr>
-        <td class="tg-r5a9" colspan="8"><span style="color:#FFF"><b>${game.i18n.localize("FALEMOS.vaccinator.canvas")}</b></span></td>
+        <td class="tg-r5a9" colspan="10"><span style="color:#FFF"><b>${game.i18n.localize("FALEMOS.vaccinator.canvas")}</b></span></td>
       </tr>
       <tr>
-        <td class="tg-d6y8">${game.i18n.localize("FALEMOS.vaccinator.width")}:</td>
+        <td class="tg-d6y8" colspan="2">${game.i18n.localize("FALEMOS.vaccinator.width")}:</td>
         <td class="tg-d6y8" colspan="3"><input type="number" id="ancho" name="ancho" min=1 value=${window.innerWidth}></td>
-        <td class="tg-d6y8">${game.i18n.localize("FALEMOS.vaccinator.height")}:</td>
+        <td class="tg-d6y8" colspan="2">${game.i18n.localize("FALEMOS.vaccinator.height")}:</td>
         <td class="tg-d6y8" colspan="3"><input type="number" id="alto" name="alto" min=1 value=${window.innerHeight}></td>
       </tr>
       <tr>
-        <td class="tg-d6y8" colspan="4">${game.i18n.localize("FALEMOS.vaccinator.margins")}:</td>
-        <td class="tg-d6y8"><input type="number" id="marizq" name="marizq" min=0 value=${2 * document.getElementById("controls").clientWidth}></td>
-        <td class="tg-d6y8"><input type="number" id="mararr" name="mararr" min=0 value=${document.getElementById("scene-list") === null ? 50 : document.getElementById("scene-list").clientHeight}></td>
-        <td class="tg-d6y8"><input type="number" id="marder" name="marder" min=0 value=${document.getElementById("sidebar").offsetWidth}></td>
-        <td class="tg-d6y8"><input type="number" id="maraba" name="maraba" min=0 value=${document.getElementById("macro-list").clientHeight}></td>
+        <td class="tg-d6y8" colspan="6">${game.i18n.localize("FALEMOS.vaccinator.margins")}:</td>
+        <td class="tg-d6y8" colspan="1"><input type="number" id="marizq" name="marizq" min=0 value=${2 * document.getElementById("controls").clientWidth}></td>
+        <td class="tg-d6y8" colspan="1"><input type="number" id="mararr" name="mararr" min=0 value=${document.getElementById("scene-list") === null ? 50 : document.getElementById("scene-list").clientHeight}></td>
+        <td class="tg-d6y8" colspan="1"><input type="number" id="marder" name="marder" min=0 value=${document.getElementById("sidebar").offsetWidth}></td>
+        <td class="tg-d6y8" colspan="1"><input type="number" id="maraba" name="maraba" min=0 value=${document.getElementById("macro-list").clientHeight}></td>
       </tr>
       <tr>
-        <td class="tg-049l" colspan="8"><b>${game.i18n.localize("FALEMOS.vaccinator.width")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.widthHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.height")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.heightHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.margins")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.marginsHint")}</td>
-      </tr>  
-      <tr>
-        <td class="tg-r5a9" colspan="8"><span style="color:#FFF"><b>${game.i18n.localize("FALEMOS.vaccinator.world")}</b></span></td>
+        <td class="tg-049l" colspan="10"><b>${game.i18n.localize("FALEMOS.vaccinator.width")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.widthHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.height")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.heightHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.margins")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.marginsHint")}</td>
       </tr>
       <tr>
-        <td class="tg-d6y8">${game.i18n.localize("FALEMOS.vaccinator.users")}:</td>
-        <td class="tg-d6y8"><input type="number" id="nuusers" name="nuusers" value=${numeroJugadores} disabled></td>
-        <td class="tg-d6y8">${game.i18n.localize("FALEMOS.vaccinator.rows")}:</td>
-        <td class="tg-d6y8"><input type="number" id="nRows" name="nRows" min=1 value=${slotsOptimo.rows}></td>
-        <td class="tg-d6y8">${game.i18n.localize("FALEMOS.vaccinator.columns")}:</td>
-        <td class="tg-d6y8"><input type="number" id="nCols" name="nCols" min=1 value=${slotsOptimo.columns}></td>
-        <td class="tg-d6y8">${game.i18n.localize("FALEMOS.vaccinator.emptyslots")}:</td>
-        <td class="tg-d6y8"><input type="text" id="huecos" name="huecos" value="${emptySlots}"></td>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.HideNavigation")}:</td>
+        <td class="tg-d6y8" colspan="1"><input type="checkbox" id="cbnavigation" name="cbnavigation" value="ocultar"></td>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.HideControls")}:</td>
+        <td class="tg-d6y8" colspan="1"><input type="checkbox" id="cbcontrols" name="cbcontrols" value="ocultar"></td>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.HidePlayers")}:</td>
+		<td class="tg-d6y8" colspan="1"><input type="checkbox" id="cbplayers" name="cbplayers" value="ocultar"></td>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.HideSidebar")}:</td>
+        <td class="tg-d6y8" colspan="1"><input type="checkbox" id="cbsidebar" name="cbsidebar" value="ocultar"></td>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.HideHotbar")}:</td>
+        <td class="tg-d6y8" colspan="1"><input type="checkbox" id="cbhotbar" name="cbhotbar" value="ocultar"></td>
       </tr>
       <tr>
-        <td class="tg-d6y8">${game.i18n.localize("FALEMOS.vaccinator.usernames")}:</td>
-        <td class="tg-d6y8" colspan="7"><input type="text" id="usuarios" name="usuarios" value="${nombresJugadores}" disabled></td>
+        <td class="tg-049l" colspan="10">${game.i18n.localize("FALEMOS.vaccinator.hideHint")}</td>
       </tr>
       <tr>
-        <td class="tg-d6y8">${game.i18n.localize("FALEMOS.vaccinator.roles")}:</td>
-        <td class="tg-d6y8" colspan="2"><input type="text" id="roles" name="roles" value="${rolesJugadores}" disabled></td>
-        <td class="tg-d6y8">${game.i18n.localize("FALEMOS.vaccinator.playerorder")}:</td>
-        <td class="tg-d6y8" colspan="2"><input type="text" id="orden" name="orden" value="${numeracionJugadores}"></td>
+        <td class="tg-r5a9" colspan="10"><span style="color:#FFF"><b>${game.i18n.localize("FALEMOS.vaccinator.world")}</b></span></td>
+      </tr>
+      <tr>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.vaccinator.users")}:</td>
+        <td class="tg-d6y8" colspan="1"><input type="number" id="nuusers" name="nuusers" value=${numeroJugadores} disabled></td>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.vaccinator.rows")}:</td>
+        <td class="tg-d6y8" colspan="1"><input type="number" id="nRows" name="nRows" min=1 value=${slotsOptimo.rows}></td>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.vaccinator.columns")}:</td>
+        <td class="tg-d6y8" colspan="1"><input type="number" id="nCols" name="nCols" min=1 value=${slotsOptimo.columns}></td>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.vaccinator.emptyslots")}:</td>
+        <td class="tg-d6y8" colspan="3"><input type="text" id="huecos" name="huecos" value="${emptySlots}"></td>
+      </tr>
+      <tr>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.vaccinator.usernames")}:</td>
+        <td class="tg-d6y8" colspan="9"><input type="text" id="usuarios" name="usuarios" value="${nombresJugadores}" disabled></td>
+      </tr>
+      <tr>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.vaccinator.roles")}:</td>
+        <td class="tg-d6y8" colspan="3"><input type="text" id="roles" name="roles" value="${rolesJugadores}" disabled></td>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.vaccinator.playerorder")}:</td>
+        <td class="tg-d6y8" colspan="3"><input type="text" id="orden" name="orden" value="${numeracionJugadores}"></td>
         <td class="tg-d6y8" colspan="2"><button id="simular" onclick="simularTabla(document.getElementById('nRows').value,
         document.getElementById('nCols').value,
         document.getElementById('orden').value,
@@ -535,37 +550,37 @@ function simularTabla(
         document.getElementById('roles').value)" type="button">${game.i18n.localize("FALEMOS.vaccinator.simulate")}</button></td>
       </tr>
       <tr>
-        <td class="tg-049l" colspan="8">
+        <td class="tg-049l" colspan="10">
       <b>${game.i18n.localize("FALEMOS.vaccinator.users")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.usersHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.rows")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.rowsHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.columns")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.columnsHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.emptyslots")}</b>:  ${game.i18n.localize("FALEMOS.vaccinator.emptyslotsHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.usernames")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.usernamesHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.roles")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.rolesHint")} (1: ${game.i18n.localize("USER.RolePlayer")}, 2: ${game.i18n.localize("USER.RoleTrusted")}, 3: ${game.i18n.localize("USER.RoleAssistant")}, 4: ${game.i18n.localize("USER.RoleGamemaster")}); <b>${game.i18n.localize("FALEMOS.vaccinator.playerorder")}</b>:  ${game.i18n.localize("FALEMOS.vaccinator.playerorderHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.simulate")}</b>:  ${game.i18n.localize("FALEMOS.vaccinator.simulateHint")}</td>
       </tr>
       <tr>
-        <td class="tg-r5a9" colspan="8"><b>${game.i18n.localize("FALEMOS.vaccinator.layout")}</b></td>
+        <td class="tg-r5a9" colspan="10"><b>${game.i18n.localize("FALEMOS.vaccinator.layout")}</b></td>
       </tr>
       <tr>
         <td class="tg-d6y8" colspan="2">${game.i18n.localize("FALEMOS.vaccinator.separation")}:</td>
-        <td class="tg-d6y8"><input type="number" id="sepmin" name="sepmin" min=0 value=10></td>
-        <td class="tg-d6y8">${game.i18n.localize("FALEMOS.vaccinator.overlays")}:</td>
-        <td class="tg-d6y8"><input type="number" id="oveizq" name="oveizq" min="0" value="0"></td>
-        <td class="tg-d6y8"><input type="number" id="ovearr" name="ovearr" min="0" value="0"></td>
-        <td class="tg-d6y8"><input type="number" id="oveder" name="oveder" min="0" value="0"></td>
-        <td class="tg-d6y8"><input type="number" id="oveaba" name="oveaba" min="0" value="0"></td>
+        <td class="tg-d6y8" colspan="2"><input type="number" id="sepmin" name="sepmin" min=0 value=10></td>
+        <td class="tg-d6y8" colspan="2">${game.i18n.localize("FALEMOS.vaccinator.overlays")}:</td>
+        <td class="tg-d6y8" colspan="1"><input type="number" id="oveizq" name="oveizq" min="0" value="0"></td>
+        <td class="tg-d6y8" colspan="1"><input type="number" id="ovearr" name="ovearr" min="0" value="0"></td>
+        <td class="tg-d6y8" colspan="1"><input type="number" id="oveder" name="oveder" min="0" value="0"></td>
+        <td class="tg-d6y8" colspan="1"><input type="number" id="oveaba" name="oveaba" min="0" value="0"></td>
       </tr>
       <tr>
-        <td class="tg-d6y8">${game.i18n.localize("FALEMOS.vaccinator.names")}:</td>
-        <td class="tg-d6y8" colspan="7"><input type="text" id="nombres" name="nombres" value="${nombresJugadores}"></td>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.vaccinator.names")}:</td>
+        <td class="tg-d6y8" colspan="9"><input type="text" id="nombres" name="nombres" value="${nombresJugadores}"></td>
       </tr>  <tr>
-        <td class="tg-d6y8">${game.i18n.localize("FALEMOS.vaccinator.frames")}:</td>
-        <td class="tg-d6y8" colspan="6"><input type="text" id="marcos" name="marcos" value=""></td>
-        <td class="tg-d6y8"><button id="marcosSeleccionar" onclick="selectImageMult()" type="button">${game.i18n.localize("File Path")}</button></td>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.vaccinator.frames")}:</td>
+        <td class="tg-d6y8" colspan="8"><input type="text" id="marcos" name="marcos" value=""></td>
+        <td class="tg-d6y8" colspan="1"><button id="marcosSeleccionar" onclick="selectImageMult()" type="button">${game.i18n.localize("File Path")}</button></td>
       </tr>
       <tr>
-        <td class="tg-049l" colspan="8"><b>${game.i18n.localize("FALEMOS.vaccinator.separation")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.separationHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.overlays")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.overlaysHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.names")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.namesHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.frames")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.framesHint")}</td>
+        <td class="tg-049l" colspan="10"><b>${game.i18n.localize("FALEMOS.vaccinator.separation")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.separationHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.overlays")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.overlaysHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.names")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.namesHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.frames")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.framesHint")}</td>
       </tr>  
       <tr>
-        <td class="tg-r5a9" colspan="8"><b>${game.i18n.localize("FALEMOS.vaccinator.othersettings")}</b></td>
+        <td class="tg-r5a9" colspan="10"><b>${game.i18n.localize("FALEMOS.vaccinator.othersettings")}</b></td>
       </tr>
       <tr>
-        <td class="tg-d6y8">${game.i18n.localize("FALEMOS.CameraGeometryText")}:</td>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.CameraGeometryText")}:</td>
         <td class="tg-d6y8" colspan="2"><select id="geometria" name="geometria">
         <option value="rectangle">${game.i18n.localize(
           "FALEMOS.camera.geometry.rectangle"
@@ -589,7 +604,7 @@ function simularTabla(
           "FALEMOS.camera.geometry.shield"
         )}</option>
       </select></td>
-        <td class="tg-d6y8">${game.i18n.localize("FALEMOS.CameraEffectText")}:</td>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.CameraEffectText")}:</td>
         <td class="tg-d6y8" colspan="2"><select id="efecto" name="efecto">
           <option value="NONE">${game.i18n.localize(
             "FALEMOS.camera.effects.none"
@@ -607,7 +622,7 @@ function simularTabla(
             "FALEMOS.camera.effects.warp"
           )}</option>
         </select></td>
-        <td class="tg-d6y8">${game.i18n.localize("FALEMOS.SceneFitText")}:</td>
+        <td class="tg-d6y8" colspan="2">${game.i18n.localize("FALEMOS.SceneFitText")}:</td>
         <td class="tg-d6y8" colspan="2"><select id="ajuste" name="ajuste">
           <option value="nofit">${game.i18n.localize(
             "FALEMOS.scene.fit.nofit"
@@ -621,11 +636,11 @@ function simularTabla(
         </select></td>
       </tr>
       <tr>
-        <td class="tg-d6y8">${game.i18n.localize("FALEMOS.CameraNameFontText")}:</td>
-        <td class="tg-d6y8" colspan="7"><input type="text" id="fuente" name="fuente" value="url('//db.onlinewebfonts.com/t/fe2027c27b6a24505f548c6fd2e1076d.woff') format('woff')"></td>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.CameraNameFontText")}:</td>
+        <td class="tg-d6y8" colspan="9"><input type="text" id="fuente" name="fuente" value="url('//db.onlinewebfonts.com/t/fe2027c27b6a24505f548c6fd2e1076d.woff') format('woff')"></td>
       </tr>
       <tr>
-        <td class="tg-049l" colspan="8"><b>${game.i18n.localize("FALEMOS.CameraGeometryText")}</b>: ${game.i18n.localize("FALEMOS.CameraGeometryNotes")}; <b>${game.i18n.localize("FALEMOS.CameraEffectText")}</b>: ${game.i18n.localize("FALEMOS.CameraEffectNotes")}; <b>${game.i18n.localize("FALEMOS.SceneFitText")}</b>: ${game.i18n.localize("FALEMOS.SceneFitNotes")};   <b>${game.i18n.localize("FALEMOS.CameraNameFontText")}</b>: ${game.i18n.localize("FALEMOS.CameraNameFontNotes")}</td>
+        <td class="tg-049l" colspan="10"><b>${game.i18n.localize("FALEMOS.CameraGeometryText")}</b>: ${game.i18n.localize("FALEMOS.CameraGeometryNotes")}; <b>${game.i18n.localize("FALEMOS.CameraEffectText")}</b>: ${game.i18n.localize("FALEMOS.CameraEffectNotes")}; <b>${game.i18n.localize("FALEMOS.SceneFitText")}</b>: ${game.i18n.localize("FALEMOS.SceneFitNotes")};   <b>${game.i18n.localize("FALEMOS.CameraNameFontText")}</b>: ${game.i18n.localize("FALEMOS.CameraNameFontNotes")}</td>
       </tr>    
     </tbody>
     </table>
@@ -694,7 +709,7 @@ default:
       let efecto = html.find('[name="efecto"]')[0].value;
       let fuente = html.find('[name="fuente"]')[0].value;
       let ajuste = html.find('[name="ajuste"]')[0].value;
-
+	  
       const idimensiones = [ancho, alto];
       const imargenes = [marizq, mararr, marder, maraba];
       const ioverlays = [oveizq, ovearr, oveder, oveaba];
@@ -728,6 +743,12 @@ default:
       console.log("Orden jugadores: " + iorden);
       console.log("Número de jugadores: " + numeroJugadores);
       console.log("Nombres de jugadores: " + nombresJugadores);
+	  
+	  console.log("Ocultar navegación: " + html.find('[name="cbnavigation"]')[0].checked);
+	  console.log("Ocultar controles: " + html.find('[name="cbcontrols"]')[0].checked);
+	  console.log("Ocultar jugadores: " + html.find('[name="cbplayers"]')[0].checked);
+	  console.log("Ocultar barra: " + html.find('[name="cbsidebar"]')[0].checked);
+	  console.log("Ocultar atajos: " + html.find('[name="cbhotbar"]')[0].checked);
 
       console.log("---------------------------------");
 
@@ -802,15 +823,15 @@ default:
           fit: ajuste,
         };
       }
+	  
       let sceneData2 = {
         enable: true,
         hide: {
-          navigation: false,
-          controls: false,
-          players: false,
-          sidebar: false,
-          hotbar: false,
-          mode: "scene",
+          navigation: html.find('[name="cbnavigation"]')[0].checked,
+          controls: html.find('[name="cbcontrols"]')[0].checked,
+          players: html.find('[name="cbplayers"]')[0].checked,
+          sidebar: html.find('[name="cbsidebar"]')[0].checked,
+          hotbar: html.find('[name="cbhotbar"]')[0].checked,
         },
       };
 
@@ -830,8 +851,16 @@ default:
     }
     if (saveDisableMacro) {
       let sceneDataDisable = {
-        enable: false
+        enable: false,
+        hide: {
+          navigation: false,
+          controls: false,
+          players: false,
+          sidebar: false,
+          hotbar: false,
+        },
       };
+	  
       console.log("Datos de la escena:");
       console.log(sceneDataDisable);
       console.log("---------------------------------");
