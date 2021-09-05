@@ -1,5 +1,5 @@
 //
-// falemos vaccinator 0.11
+// falemos vaccinator 0.12
 // by Viriato139ac
 //
 
@@ -568,13 +568,22 @@ function simularTabla(
       <tr>
         <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.vaccinator.names")}:</td>
         <td class="tg-d6y8" colspan="9"><input type="text" id="nombres" name="nombres" value="${nombresJugadores}"></td>
-      </tr>  <tr>
+      </tr>
+      <tr>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.CameraNameFontText")}:</td>
+        <td class="tg-d6y8" colspan="5"><input type="text" id="fuente" name="fuente" value="url('//db.onlinewebfonts.com/t/fe2027c27b6a24505f548c6fd2e1076d.woff') format('woff')"></td>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.CameraNameFontSize")}:</td>
+        <td class="tg-d6y8" colspan="1"><input type="number" id="fontsize" name="fontsize" min="0" value="2"></td>
+        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.CameraNameColor")}:</td>
+        <td class="tg-d6y8" colspan="1"><input type="color" id="namecolor" name="namecolor"></td>
+      </tr>
+			<tr>
         <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.vaccinator.frames")}:</td>
         <td class="tg-d6y8" colspan="8"><input type="text" id="marcos" name="marcos" value=""></td>
         <td class="tg-d6y8" colspan="1"><button id="marcosSeleccionar" onclick="selectImageMult()" type="button">${game.i18n.localize("File Path")}</button></td>
       </tr>
       <tr>
-        <td class="tg-049l" colspan="10"><b>${game.i18n.localize("FALEMOS.vaccinator.separation")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.separationHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.overlays")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.overlaysHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.names")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.namesHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.frames")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.framesHint")}</td>
+        <td class="tg-049l" colspan="10"><b>${game.i18n.localize("FALEMOS.vaccinator.separation")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.separationHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.overlays")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.overlaysHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.names")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.namesHint")}; <b>${game.i18n.localize("FALEMOS.CameraNameFontText")}</b>: ${game.i18n.localize("FALEMOS.CameraNameFontNotes")}; <b>${game.i18n.localize("FALEMOS.CameraNameFontSize")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.CameraNameFontSizeHint")}; <b>${game.i18n.localize("FALEMOS.CameraNameColor")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.CameraNameColorHint")}; <b>${game.i18n.localize("FALEMOS.vaccinator.frames")}</b>: ${game.i18n.localize("FALEMOS.vaccinator.framesHint")}</td>
       </tr>  
       <tr>
         <td class="tg-r5a9" colspan="10"><b>${game.i18n.localize("FALEMOS.vaccinator.othersettings")}</b></td>
@@ -636,11 +645,7 @@ function simularTabla(
         </select></td>
       </tr>
       <tr>
-        <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.CameraNameFontText")}:</td>
-        <td class="tg-d6y8" colspan="9"><input type="text" id="fuente" name="fuente" value="url('//db.onlinewebfonts.com/t/fe2027c27b6a24505f548c6fd2e1076d.woff') format('woff')"></td>
-      </tr>
-      <tr>
-        <td class="tg-049l" colspan="10"><b>${game.i18n.localize("FALEMOS.CameraGeometryText")}</b>: ${game.i18n.localize("FALEMOS.CameraGeometryNotes")}; <b>${game.i18n.localize("FALEMOS.CameraEffectText")}</b>: ${game.i18n.localize("FALEMOS.CameraEffectNotes")}; <b>${game.i18n.localize("FALEMOS.SceneFitText")}</b>: ${game.i18n.localize("FALEMOS.SceneFitNotes")};   <b>${game.i18n.localize("FALEMOS.CameraNameFontText")}</b>: ${game.i18n.localize("FALEMOS.CameraNameFontNotes")}</td>
+        <td class="tg-049l" colspan="10"><b>${game.i18n.localize("FALEMOS.CameraGeometryText")}</b>: ${game.i18n.localize("FALEMOS.CameraGeometryNotes")}; <b>${game.i18n.localize("FALEMOS.CameraEffectText")}</b>: ${game.i18n.localize("FALEMOS.CameraEffectNotes")}; <b>${game.i18n.localize("FALEMOS.SceneFitText")}</b>: ${game.i18n.localize("FALEMOS.SceneFitNotes")}</td>
       </tr>    
     </tbody>
     </table>
@@ -709,6 +714,8 @@ default:
       let efecto = html.find('[name="efecto"]')[0].value;
       let fuente = html.find('[name="fuente"]')[0].value;
       let ajuste = html.find('[name="ajuste"]')[0].value;
+      let fontsize = html.find('[name="fontsize"]')[0].value;
+      let namecolor = html.find('[name="namecolor"]')[0].value;
 	  
       const idimensiones = [ancho, alto];
       const imargenes = [marizq, mararr, marder, maraba];
@@ -744,11 +751,11 @@ default:
       console.log("Número de jugadores: " + numeroJugadores);
       console.log("Nombres de jugadores: " + nombresJugadores);
 	  
-	  console.log("Ocultar navegación: " + html.find('[name="cbnavigation"]')[0].checked);
-	  console.log("Ocultar controles: " + html.find('[name="cbcontrols"]')[0].checked);
-	  console.log("Ocultar jugadores: " + html.find('[name="cbplayers"]')[0].checked);
-	  console.log("Ocultar barra: " + html.find('[name="cbsidebar"]')[0].checked);
-	  console.log("Ocultar atajos: " + html.find('[name="cbhotbar"]')[0].checked);
+	    console.log("Ocultar navegación: " + html.find('[name="cbnavigation"]')[0].checked);
+	    console.log("Ocultar controles: " + html.find('[name="cbcontrols"]')[0].checked);
+	    console.log("Ocultar jugadores: " + html.find('[name="cbplayers"]')[0].checked);
+	    console.log("Ocultar barra: " + html.find('[name="cbsidebar"]')[0].checked);
+	    console.log("Ocultar atajos: " + html.find('[name="cbhotbar"]')[0].checked);
 
       console.log("---------------------------------");
 
@@ -784,6 +791,11 @@ default:
           ((resultadofinal[0][14] / Math.max(...ljug)) * porcNombre * 2) /
         100);
 
+      let newfontsize;
+      fontsize === "0" || fontsize === ""
+       ? (newfontsize = sNombre)
+       : (newfontsize = fontsize);
+
       for (let i = 0; i < resultadofinal.length; i++) {
         cName = resultadofinal[i][18];
 
@@ -817,8 +829,8 @@ default:
           cameraName: cName,
           cameraNameOffsetX: xNombre,
           cameraNameOffsetY: yNombre,
-          cameraNameFontSize: sNombre,
-          cameraNameColor: "#000000",
+          cameraNameFontSize: newfontsize,
+          cameraNameColor: namecolor,
           cameraNameFont: fuente,
           fit: ajuste,
         };
