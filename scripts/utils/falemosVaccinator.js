@@ -66,8 +66,8 @@ function twoDimensionArray(a, b) {
 
 // Redondear 2 decimales
 
-function redondear2dec(num) {
-  return (Math.round(num * 100)) / 100
+function redondeardec(num) {
+  return (Math.round(num * 10000)) / 10000
 }
 
 // Esta función calcula las posiciones y anchos de los jugadores óptimas para una composición dada
@@ -152,50 +152,50 @@ function falemosCalculator(
       let resultadoi = [
         i + 1,
         j + 1,
-        redondear2dec(
+        redondeardec(
           coorini[0] +
           espacios[0] * (j + 1) +
           ventanafinallayout[0] * j +
           (ventanafinal[0] * Number(ioverlays[0])) / 100),
-        redondear2dec(
+        redondeardec(
           coorini[1] +
           espacios[1] * (i + 1) +
           ventanafinallayout[1] * i +
           (ventanafinal[1] * Number(ioverlays[1])) / 100),
-        redondear2dec(ventanafinal[0]),
-        redondear2dec(ventanafinal[1]),
+        redondeardec(ventanafinal[0]),
+        redondeardec(ventanafinal[1]),
         espacios[0],
         espacios[1],
-        redondear2dec(
+        redondeardec(
           coorini[0] +
           espacios[0] * (j + 1) +
           ventanafinallayout[0] * j +
           (ventanafinal[0] * Number(ioverlays[0])) / 100 -
           (ventanafinal[0] * Number(ioverlays[0])) / 100),
-        redondear2dec(
+        redondeardec(
           coorini[1] +
           espacios[1] * (i + 1) +
           ventanafinallayout[1] * i +
           (ventanafinal[1] * Number(ioverlays[1])) / 100 -
           (ventanafinal[1] * Number(ioverlays[1])) / 100),
-        redondear2dec(ventanafinallayout[0]),
-        redondear2dec(ventanafinallayout[1]),
-        redondear2dec(
+        redondeardec(ventanafinallayout[0]),
+        redondeardec(ventanafinallayout[1]),
+        redondeardec(
           ((coorini[0] +
               espacios[0] * (j + 1) +
               ventanafinallayout[0] * j +
               (ventanafinal[0] * Number(ioverlays[0])) / 100) /
             Number(idimensiones[0])) *
           100),
-        redondear2dec(
+        redondeardec(
           ((coorini[1] +
               espacios[1] * (i + 1) +
               ventanafinallayout[1] * i +
               (ventanafinal[1] * Number(ioverlays[1])) / 100) /
             Number(idimensiones[1])) *
           100),
-        redondear2dec((ventanafinal[0] / Number(idimensiones[0])) * 100),
-        redondear2dec((ventanafinal[1] / Number(idimensiones[1])) * 100),
+        redondeardec((ventanafinal[0] / Number(idimensiones[0])) * 100),
+        redondeardec((ventanafinal[1] / Number(idimensiones[1])) * 100),
       ];
 
       resultado[k] = resultadoi;
@@ -571,7 +571,7 @@ function simularTabla(
       </tr>
       <tr>
         <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.CameraNameFontText")}:</td>
-        <td class="tg-d6y8" colspan="5"><input type="text" id="fuente" name="fuente" value="url('//db.onlinewebfonts.com/t/fe2027c27b6a24505f548c6fd2e1076d.woff') format('woff')"></td>
+        <td class="tg-d6y8" colspan="5"><input type="text" id="fuente" name="fuente" value="url('//db.onlinewebfonts.com/t/fe2027c27b6a24505f548c6fd2e1076d.woff2') format('woff2')"></td>
         <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.CameraNameFontSize")}:</td>
         <td class="tg-d6y8" colspan="1"><input type="number" id="fontsize" name="fontsize" min="0" value="2"></td>
         <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.CameraNameColor")}:</td>
