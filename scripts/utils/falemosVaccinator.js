@@ -591,57 +591,31 @@ function simularTabla(
       <tr>
         <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.CameraGeometryText")}:</td>
         <td class="tg-d6y8" colspan="2"><select id="geometria" name="geometria">
-        <option value="rectangle">${game.i18n.localize(
-          "FALEMOS.camera.geometry.rectangle"
-        )}</option>
-        <option value="circle">${game.i18n.localize(
-          "FALEMOS.camera.geometry.circle"
-        )}</option>
-        <option value="triangle">${game.i18n.localize(
-          "FALEMOS.camera.geometry.triangle"
-        )}</option>
-        <option value="rhombus">${game.i18n.localize(
-          "FALEMOS.camera.geometry.rhombus"
-        )}</option>
-        <option value="hexagon">${game.i18n.localize(
-          "FALEMOS.camera.geometry.hexagon"
-        )}</option>
-        <option value="star">${game.i18n.localize(
-          "FALEMOS.camera.geometry.star"
-        )}</option>
-        <option value="shield">${game.i18n.localize(
-          "FALEMOS.camera.geometry.shield"
-        )}</option>
+        <option value="rectangle">${game.i18n.localize("FALEMOS.camera.geometry.rectangle")}</option>
+        <option value="circle">${game.i18n.localize("FALEMOS.camera.geometry.circle")}</option>
+        <option value="triangle">${game.i18n.localize("FALEMOS.camera.geometry.triangle")}</option>
+        <option value="rhombus">${game.i18n.localize("FALEMOS.camera.geometry.rhombus")}</option>
+        <option value="hexagon">${game.i18n.localize("FALEMOS.camera.geometry.hexagon")}</option>
+        <option value="star">${game.i18n.localize("FALEMOS.camera.geometry.star")}</option>
+        <option value="shield">${game.i18n.localize("FALEMOS.camera.geometry.shield")}</option>
       </select></td>
         <td class="tg-d6y8" colspan="1">${game.i18n.localize("FALEMOS.CameraEffectText")}:</td>
         <td class="tg-d6y8" colspan="2"><select id="efecto" name="efecto">
-          <option value="NONE">${game.i18n.localize(
-            "FALEMOS.camera.effects.none"
-          )}</option>
-          <option value="BW">${game.i18n.localize(
-            "FALEMOS.camera.effects.bw"
-          )}</option>
-          <option value="Sepia">${game.i18n.localize(
-            "FALEMOS.camera.effects.sepia"
-          )}</option>
-          <option value="Noise">${game.i18n.localize(
-            "FALEMOS.camera.effects.noise"
-          )}</option>
-          <option value="Warp">${game.i18n.localize(
-            "FALEMOS.camera.effects.warp"
-          )}</option>
+          <option value="NONE">${game.i18n.localize("FALEMOS.camera.effects.none")}</option>
+          <option value="BW">${game.i18n.localize("FALEMOS.camera.effects.bw")}</option>
+          <option value="Sepia">${game.i18n.localize("FALEMOS.camera.effects.sepia")}</option>
+          <option value="Noise">${game.i18n.localize("FALEMOS.camera.effects.noise")}</option>
+          <option value="Warp">${game.i18n.localize("FALEMOS.camera.effects.warp")}</option>
+          <option value="Blue">${game.i18n.localize("FALEMOS.camera.effects.blue")}</option>
+          <option value="Red">${game.i18n.localize("FALEMOS.camera.effects.red")}</option>
+          <option value="Edges">${game.i18n.localize("FALEMOS.camera.effects.edges")}</option>
+          <option value="Green">${game.i18n.localize("FALEMOS.camera.effects.green")}</option>
         </select></td>
         <td class="tg-d6y8" colspan="2">${game.i18n.localize("FALEMOS.SceneFitText")}:</td>
         <td class="tg-d6y8" colspan="2"><select id="ajuste" name="ajuste">
-          <option value="nofit">${game.i18n.localize(
-            "FALEMOS.scene.fit.nofit"
-          )}</option>
-          <option value="cover">${game.i18n.localize(
-            "FALEMOS.scene.fit.cover"
-          )}</option>
-          <option value="contain">${game.i18n.localize(
-            "FALEMOS.scene.fit.contain"
-          )}</option>
+          <option value="nofit">${game.i18n.localize("FALEMOS.scene.fit.nofit")}</option>
+          <option value="cover">${game.i18n.localize("FALEMOS.scene.fit.cover")}</option>
+          <option value="contain">${game.i18n.localize("FALEMOS.scene.fit.contain")}</option>
         </select></td>
       </tr>
       <tr>
