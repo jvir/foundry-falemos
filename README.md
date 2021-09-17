@@ -47,8 +47,14 @@ Falemos is scene-dependent. In the configuration of each scene we have the confi
 
 ![User config](https://github.com/jvir/foundry-falemos/blob/main/doc/img/userconfig.png?raw=true)
 
-## Example: Setting up the black castle
 
+## Assets
+
+This module provides frame images in the folder "assets/img/frames" these files are provided by the community and the respective licenses of use and author are contained in a text file with the same name of the image.
+Thanks to the original authors and contributors for their work.
+
+
+## Example: Setting up the black castle
 
 https://user-images.githubusercontent.com/5990316/117968116-207b1b00-b326-11eb-8c54-c96a2bdf9ac5.mp4
 
