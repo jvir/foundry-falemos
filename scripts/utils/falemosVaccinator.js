@@ -496,7 +496,7 @@ function simularTabla(
       </tr>
       <tr>
         <td class="tg-d6y8" colspan="6">${game.i18n.localize("FALEMOS.vaccinator.margins")}:</td>
-        <td class="tg-d6y8" colspan="1"><input type="number" id="marizq" name="marizq" min=0 value=${2 * document.getElementById("controls").clientWidth}></td>
+        <td class="tg-d6y8" colspan="1"><input type="number" id="marizq" name="marizq" min=0 value=${document.getElementById("controls").clientWidth}></td>
         <td class="tg-d6y8" colspan="1"><input type="number" id="mararr" name="mararr" min=0 value=${document.getElementById("scene-list") === null ? 50 : document.getElementById("scene-list").clientHeight}></td>
         <td class="tg-d6y8" colspan="1"><input type="number" id="marder" name="marder" min=0 value=${document.getElementById("sidebar").offsetWidth}></td>
         <td class="tg-d6y8" colspan="1"><input type="number" id="maraba" name="maraba" min=0 value=${document.getElementById("macro-list").clientHeight}></td>
