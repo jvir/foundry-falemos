@@ -316,12 +316,12 @@ Hooks.on('updateFalemosIsolated'. async function(data) {
 
 
 Hooks.on('renderSceneConfig', async function(sceneConfig, html, data) {
-    console.log('sceneConfig');
-    console.log(sceneConfig);
-    console.log('html');
-    console.log(html);
-    console.log('data');
-    console.log(data);
+    // console.log('sceneConfig');
+    // console.log(sceneConfig);
+    // console.log('html');
+    // console.log(html);
+    // console.log('data');
+    // console.log(data);
         let falemosconfig = game.scenes.get(data.data._id).getFlag('falemos', 'config') ? game.scenes.get(data.data._id).getFlag('falemos', 'config') : null;
         let users = Array.from(game.users);
                 
@@ -542,11 +542,11 @@ function camerasStyling(html){
             //let box = popout.querySelector(".camera-view");
             //let currentCamPop = new CameraPopoutAppWrapper(this, box.dataset.user, $(popout));
             //currentCamPop.setPosition({ left: game.scenes.viewed.data.flags.falemos.config[user.id].x , top: game.scenes.viewed.data.flags.falemos.config[user.id].y, width: game.scenes.viewed.data.flags.falemos.config[user.id].width });
-            if(game.scenes.viewed.data.flags.falemos.config[user.id].cameraName) {
-                
-                let el = jQuery(`#camera-views-user-${user.id} .falemos-name-overlay`);
+            // console.log(user)
+            if(game.scenes.viewed.data.flags.falemos.config[user.data._id].cameraName) {
+                let el = jQuery(`#camera-views-user-${user.data._id} .falemos-name-overlay`);
                 if (el[0]) 
-                    el[0].innerHTML = game.scenes.viewed.data.flags.falemos.config[user.id].cameraName;
+                    el[0].innerHTML = game.scenes.viewed.data.flags.falemos.config[user.data._id].cameraName;
                 
             }
 
@@ -586,13 +586,13 @@ function createSceneStyles(imageFormat=null){
             if(!overlayTop) {overlayTop=0;}
             
             //base style
-            css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] { background: transparent; padding: 0; box-shadow: none; }\r\n `;//disable shadows an background
-            css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .control-bar.left, #camera-views-user-${user.id}[data-scene="${scene.data._id}"] .window-resizable-handle { display: none; } `;
-            css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .camera-view { background-image: none; background: rgba(250,250,250,0); border: 0px; /*indicador de hablando*/ box-shadow: none;  padding: 0px !important; /*Tamaño borde*/ }\r\n `;
-            css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .player-name { display: none; }\r\n `;//hidde player name
+            css += `#camera-views-user-${user.data._id}[data-scene="${scene.data._id}"] { background: transparent; padding: 0; box-shadow: none; }\r\n `;//disable shadows an background
+            css += `#camera-views-user-${user.data._id}[data-scene="${scene.data._id}"] .control-bar.left, #camera-views-user-${user.id}[data-scene="${scene.data._id}"] .window-resizable-handle { display: none; } `;
+            css += `#camera-views-user-${user.data._id}[data-scene="${scene.data._id}"] .camera-view { background-image: none; background: rgba(250,250,250,0); border: 0px; /*indicador de hablando*/ box-shadow: none;  padding: 0px !important; /*Tamaño borde*/ }\r\n `;
+            css += `#camera-views-user-${user.data._id}[data-scene="${scene.data._id}"] .player-name { display: none; }\r\n `;//hidde player name
             //custom style
-            css += `.camera-view[data-user="${user.id}"][data-scene="${scene.data._id}"] video { object-fit: cover; filter: ${CONFIG.FALEMOS.cameraEffects[filterKey].data}; }\r\n `; //video filter
-            css += `.camera-view[data-user="${user.id}"][data-scene="${scene.data._id}"] video { ${CONFIG.FALEMOS.cameraGeometry[geometryKey].data} }\r\n `; //video geometry
+            css += `.camera-view[data-user="${user.data._id}"][data-scene="${scene.data._id}"] video { object-fit: cover; filter: ${CONFIG.FALEMOS.cameraEffects[filterKey].data}; }\r\n `; //video filter
+            css += `.camera-view[data-user="${user.data._id}"][data-scene="${scene.data._id}"] video { ${CONFIG.FALEMOS.cameraGeometry[geometryKey].data} }\r\n `; //video geometry
             
             
             //new relative units (vw) TODO: tener en cuenta para modo cover cual es el lado del cual no se ve aprte de la imagen (ahora solo funciona si el width se ve entero
