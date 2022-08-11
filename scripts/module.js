@@ -186,7 +186,7 @@ Hooks.once('ready', async function() {
 
             game.falemos.sprite = new PIXI.Sprite(PIXI.Texture.from(video));
 
-            canvas.app.stage.addChild(game.falemos.sprite);
+            canvas.primary.addChild(game.falemos.sprite);
 
             game.falemos.sprite.width = canvas.dimensions.width;
             game.falemos.sprite.height = canvas.dimensions.height;
