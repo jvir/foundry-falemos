@@ -5,8 +5,11 @@
   "version": "This is auto replaced",
   "library": "false",
   "manifestPlusVersion": "1.2.0",
-  "minimumCoreVersion": "9",
-  "compatibleCoreVersion": "9",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "10.290",
+    "maximum": "10"
+    },
   "authors": [
     {
       "name": "jvir",
