@@ -71,7 +71,7 @@ Hooks.once('ready', async function() {
     //create macro vaccinator if not exist or not updated
     if (game.user.isGM){
         let falemosVersion;
-        falemosVersion = parseInt(game.modules.get('falemos').data.version.replace( /^\D+/g, ''));
+        falemosVersion = parseInt(game.modules.get('falemos').version.replace( /^\D+/g, ''));
         if (Number.isNaN(falemosVersion)) falemosVersion = 1; //used in testing enviroment
         console.log('falemos vaccinator version: ' + falemosVersion);
         let vaccinatorMacro = game.macros.getName('Falemos Vaccinator by Viriato139ac');
@@ -124,7 +124,7 @@ Hooks.once('ready', async function() {
                                     return newData;
                                 },
         putSceneConfig: function (sceneId, json) {
-            if (!sceneId) {sceneId=game.scenes.viewed.data._id}
+            if (!sceneId) {sceneId=game.scenes.viewed._id}
             
 //             console.log(sceneId);
 //             console.log(json);
@@ -157,7 +157,7 @@ Hooks.once('ready', async function() {
             game.scenes.get(sceneId).setFlag('falemos', 'config', newData);
         },
         sceneConfigToMacro: function (sceneId, data) {
-            if (!sceneId) sceneId = game.scenes.viewed.data._id;
+            if (!sceneId) sceneId = game.scenes.viewed._id;
             if (!data) data = game.falemos.getSceneConfig(sceneId);
             let dataJSON = JSON.stringify(data).replace(/[\']/g, "&apos;");
 
@@ -205,7 +205,7 @@ Hooks.once('ready', async function() {
     document.onkeydown = function(e) {//TODO use sockets for all players
         if (e.ctrlKey && e.altKey && e.which == 70) { //TODO toggle UI fit options in current scene (F)
             console.log(`${game.user.name} Toggle fit scene mode`);
-            let tempFit = game.scenes.viewed.data.flags?.falemos?.config[game.userId]?.fit
+            let tempFit = game.scenes.viewed.flags?.falemos?.config[game.userId]?.fit
             switch (tempFit) {
                 case 'cover':
                     game.socket.emit('module.falemos', {event: "toggleFitHotkey", action:'command', data: {user: game.user, scene: game.scenes.viewed, mode: "contain"}});
@@ -225,7 +225,7 @@ Hooks.once('ready', async function() {
         if (e.ctrlKey && e.altKey && e.which == 72) { //TODO toggle UI visibility in current scene (H) ONLY GM
             if (!game.user.isGM) return;
             console.log('GM Toggle UI visibiity');
-            let tempUI = game.scenes.viewed.data.flags?.falemos?.config?.hide?.mode
+            let tempUI = game.scenes.viewed.flags?.falemos?.config?.hide?.mode
             switch (tempUI) {
                 case 'all':
                     game.scenes.viewed.setFlag('falemos', 'config.hide.mode', 'scene');
@@ -234,7 +234,7 @@ Hooks.once('ready', async function() {
                     game.scenes.viewed.setFlag('falemos', 'config.hide.mode', 'all');
                     break;
                 default:
-                    let currentVisibility =Object.assign({}, game.scenes.viewed.data.flags.falemos.config.hide); 
+                    let currentVisibility =Object.assign({}, game.scenes.viewed.flags.falemos.config.hide);
                     if (Object.values(currentVisibility).reduce((a, value) => a + value, 0) == Object.keys(currentVisibility).length){//all visible
                         Object.keys(currentVisibility).forEach(key=>currentVisibility[key] = false)
                         //hideUi(currentVisibility);
@@ -261,7 +261,7 @@ Hooks.once('ready', async function() {
             };
         if (e.ctrlKey && e.altKey && e.which == 68) {// Cicle enable/disable Falemos [D]
             console.log('Executing enable/disable Falemos shorcut');
-            game.scenes.viewed.setFlag('falemos', 'config.enable', !game.scenes.viewed.data.flags.falemos.config.enable);
+            game.scenes.viewed.setFlag('falemos', 'config.enable', !game.scenes.viewed.flags.falemos.config.enable);
         };
     };
     
@@ -270,11 +270,11 @@ Hooks.once('ready', async function() {
 
 
 Hooks.on('renderCameraViews', async function(cameraviews, html) {
-    if (game.scenes.viewed.data.flags.falemos?.config?.enable){
+    if (game.scenes.viewed.flags.falemos?.config?.enable){
 
         html.find('.camera-view').each((index, camera)=>{
-            camera.dataset.scene = game.scenes.viewed.data._id;
-            camera.parentNode.dataset.scene = game.scenes.viewed.data._id;
+            camera.dataset.scene = game.scenes.viewed._id;
+            camera.parentNode.dataset.scene = game.scenes.viewed._id;
         })
         html.find('.user-avatar').each((index, avatar)=>{
             avatar.insertAdjacentHTML('afterend', `<div class="falemos-camera-overlay"></div>`)
@@ -299,7 +299,7 @@ Hooks.on('renderCameraViews', async function(cameraviews, html) {
 
         camerasToPopout(html);
         camerasStyling(html);
-        canvasFit(game.scenes.viewed.data.flags.falemos.config[game.userId].fit, true);
+        canvasFit(game.scenes.viewed.flags.falemos.config[game.userId].fit, true);
     }
             
 });
@@ -322,11 +322,11 @@ Hooks.on('renderSceneConfig', async function(sceneConfig, html, data) {
     // console.log(html);
     // console.log('data');
     // console.log(data);
-        let falemosconfig = game.scenes.get(data.data._id).getFlag('falemos', 'config') ? game.scenes.get(data.data._id).getFlag('falemos', 'config') : null;
+        let falemosconfig = game.scenes.get(data._id).getFlag('falemos', 'config') ? game.scenes.get(data._id).getFlag('falemos', 'config') : null;
         let users = Array.from(game.users);
                 
         //renderTemplate con campos y data saliendo de los flags        
-        let mchtml = await renderTemplate("modules/falemos/templates/scene/mc-config.html", {falemosconfig: falemosconfig, users:users, sceneid: data.data._id, falemos: CONFIG.FALEMOS})
+        let mchtml = await renderTemplate("modules/falemos/templates/scene/mc-config.html", {falemosconfig: falemosconfig, users:users, sceneid: data._id, falemos: CONFIG.FALEMOS})
         
         //insert tab
         html.find('nav a:last').after('<a class="item" data-tab="falemos"><i class="fas fa-camera"></i> Falemos</a>');
@@ -353,16 +353,16 @@ Hooks.on('renderSceneConfig', async function(sceneConfig, html, data) {
 
 Hooks.on('closeSceneConfig', async function(sceneConfig, html, data) {
     
-    if (game.scenes.viewed.data.flags.falemos?.config?.enable){
+    if (game.scenes.viewed.flags.falemos?.config?.enable){
         let camerashtml = jQuery("#camera-views");
         camerashtml.find('.camera-view').each((index, camera)=>{
-            camera.dataset.scene = game.scenes.viewed.data._id;
-            camera.parentNode.dataset.scene = game.scenes.viewed.data._id;
+            camera.dataset.scene = game.scenes.viewed._id;
+            camera.parentNode.dataset.scene = game.scenes.viewed._id;
         })
         camerasToPopout(camerashtml);
         camerasStyling(camerashtml);
     
-        switch (game.scenes.viewed.data.flags.falemos.config[game.userId].fit){
+        switch (game.scenes.viewed.flags.falemos.config[game.userId].fit){
             case 'cover':
                 canvasFit('cover');
                 break;
@@ -376,16 +376,16 @@ Hooks.on('closeSceneConfig', async function(sceneConfig, html, data) {
 
 
 Hooks.on('renderSceneNavigation', async function(scene, html) { //TODO get form values and save in flag
-        if (game.scenes.viewed.data.flags.falemos?.config?.enable){
+        if (game.scenes.viewed.flags.falemos?.config?.enable){
             let camerashtml = jQuery("#camera-views");
             camerashtml.find('.camera-view').each((index, camera)=>{
-                camera.dataset.scene = game.scenes.viewed.data._id;
-                camera.parentNode.dataset.scene = game.scenes.viewed.data._id;
+                camera.dataset.scene = game.scenes.viewed._id;
+                camera.parentNode.dataset.scene = game.scenes.viewed._id;
             })
             camerasToPopout(camerashtml);
             camerasStyling(camerashtml);
-            hideUi(game.scenes.viewed.data.flags.falemos.config.hide);
-            canvasFit(game.scenes.viewed.data.flags.falemos.config[game.userId].fit, true);
+            hideUi(game.scenes.viewed.flags.falemos.config.hide);
+            canvasFit(game.scenes.viewed.flags.falemos.config[game.userId].fit, true);
         }else{
             let camerashtml = jQuery("#camera-views");
             camerashtml.find('.camera-view').each((index, camera)=>{
@@ -425,9 +425,9 @@ Hooks.on('canvasInit', async function(){
 
 Hooks.on('canvasPan', async function(canvas, view){
     
-    if (!game.scenes.viewed.data.flags?.falemos?.config?.enable){return;}
+    if (!game.scenes.flags?.falemos?.config?.enable){return;}
     
-    switch (game.scenes.viewed.data.flags.falemos.config[game.userId].fit){
+    switch (game.scenes.flags.falemos.config[game.userId].fit){
         case 'cover':
             canvasFit('cover');
             break;
@@ -543,10 +543,10 @@ function camerasStyling(html){
             //let currentCamPop = new CameraPopoutAppWrapper(this, box.dataset.user, $(popout));
             //currentCamPop.setPosition({ left: game.scenes.viewed.data.flags.falemos.config[user.id].x , top: game.scenes.viewed.data.flags.falemos.config[user.id].y, width: game.scenes.viewed.data.flags.falemos.config[user.id].width });
             // console.log(user)
-            if(game.scenes.viewed.data.flags.falemos.config[user.data._id].cameraName) {
+            if(game.scenes.data.flags.falemos.config[user.data._id].cameraName) {
                 let el = jQuery(`#camera-views-user-${user.data._id} .falemos-name-overlay`);
                 if (el[0]) 
-                    el[0].innerHTML = game.scenes.viewed.data.flags.falemos.config[user.data._id].cameraName;
+                    el[0].innerHTML = game.scenes.data.flags.falemos.config[user.data._id].cameraName;
                 
             }
 
@@ -566,7 +566,7 @@ function createSceneStyles(imageFormat=null){
             
             
             let filterKey = scene.data.flags.falemos.config[user.id].filter;
-            let geometryKey = scene.data.flags.falemos.config[user.id].geometry ? game.scenes.viewed.data.flags.falemos.config[user.id].geometry : "rectangle";
+            let geometryKey = scene.data.flags.falemos.config[user.id].geometry ? game.scenes.data.flags.falemos.config[user.id].geometry : "rectangle";
             
             
             let overlayImg = scene.data.flags.falemos.config[user.id].overlayImg;
@@ -598,33 +598,33 @@ function createSceneStyles(imageFormat=null){
             //new relative units (vw) TODO: tener en cuenta para modo cover cual es el lado del cual no se ve aprte de la imagen (ahora solo funciona si el width se ve entero
                 
                 let cssWidth = "";
-                let currentLeft = game.scenes.viewed.data.flags.falemos.config[user.id].x*window.innerWidth/100;
-                let currentTop = game.scenes.viewed.data.flags.falemos.config[user.id].y*window.innerHeight/100;
+                let currentLeft = game.scenes.data.flags.falemos.config[user.id].x*window.innerWidth/100;
+                let currentTop = game.scenes.data.flags.falemos.config[user.id].y*window.innerHeight/100;
                 
                 if (imageFormat == 'contain'){
-                    let maxWidth = (game.scenes.viewed.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.data.flags.falemos.config[user.id].width;
+                    let maxWidth = (game.scenes.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.data.flags.falemos.config[user.id].width;
                     cssWidth = `max-width: ${maxWidth}px !important;`;
                     
-                    let maxTop =(game.scenes.viewed.data.height * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.data.flags.falemos.config[user.id].y;
-                    currentTop = Math.min(maxTop, game.scenes.viewed.data.flags.falemos.config[user.id].y*window.innerHeight/100);
+                    let maxTop =(game.scenes.data.height * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.data.flags.falemos.config[user.id].y;
+                    currentTop = Math.min(maxTop, game.scenes.data.flags.falemos.config[user.id].y*window.innerHeight/100);
                     
-                    let maxLeft =(game.scenes.viewed.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.data.flags.falemos.config[user.id].x;
-                    currentLeft = Math.min(maxLeft, game.scenes.viewed.data.flags.falemos.config[user.id].x*window.innerWidth/100);
+                    let maxLeft =(game.scenes.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.data.flags.falemos.config[user.id].x;
+                    currentLeft = Math.min(maxLeft, game.scenes.data.flags.falemos.config[user.id].x*window.innerWidth/100);
                     
                 }else if (imageFormat == 'cover'){
-                    let minWidth = (game.scenes.viewed.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.data.flags.falemos.config[user.id].width;
+                    let minWidth = (game.scenes.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.data.flags.falemos.config[user.id].width;
                     cssWidth = `min-width: ${minWidth}px !important;`;
 
-                    let minTop =(game.scenes.viewed.data.height * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.data.flags.falemos.config[user.id].y;
-                    currentTop = Math.max(minTop, game.scenes.viewed.data.flags.falemos.config[user.id].y*window.innerHeight/100);
+                    let minTop =(game.scenes.data.height * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.data.flags.falemos.config[user.id].y;
+                    currentTop = Math.max(minTop, game.scenes.data.flags.falemos.config[user.id].y*window.innerHeight/100);
                     
-                    let minLeft =(game.scenes.viewed.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.data.flags.falemos.config[user.id].x;
-                    currentLeft = Math.max(minLeft, game.scenes.viewed.data.flags.falemos.config[user.id].x*window.innerWidth/100);
+                    let minLeft =(game.scenes.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.data.flags.falemos.config[user.id].x;
+                    currentLeft = Math.max(minLeft, game.scenes.data.flags.falemos.config[user.id].x*window.innerWidth/100);
                     
                 }
                 
                 css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] {
-                            width: ${game.scenes.viewed.data.flags.falemos.config[user.id].width}vw !important; 
+                            width: ${game.scenes.data.flags.falemos.config[user.id].width}vw !important; 
                             ${cssWidth}
                             height: auto !important; 
                             top: ${currentTop}px !important;
@@ -642,15 +642,15 @@ function createSceneStyles(imageFormat=null){
                 
                 css += `@font-face {
                             font-family: ${scene.data._id}${user.id}; 
-                            src: ${game.scenes.viewed.data.flags.falemos.config[user.id].cameraNameFont};}\r\n`;
+                            src: ${game.scenes.data.flags.falemos.config[user.id].cameraNameFont};}\r\n`;
                 
                 css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .falemos-name-overlay { 
                             display: inherit; 
-                            top: ${game.scenes.viewed.data.flags.falemos.config[user.id].cameraNameOffsetY}%; 
-                            left:${game.scenes.viewed.data.flags.falemos.config[user.id].cameraNameOffsetX}%; 
+                            top: ${game.scenes.data.flags.falemos.config[user.id].cameraNameOffsetY}%; 
+                            left:${game.scenes.data.flags.falemos.config[user.id].cameraNameOffsetX}%; 
                             font-family: ${scene.data._id}${user.id}; 
-                            font-size: ${game.scenes.viewed.data.flags.falemos.config[user.id].cameraNameFontSize}vw; 
-                            color: ${game.scenes.viewed.data.flags.falemos.config[user.id].cameraNameColor}}\r\n `;//show name overlay
+                            font-size: ${game.scenes.data.flags.falemos.config[user.id].cameraNameFontSize}vw; 
+                            color: ${game.scenes.data.flags.falemos.config[user.id].cameraNameColor}}\r\n `;//show name overlay
             
             
             
@@ -666,11 +666,11 @@ function createSceneStyles(imageFormat=null){
 
 function onSocketData(data){
     let event = data.event;
-    let sceneId = data.data.scene._id;
-    let userId = data.data.user._id;
+    let sceneId = data.scene._id;
+    let userId = data.user._id;
     switch (event) {
         case "toggleFitHotkey":
-            game.scenes.get(sceneId).setFlag('falemos', `config.${userId}.fit`, data.data.mode);
+            game.scenes.get(sceneId).setFlag('falemos', `config.${userId}.fit`, data.mode);
             break;
         default:
             console.error(event + " not is a Falemos event");
