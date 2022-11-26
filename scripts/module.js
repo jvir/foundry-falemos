@@ -315,24 +315,24 @@ Hooks.on('updateFalemosIsolated'. async function(data) {
 
 
 
-Hooks.on('renderSceneConfig', async function(sceneConfig, html, data) {
+Hooks.on('renderSceneConfig', async function(sceneConfig, html, scene) {
     // console.log('sceneConfig');
     // console.log(sceneConfig);
     // console.log('html');
     // console.log(html);
     // console.log('data');
-    // console.log(data);
-        let falemosconfig = game.scenes.get(data._id).getFlag('falemos', 'config') ? game.scenes.get(data._id).getFlag('falemos', 'config') : null;
+    // console.log(scene);
+        let falemosconfig = game.scenes.get(scene.data._id).getFlag('falemos', 'config') ? game.scenes.get(scene.data._id).getFlag('falemos', 'config') : null;
         let users = Array.from(game.users);
                 
         //renderTemplate con campos y data saliendo de los flags        
-        let mchtml = await renderTemplate("modules/falemos/templates/scene/mc-config.html", {falemosconfig: falemosconfig, users:users, sceneid: data._id, falemos: CONFIG.FALEMOS})
-        
+        let mchtml = await renderTemplate("modules/falemos/templates/scene/mc-config.html", {falemosconfig: falemosconfig, users:users, sceneid: scene.data._id, falemos: CONFIG.FALEMOS})
+
         //insert tab
         html.find('nav a:last').after('<a class="item" data-tab="falemos"><i class="fas fa-camera"></i> Falemos</a>');
        
         //insert mc html template
-        html.find('button[name="submit"]').before(mchtml);
+        html.find('button>i.fa-save').parent().before(mchtml);
         
         // enable listeners
         html.find('.capture-current').each(function(index) {
