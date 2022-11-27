@@ -332,7 +332,7 @@ Hooks.on('renderSceneConfig', async function(sceneConfig, html, scene) {
     // console.log(html);
     // console.log('data');
     // console.log(scene);
-        let falemosconfig = game.scenes.get(scene._id).getFlag('falemos', 'config') ? game.scenes.get(scene._id).getFlag('falemos', 'config') : null;
+        let falemosconfig = game.scenes.get(scene.data._id).getFlag('falemos', 'config') ? game.scenes.get(scene.data._id).getFlag('falemos', 'config') : null;
         let users = Array.from(game.users);
                 
         //renderTemplate con campos y data saliendo de los flags        
@@ -553,10 +553,10 @@ function camerasStyling(html){
             //let currentCamPop = new CameraPopoutAppWrapper(this, box.dataset.user, $(popout));
             //currentCamPop.setPosition({ left: game.scenes.viewed.data.flags.falemos.config[user.id].x , top: game.scenes.viewed.data.flags.falemos.config[user.id].y, width: game.scenes.viewed.data.flags.falemos.config[user.id].width });
             // console.log(user)
-            if(game.scenes.current.flags.falemos.config[user.data._id].cameraName) {
-                let el = jQuery(`#camera-views-user-${user.data._id} .falemos-name-overlay`);
+            if(game.scenes.current.flags.falemos.config[user.id].cameraName) {
+                let el = jQuery(`#camera-views-user-${user.id} .falemos-name-overlay`);
                 if (el[0]) 
-                    el[0].innerHTML = game.scenes.current.flags.falemos.config[user.data._id].cameraName;
+                    el[0].innerHTML = game.scenes.current.flags.falemos.config[user.id].cameraName;
                 
             }
 
