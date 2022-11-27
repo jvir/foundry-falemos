@@ -332,11 +332,11 @@ Hooks.on('renderSceneConfig', async function(sceneConfig, html, scene) {
     // console.log(html);
     // console.log('data');
     // console.log(scene);
-        let falemosconfig = game.scenes.get(scene.data._id).getFlag('falemos', 'config') ? game.scenes.get(scene.data._id).getFlag('falemos', 'config') : null;
+        let falemosconfig = game.scenes.get(scene._id).getFlag('falemos', 'config') ? game.scenes.get(scene._id).getFlag('falemos', 'config') : null;
         let users = Array.from(game.users);
                 
         //renderTemplate con campos y data saliendo de los flags        
-        let mchtml = await renderTemplate("modules/falemos/templates/scene/mc-config.html", {falemosconfig: falemosconfig, users:users, sceneid: scene.data._id, falemos: CONFIG.FALEMOS})
+        let mchtml = await renderTemplate("modules/falemos/templates/scene/mc-config.html", {falemosconfig: falemosconfig, users:users, sceneid: scene._id, falemos: CONFIG.FALEMOS})
 
         //insert tab
         html.find('nav a:last').after('<a class="item" data-tab="falemos"><i class="fas fa-camera"></i> Falemos</a>');
@@ -596,13 +596,13 @@ function createSceneStyles(imageFormat=null){
             if(!overlayTop) {overlayTop=0;}
             
             //base style
-            css += `#camera-views-user-${user.data._id}[data-scene="${scene.data._id}"] { background: transparent; padding: 0; box-shadow: none; }\r\n `;//disable shadows an background
-            css += `#camera-views-user-${user.data._id}[data-scene="${scene.data._id}"] .control-bar.left, #camera-views-user-${user.id}[data-scene="${scene.data._id}"] .window-resizable-handle { display: none; } `;
-            css += `#camera-views-user-${user.data._id}[data-scene="${scene.data._id}"] .camera-view { background-image: none; background: rgba(250,250,250,0); border: 0px; /*indicador de hablando*/ box-shadow: none;  padding: 0px !important; /*Tamaño borde*/ }\r\n `;
-            css += `#camera-views-user-${user.data._id}[data-scene="${scene.data._id}"] .player-name { display: none; }\r\n `;//hidde player name
+            css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] { background: transparent; padding: 0; box-shadow: none; }\r\n `;//disable shadows an background
+            css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .control-bar.left, #camera-views-user-${user.id}[data-scene="${scene._id}"] .window-resizable-handle { display: none; } `;
+            css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .camera-view { background-image: none; background: rgba(250,250,250,0); border: 0px; /*indicador de hablando*/ box-shadow: none;  padding: 0px !important; /*Tamaño borde*/ }\r\n `;
+            css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .player-name { display: none; }\r\n `;//hidde player name
             //custom style
-            css += `.camera-view[data-user="${user.data._id}"][data-scene="${scene.data._id}"] video { object-fit: cover; filter: ${CONFIG.FALEMOS.cameraEffects[filterKey].data}; }\r\n `; //video filter
-            css += `.camera-view[data-user="${user.data._id}"][data-scene="${scene.data._id}"] video { ${CONFIG.FALEMOS.cameraGeometry[geometryKey].data} }\r\n `; //video geometry
+            css += `.camera-view[data-user="${user.id}"][data-scene="${scene._id}"] video { object-fit: cover; filter: ${CONFIG.FALEMOS.cameraEffects[filterKey].data}; }\r\n `; //video filter
+            css += `.camera-view[data-user="${user.id}"][data-scene="${scene._id}"] video { ${CONFIG.FALEMOS.cameraGeometry[geometryKey].data} }\r\n `; //video geometry
             
             
             //new relative units (vw) TODO: tener en cuenta para modo cover cual es el lado del cual no se ve aprte de la imagen (ahora solo funciona si el width se ve entero
@@ -633,14 +633,14 @@ function createSceneStyles(imageFormat=null){
                     
                 }
                 
-                css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] {
+                css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] {
                             width: ${game.scenes.current.flags.falemos.config[user.id].width}vw !important; 
                             ${cssWidth}
                             height: auto !important; 
                             top: ${currentTop}px !important;
                             left: ${currentLeft}px !important; }`;
         
-                css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .falemos-camera-overlay { 
+                css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .falemos-camera-overlay { 
                             display: inherit; 
                             background-image: url('${overlayImg}'); 
                             width: calc(100% + ${overlayHSize}%); 
@@ -648,17 +648,17 @@ function createSceneStyles(imageFormat=null){
                             top: -${overlayTop}%; 
                             left: -${overlayLeft}%;}\r\n `;//show camera overlay
                     
-                //css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .falemos-chat-overlay { display: inherit; width: 300px; top: calc(100% + 10px); left: 0px; }\r\n `;//positioning chat overlay
+                //css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .falemos-chat-overlay { display: inherit; width: 300px; top: calc(100% + 10px); left: 0px; }\r\n `;//positioning chat overlay
                 
                 css += `@font-face {
-                            font-family: ${scene.data._id}${user.id}; 
+                            font-family: ${scene._id}${user.id}; 
                             src: ${game.scenes.current.flags.falemos.config[user.id].cameraNameFont};}\r\n`;
                 
-                css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .falemos-name-overlay { 
+                css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .falemos-name-overlay { 
                             display: inherit; 
                             top: ${game.scenes.current.flags.falemos.config[user.id].cameraNameOffsetY}%; 
                             left:${game.scenes.current.flags.falemos.config[user.id].cameraNameOffsetX}%; 
-                            font-family: ${scene.data._id}${user.id}; 
+                            font-family: ${scene._id}${user.id}; 
                             font-size: ${game.scenes.current.flags.falemos.config[user.id].cameraNameFontSize}vw; 
                             color: ${game.scenes.current.flags.falemos.config[user.id].cameraNameColor}}\r\n `;//show name overlay
             
