@@ -572,21 +572,21 @@ function createSceneStyles(imageFormat=null){
     let css=""
     let scene = game.scenes.viewed;
     Array.from(game.users).forEach((user)=>{
-        if (scene.data.flags.falemos && scene.data.flags.falemos.config.enable === true){
+        if (scene.flags.falemos && scene.flags.falemos.config.enable === true){
             
             
-            let filterKey = scene.data.flags.falemos.config[user.id].filter;
-            let geometryKey = scene.data.flags.falemos.config[user.id].geometry ? game.scenes.current.flags.falemos.config[user.id].geometry : "rectangle";
+            let filterKey = scene.flags.falemos.config[user.id].filter;
+            let geometryKey = scene.flags.falemos.config[user.id].geometry ? game.scenes.current.flags.falemos.config[user.id].geometry : "rectangle";
             
             
-            let overlayImg = scene.data.flags.falemos.config[user.id].overlayImg;
-            let overlayName = scene.data.flags.falemos.config[user.id].overlayName;
-            let overlayHSize = scene.data.flags.falemos.config[user.id].overlayLeft + scene.data.flags.falemos.config[user.id].overlayRight;
-            let overlayVSize = scene.data.flags.falemos.config[user.id].overlayTop + scene.data.flags.falemos.config[user.id].overlayBottom;
-            let overlayLeft = scene.data.flags.falemos.config[user.id].overlayLeft;
-            let overlayTop = scene.data.flags.falemos.config[user.id].overlayTop;
+            let overlayImg = scene.flags.falemos.config[user.id].overlayImg;
+            let overlayName = scene.flags.falemos.config[user.id].overlayName;
+            let overlayHSize = scene.flags.falemos.config[user.id].overlayLeft + scene.flags.falemos.config[user.id].overlayRight;
+            let overlayVSize = scene.flags.falemos.config[user.id].overlayTop + scene.flags.falemos.config[user.id].overlayBottom;
+            let overlayLeft = scene.flags.falemos.config[user.id].overlayLeft;
+            let overlayTop = scene.flags.falemos.config[user.id].overlayTop;
             
-            //let originalW = scene.data.flags.falemos.config.window ? scene.data.flags.falemos.config.window.width/100 : 19.2;
+            //let originalW = scene.flags.falemos.config.window ? scene.flags.falemos.config.window.width/100 : 19.2;
             //let originalH = game.scenes.viewed.data.flags.falemos.config.window.height/100;
             
             
