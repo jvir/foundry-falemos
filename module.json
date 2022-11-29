@@ -4,27 +4,29 @@
   "description": "",
   "version": "This is auto replaced",
   "library": "false",
-  "manifestPlusVersion": "1.2.0",
-  "minimumCoreVersion": "9",
-  "compatibleCoreVersion": "9",
+  "manifestPlusVersion": "1.3.0",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "10.290",
+    "maximum": "10"
+    },
   "authors": [
     {
       "name": "jvir",
       "url": "https://github.com/jvir",
-      "discord": "JuanV",
+      "discord": "JuanV#8807",
       "ko-fi": "juanv"
     },
     {
-      "name": "Viriato139AC",
-      "url": "https://github.com/lozalojo",
-      "discord": "Viriato139AC"
+      "name": "lozanoje",
+      "url": "https://github.com/lozanoje",
+      "discord": "Viriato139ac#0342"
+    },
+    {
+      "name": "javierriveracastro",
+      "url": "https://github.com/javierriveracastro",
+      "discord": "javierrivera#4813"
     }
-  ],
-  "dependencies": [
-
-  ],
-  "conflicts": [
-    
   ],
   "esmodules": [
     "/scripts/module.js"
@@ -89,5 +91,14 @@
     "loop": false,
     "caption": "Falemos Vaccinator by Viriato139ac"
   }
-]
+],
+  "relationships": {
+    "requires": [
+      {
+        "id": "camera-dock",
+        "type": "module",
+        "compatibility": {}
+      }
+    ]
+  }
 }
