@@ -601,7 +601,7 @@ function createSceneStyles(imageFormat=null){
             //custom style
             css += `.camera-view[data-user="${user.id}"][data-scene="${scene._id}"] video { object-fit: cover; filter: ${CONFIG.FALEMOS.cameraEffects[filterKey].data}; }\r\n `; //video filter
             css += `.camera-view[data-user="${user.id}"][data-scene="${scene._id}"] video { ${CONFIG.FALEMOS.cameraGeometry[geometryKey].data} }\r\n `; //video geometry
-            
+            css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .camera-box-popout { background: transparent !important; }\r\n `;
             
             //new relative units (vw) TODO: tener en cuenta para modo cover cual es el lado del cual no se ve aprte de la imagen (ahora solo funciona si el width se ve entero
                 
@@ -651,6 +651,8 @@ function createSceneStyles(imageFormat=null){
                 css += `@font-face {
                             font-family: ${scene._id}${user.id}; 
                             src: ${game.scenes.current.flags.falemos.config[user.id].cameraNameFont};}\r\n`;
+														
+                css += `.camera-view .shadow { visibility: hidden; }\r\n`;
                 
                 css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .falemos-name-overlay { 
                             display: inherit; 
