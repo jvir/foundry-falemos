@@ -1,9 +1,5 @@
 //import HudContextMenu from './hudContextMenu';
 
-
-
-
-
 Hooks.once('init', async function() {
     const MCCONFIG = {
         /**
@@ -71,7 +67,7 @@ Hooks.once('ready', async function() {
     //create macro vaccinator if not exist or not updated
     if (game.user.isGM){
         let falemosVersion;
-        falemosVersion = parseInt(game.modules.get('falemos').version.replace( /^\D+/g, ''));
+        falemosVersion = parseInt(game.modules.get('falemos').version.replace( /\./g, ''));
         if (Number.isNaN(falemosVersion)) falemosVersion = 1; //used in testing enviroment
         console.log('falemos vaccinator version: ' + falemosVersion);
         let vaccinatorMacro = game.macros.getName('Falemos Vaccinator by Viriato139ac');
