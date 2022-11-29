@@ -1,9 +1,5 @@
 //import HudContextMenu from './hudContextMenu';
 
-
-
-
-
 Hooks.once('init', async function() {
     const MCCONFIG = {
         /**
@@ -71,7 +67,7 @@ Hooks.once('ready', async function() {
     //create macro vaccinator if not exist or not updated
     if (game.user.isGM){
         let falemosVersion;
-        falemosVersion = parseInt(game.modules.get('falemos').version.replace( /^\D+/g, ''));
+        falemosVersion = parseInt(game.modules.get('falemos').version.replace( /\./g, ''));
         if (Number.isNaN(falemosVersion)) falemosVersion = 1; //used in testing enviroment
         console.log('falemos vaccinator version: ' + falemosVersion);
         let vaccinatorMacro = game.macros.getName('Falemos Vaccinator by Viriato139ac');
@@ -96,7 +92,7 @@ Hooks.once('ready', async function() {
     //exposed functions
     game.falemos  = {
         getSceneConfig: function (sceneId){//TODO changes avoid issue share macros
-                                    let data = {...game.scenes.get(sceneId).data.flags.falemos.config};
+                                    let data = {...game.scenes.get(sceneId).flags.falemos.config};
                                     let newData = {};
                                     
                                     console.log(data);
@@ -104,7 +100,7 @@ Hooks.once('ready', async function() {
                                     let i = 0;
                                     
                                     users.forEach((user) => {
-                                        newData[i] = data[user.data._id];
+                                        newData[i] = data[user.id];
                                         i++;
                                     });
                                     newData.enable = data.enable;
@@ -128,7 +124,7 @@ Hooks.once('ready', async function() {
 			  ui.notifications.error(`Ninguna escena activa`);
 			  return;
 			}
-            if (!sceneId) {sceneId=game.scenes.viewed._id}
+            if (!sceneId) {sceneId=game.scenes.viewed.id}
             
 //             console.log(sceneId);
 //             console.log(json);
@@ -140,7 +136,7 @@ Hooks.once('ready', async function() {
             let i = 0;
             
             users.forEach((user) => {
-                                        newData[user.data._id] = data[i];
+                                        newData[user.id] = data[i];
                                         i++;
                                     });
             newData.enable = data.enable;
@@ -166,7 +162,7 @@ Hooks.once('ready', async function() {
 			  return;
 			}
 
-            if (!sceneId) sceneId = game.scenes.viewed._id;
+            if (!sceneId) sceneId = game.scenes.viewed.id;
             if (!data) data = game.falemos.getSceneConfig(sceneId);
             let dataJSON = JSON.stringify(data).replace(/[\']/g, "&apos;");
 
@@ -283,8 +279,8 @@ Hooks.on('renderCameraViews', async function(cameraviews, html) {
     if (game.scenes.viewed !== undefined) if (game.scenes.viewed.flags.falemos?.config?.enable){
 
         html.find('.camera-view').each((index, camera)=>{
-            camera.dataset.scene = game.scenes.viewed._id;
-            camera.parentNode.dataset.scene = game.scenes.viewed._id;
+            camera.dataset.scene = game.scenes.viewed.id;
+            camera.parentNode.dataset.scene = game.scenes.viewed.id;
         })
         html.find('.user-avatar').each((index, avatar)=>{
             avatar.insertAdjacentHTML('afterend', `<div class="falemos-camera-overlay"></div>`)
@@ -366,8 +362,8 @@ Hooks.on('closeSceneConfig', async function(sceneConfig, html, data) {
     if (game.scenes.viewed.flags.falemos?.config?.enable){
         let camerashtml = jQuery("#camera-views");
         camerashtml.find('.camera-view').each((index, camera)=>{
-            camera.dataset.scene = game.scenes.viewed._id;
-            camera.parentNode.dataset.scene = game.scenes.viewed._id;
+            camera.dataset.scene = game.scenes.viewed.id;
+            camera.parentNode.dataset.scene = game.scenes.viewed.id;
         })
         camerasToPopout(camerashtml);
         camerasStyling(camerashtml);
@@ -389,8 +385,8 @@ Hooks.on('renderSceneNavigation', async function(scene, html) { //TODO get form 
         if (game.scenes.viewed !== undefined) if (game.scenes.viewed.flags.falemos?.config?.enable){
             let camerashtml = jQuery("#camera-views");
             camerashtml.find('.camera-view').each((index, camera)=>{
-                camera.dataset.scene = game.scenes.viewed._id;
-                camera.parentNode.dataset.scene = game.scenes.viewed._id;
+                camera.dataset.scene = game.scenes.viewed.id;
+                camera.parentNode.dataset.scene = game.scenes.viewed.id;
             })
             camerasToPopout(camerashtml);
             camerasStyling(camerashtml);
@@ -551,15 +547,13 @@ function camerasStyling(html){
             //if(!popout) return;
             //let box = popout.querySelector(".camera-view");
             //let currentCamPop = new CameraPopoutAppWrapper(this, box.dataset.user, $(popout));
-            //currentCamPop.setPosition({ left: game.scenes.viewed.data.flags.falemos.config[user.id].x , top: game.scenes.viewed.data.flags.falemos.config[user.id].y, width: game.scenes.viewed.data.flags.falemos.config[user.id].width });
+            //currentCamPop.setPosition({ left: game.scenes.viewed.flags.falemos.config[user.id].x , top: game.scenes.viewed.flags.falemos.config[user.id].y, width: game.scenes.viewed.flags.falemos.config[user.id].width });
             // console.log(user)
-            if(game.scenes.current.flags.falemos.config[user.id].cameraName) {
+			
+            if(game.scenes.current.flags.falemos.config[user.id].cameraName || game.scenes.current.flags.falemos.config[user.id].cameraName === "") {
                 let el = jQuery(`#camera-views-user-${user.id} .falemos-name-overlay`);
-                if (el[0]) 
-                    el[0].innerHTML = game.scenes.current.flags.falemos.config[user.id].cameraName;
-                
+                if (el[0]) el[0].innerHTML = game.scenes.current.flags.falemos.config[user.id].cameraName;
             }
-
     })
     createSceneStyles();
    
@@ -587,7 +581,7 @@ function createSceneStyles(imageFormat=null){
             let overlayTop = scene.flags.falemos.config[user.id].overlayTop;
             
             //let originalW = scene.flags.falemos.config.window ? scene.flags.falemos.config.window.width/100 : 19.2;
-            //let originalH = game.scenes.viewed.data.flags.falemos.config.window.height/100;
+            //let originalH = game.scenes.viewed.flags.falemos.config.window.height/100;
             
             
             if(!overlayHSize) {overlayHSize=0;}
@@ -603,8 +597,9 @@ function createSceneStyles(imageFormat=null){
             //custom style
             css += `.camera-view[data-user="${user.id}"][data-scene="${scene._id}"] video { object-fit: cover; filter: ${CONFIG.FALEMOS.cameraEffects[filterKey].data}; }\r\n `; //video filter
             css += `.camera-view[data-user="${user.id}"][data-scene="${scene._id}"] video { ${CONFIG.FALEMOS.cameraGeometry[geometryKey].data} }\r\n `; //video geometry
-            
-            
+            css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .camera-box-popout { background: transparent !important; }\r\n `;
+            css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .falemos-camera-overlay { z-index: -1; }\r\n `;
+
             //new relative units (vw) TODO: tener en cuenta para modo cover cual es el lado del cual no se ve aprte de la imagen (ahora solo funciona si el width se ve entero
                 
                 let cssWidth = "";
@@ -653,6 +648,8 @@ function createSceneStyles(imageFormat=null){
                 css += `@font-face {
                             font-family: ${scene._id}${user.id}; 
                             src: ${game.scenes.current.flags.falemos.config[user.id].cameraNameFont};}\r\n`;
+														
+                css += `.camera-view .shadow { visibility: hidden; }\r\n`;
                 
                 css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .falemos-name-overlay { 
                             display: inherit; 
@@ -662,10 +659,6 @@ function createSceneStyles(imageFormat=null){
                             font-size: ${game.scenes.current.flags.falemos.config[user.id].cameraNameFontSize}vw; 
                             color: ${game.scenes.current.flags.falemos.config[user.id].cameraNameColor}}\r\n `;//show name overlay
             
-            
-            
-                                
-
         }
     })    
     
