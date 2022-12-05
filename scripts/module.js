@@ -590,15 +590,16 @@ function createSceneStyles(imageFormat=null){
             if(!overlayTop) {overlayTop=0;}
             
             //base style
-            css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] { background: transparent; padding: 0; box-shadow: none; }\r\n `;//disable shadows an background
+            css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] { background: transparent; padding: 0; box-shadow: none; }\r\n `; //disable shadows and background
             css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .control-bar.left, #camera-views-user-${user.id}[data-scene="${scene._id}"] .window-resizable-handle { display: none; } `;
             css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .camera-view { background-image: none; background: rgba(250,250,250,0); border: 0px; /*indicador de hablando*/ box-shadow: none;  padding: 0px !important; /*Tamaño borde*/ }\r\n `;
             css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .player-name { display: none; }\r\n `;//hidde player name
             //custom style
             css += `.camera-view[data-user="${user.id}"][data-scene="${scene._id}"] video { object-fit: cover; filter: ${CONFIG.FALEMOS.cameraEffects[filterKey].data}; }\r\n `; //video filter
             css += `.camera-view[data-user="${user.id}"][data-scene="${scene._id}"] video { ${CONFIG.FALEMOS.cameraGeometry[geometryKey].data} }\r\n `; //video geometry
-            css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .camera-box-popout { background: transparent !important; }\r\n `;
-            css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .falemos-camera-overlay { z-index: 1; }\r\n `;
+            css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .camera-box-popout { background: transparent !important; }\r\n `; // quita el fondo de color del video
+            css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .falemos-camera-overlay { z-index: 1; }\r\n `; // el marco lo pongo por encima de la camara pero por debajo de los controles de av
+            css += `div#camera-views { --av-width: 100px; }\r\n `; // minimo tamaño de video a 100px (por defecto esta en 240px)
 
             //new relative units (vw) TODO: tener en cuenta para modo cover cual es el lado del cual no se ve aprte de la imagen (ahora solo funciona si el width se ve entero
                 
@@ -649,7 +650,7 @@ function createSceneStyles(imageFormat=null){
                             font-family: ${scene._id}${user.id}; 
                             src: ${game.scenes.current.flags.falemos.config[user.id].cameraNameFont};}\r\n`;
 														
-                css += `.camera-view .shadow { visibility: hidden; }\r\n`;
+                css += `.camera-view .shadow { visibility: hidden; }\r\n`; // quita el sombreado de la camara
                 
                 css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .falemos-name-overlay { 
                             display: inherit; 
