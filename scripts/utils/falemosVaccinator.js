@@ -787,6 +787,15 @@ function simularTabla(
         <option value="square">${game.i18n.localize(
           "FALEMOS.camera.geometry.square"
         )}</option>
+        <option value="trapezoid">${game.i18n.localize(
+          "FALEMOS.camera.geometry.trapezoid"
+        )}</option>
+        <option value="bevel">${game.i18n.localize(
+          "FALEMOS.camera.geometry.bevel"
+        )}</option>
+        <option value="rabbet">${game.i18n.localize(
+          "FALEMOS.camera.geometry.rabbet"
+        )}</option>
       </select></td>
         <td class="tg-d6y8" colspan="1">${game.i18n.localize(
           "FALEMOS.CameraEffectText"
