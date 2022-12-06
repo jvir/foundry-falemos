@@ -1,5 +1,5 @@
 //
-// falemos vaccinator 0.13
+// falemos vaccinator 0.14
 // by Viriato139ac
 //
 
@@ -783,6 +783,9 @@ function simularTabla(
         )}</option>
         <option value="shield">${game.i18n.localize(
           "FALEMOS.camera.geometry.shield"
+        )}</option>
+        <option value="square">${game.i18n.localize(
+          "FALEMOS.camera.geometry.square"
         )}</option>
       </select></td>
         <td class="tg-d6y8" colspan="1">${game.i18n.localize(

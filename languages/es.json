@@ -46,6 +46,7 @@
     "FALEMOS.camera.geometry.hexagon": "Hexágono",
     "FALEMOS.camera.geometry.star": "Estrella",
     "FALEMOS.camera.geometry.shield": "Escudo",
+    "FALEMOS.camera.geometry.square": "Cuadrado",
     "FALEMOS.HideNavigation": "Ocultar navegación",
     "FALEMOS.HideControls": "Ocultar controles",
     "FALEMOS.HidePlayers": "Ocultar jugadores",
