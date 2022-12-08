@@ -64,41 +64,32 @@
   "manifest": "This is auto replaced",
   "download": "This is auto replaced",
   "media": [
-  {
+    {
       "type": "icon",
       "url": "https://github.com/jvir/foundry-falemos/blob/main/doc/icon/falemos.svg?raw=true"
-  },
-  {
-    "type": "screenshot",
-    "url": "https://github.com/jvir/foundry-falemos/blob/main/doc/img/globalconfig.png?raw=true",
-    "caption": "Global configuration"
-  },
-  {
-    "type": "screenshot",
-    "url": "https://github.com/jvir/foundry-falemos/blob/main/doc/img/userconfig.png?raw=true",
-    "caption": "User camera configuration"
-  },
-  {
-    "type": "video",
-    "url": "https://github.com/jvir/foundry-falemos/blob/main/doc/vid/scenecastleblack.webm?raw=true",
-    "loop": false,
-    "thumbnail": "https://github.com/jvir/foundry-falemos/blob/main/doc/vid/scenecastleblack.jpg?raw=true",
-    "caption": "Castle black scene camera configuration"
-  },
-  {
-    "type": "video",
-    "url": "https://www.youtube.com/watch?v=ZMiOIz7-2Fc",
-    "loop": false,
-    "caption": "Falemos Vaccinator by Viriato139ac"
-  }
-],
-  "relationships": {
-    "requires": [
-      {
-        "id": "camera-dock",
-        "type": "module",
-        "compatibility": {}
-      }
-    ]
-  }
+    },
+    {
+      "type": "screenshot",
+      "url": "https://github.com/jvir/foundry-falemos/blob/main/doc/img/globalconfig.png?raw=true",
+      "caption": "Global configuration"
+    },
+    {
+      "type": "screenshot",
+      "url": "https://github.com/jvir/foundry-falemos/blob/main/doc/img/userconfig.png?raw=true",
+      "caption": "User camera configuration"
+    },
+    {
+      "type": "video",
+      "url": "https://github.com/jvir/foundry-falemos/blob/main/doc/vid/scenecastleblack.webm?raw=true",
+      "loop": false,
+      "thumbnail": "https://github.com/jvir/foundry-falemos/blob/main/doc/vid/scenecastleblack.jpg?raw=true",
+      "caption": "Castle black scene camera configuration"
+    },
+    {
+      "type": "video",
+      "url": "https://www.youtube.com/watch?v=ZMiOIz7-2Fc",
+      "loop": false,
+      "caption": "Falemos Vaccinator by Viriato139ac"
+    }
+  ]
 }
