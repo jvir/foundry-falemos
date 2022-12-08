@@ -25,7 +25,11 @@ Hooks.once('init', async function() {
             rhombus: {name: "FALEMOS.camera.geometry.rhombus", data: "clip-path: polygon(50% 0%, 83.4% 50%, 50% 100%, 16.6% 50%);"},
             hexagon: {name: "FALEMOS.camera.geometry.hexagon", data: "clip-path: polygon(25% 0%, 75% 0%, 95% 50%, 75% 100%, 25% 100%, 5% 50%);"},
             star: {name: "FALEMOS.camera.geometry.star", data: "clip-path: polygon(50% 0, 61% 25%, 90% 25%, 74% 50%, 90% 75%, 61% 75%, 50% 100%, 38% 75%, 10% 75%, 26% 50%, 10% 25%, 38% 25%);"},
-            shield: {name: "FALEMOS.camera.geometry.shield", data: "clip-path: inset(0% 15% 0% 15% round 0% 0% 50% 50%);"}
+            shield: {name: "FALEMOS.camera.geometry.shield", data: "clip-path: inset(0% 15% 0% 15% round 0% 0% 50% 50%);"},
+            square: {name: "FALEMOS.camera.geometry.square", data: "clip-path: polygon(12.5% 0%, 12.5% 100%, 87.5% 100%, 87.5% 0%);"},
+            trapezoid: {name: "FALEMOS.camera.geometry.trapezoid", data: "clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);"},
+            bevel: {name: "FALEMOS.camera.geometry.bevel", data: "clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);"},
+            rabbet: {name: "FALEMOS.camera.geometry.rabbet", data: "clip-path: polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%);"}
         },
         sceneFit: {
             nofit: {name: "FALEMOS.scene.fit.nofit", data: "nofit"},
