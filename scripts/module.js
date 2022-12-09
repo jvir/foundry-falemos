@@ -554,9 +554,9 @@ function camerasStyling(html){
             //currentCamPop.setPosition({ left: game.scenes.viewed.flags.falemos.config[user.id].x , top: game.scenes.viewed.flags.falemos.config[user.id].y, width: game.scenes.viewed.flags.falemos.config[user.id].width });
             // console.log(user)
 			
-            if(game.scenes.current.flags.falemos.config[user.id].cameraName || game.scenes.current.flags.falemos.config[user.id].cameraName === "") {
+            if(game.scenes.viewed.flags.falemos.config[user.id].cameraName || game.scenes.viewed.flags.falemos.config[user.id].cameraName === "") {
                 let el = jQuery(`#camera-views-user-${user.id} .falemos-name-overlay`);
-                if (el[0]) el[0].innerHTML = game.scenes.current.flags.falemos.config[user.id].cameraName;
+                if (el[0]) el[0].innerHTML = game.scenes.viewed.flags.falemos.config[user.id].cameraName;
             }
     })
     createSceneStyles();
@@ -574,7 +574,7 @@ function createSceneStyles(imageFormat=null){
             
             
             let filterKey = scene.flags.falemos.config[user.id].filter;
-            let geometryKey = scene.flags.falemos.config[user.id].geometry ? game.scenes.current.flags.falemos.config[user.id].geometry : "rectangle";
+            let geometryKey = scene.flags.falemos.config[user.id].geometry ? game.scenes.viewed.flags.falemos.config[user.id].geometry : "rectangle";
             
             
             let overlayImg = scene.flags.falemos.config[user.id].overlayImg;
@@ -608,33 +608,33 @@ function createSceneStyles(imageFormat=null){
             //new relative units (vw) TODO: tener en cuenta para modo cover cual es el lado del cual no se ve aprte de la imagen (ahora solo funciona si el width se ve entero
                 
                 let cssWidth = "";
-                let currentLeft = game.scenes.current.flags.falemos.config[user.id].x*window.innerWidth/100;
-                let currentTop = game.scenes.current.flags.falemos.config[user.id].y*window.innerHeight/100;
+                let currentLeft = game.scenes.viewed.flags.falemos.config[user.id].x*window.innerWidth/100;
+                let currentTop = game.scenes.viewed.flags.falemos.config[user.id].y*window.innerHeight/100;
                 
                 if (imageFormat == 'contain'){
-                    let maxWidth = (game.scenes.viewed.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].width;
+                    let maxWidth = (game.scenes.viewed.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.flags.falemos.config[user.id].width;
                     cssWidth = `max-width: ${maxWidth}px !important;`;
                     
-                    let maxTop =(game.scenes.viewed.height * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].y;
-                    currentTop = Math.min(maxTop, game.scenes.current.flags.falemos.config[user.id].y*window.innerHeight/100);
+                    let maxTop =(game.scenes.viewed.height * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.flags.falemos.config[user.id].y;
+                    currentTop = Math.min(maxTop, game.scenes.viewed.flags.falemos.config[user.id].y*window.innerHeight/100);
                     
-                    let maxLeft =(game.scenes.viewed.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].x;
-                    currentLeft = Math.min(maxLeft, game.scenes.current.flags.falemos.config[user.id].x*window.innerWidth/100);
+                    let maxLeft =(game.scenes.viewed.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.flags.falemos.config[user.id].x;
+                    currentLeft = Math.min(maxLeft, game.scenes.viewed.flags.falemos.config[user.id].x*window.innerWidth/100);
                     
                 }else if (imageFormat == 'cover'){
-                    let minWidth = (game.scenes.viewed.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].width;
+                    let minWidth = (game.scenes.viewed.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.flags.falemos.config[user.id].width;
                     cssWidth = `min-width: ${minWidth}px !important;`;
 
-                    let minTop =(game.scenes.viewed.height * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].y;
-                    currentTop = Math.max(minTop, game.scenes.current.flags.falemos.config[user.id].y*window.innerHeight/100);
+                    let minTop =(game.scenes.viewed.height * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.flags.falemos.config[user.id].y;
+                    currentTop = Math.max(minTop, game.scenes.viewed.flags.falemos.config[user.id].y*window.innerHeight/100);
                     
-                    let minLeft =(game.scenes.viewed.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].x;
-                    currentLeft = Math.max(minLeft, game.scenes.current.flags.falemos.config[user.id].x*window.innerWidth/100);
+                    let minLeft =(game.scenes.viewed.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.flags.falemos.config[user.id].x;
+                    currentLeft = Math.max(minLeft, game.scenes.viewed.flags.falemos.config[user.id].x*window.innerWidth/100);
                     
                 }
                 
                 css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] {
-                            width: ${game.scenes.current.flags.falemos.config[user.id].width}vw !important; 
+                            width: ${game.scenes.viewed.flags.falemos.config[user.id].width}vw !important; 
                             ${cssWidth}
                             height: auto !important; 
                             top: ${currentTop}px !important;
@@ -652,17 +652,17 @@ function createSceneStyles(imageFormat=null){
                 
                 css += `@font-face {
                             font-family: ${scene._id}${user.id}; 
-                            src: ${game.scenes.current.flags.falemos.config[user.id].cameraNameFont};}\r\n`;
+                            src: ${game.scenes.viewed.flags.falemos.config[user.id].cameraNameFont};}\r\n`;
 														
                 css += `.camera-view .shadow { visibility: hidden; }\r\n`; // quita el sombreado de la camara
                 
                 css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .falemos-name-overlay { 
                             display: inherit; 
-                            top: ${game.scenes.current.flags.falemos.config[user.id].cameraNameOffsetY}%; 
-                            left:${game.scenes.current.flags.falemos.config[user.id].cameraNameOffsetX}%; 
+                            top: ${game.scenes.viewed.flags.falemos.config[user.id].cameraNameOffsetY}%; 
+                            left:${game.scenes.viewed.flags.falemos.config[user.id].cameraNameOffsetX}%; 
                             font-family: ${scene._id}${user.id}; 
-                            font-size: ${game.scenes.current.flags.falemos.config[user.id].cameraNameFontSize}vw; 
-                            color: ${game.scenes.current.flags.falemos.config[user.id].cameraNameColor}}\r\n `;//show name overlay
+                            font-size: ${game.scenes.viewed.flags.falemos.config[user.id].cameraNameFontSize}vw; 
+                            color: ${game.scenes.viewed.flags.falemos.config[user.id].cameraNameColor}}\r\n `;//show name overlay
             
         }
     })    
