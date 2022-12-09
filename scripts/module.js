@@ -612,23 +612,23 @@ function createSceneStyles(imageFormat=null){
                 let currentTop = game.scenes.current.flags.falemos.config[user.id].y*window.innerHeight/100;
                 
                 if (imageFormat == 'contain'){
-                    let maxWidth = (game.scenes.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].width;
+                    let maxWidth = (game.scenes.viewed.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].width;
                     cssWidth = `max-width: ${maxWidth}px !important;`;
                     
-                    let maxTop =(game.scenes.data.height * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].y;
+                    let maxTop =(game.scenes.viewed.height * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].y;
                     currentTop = Math.min(maxTop, game.scenes.current.flags.falemos.config[user.id].y*window.innerHeight/100);
                     
-                    let maxLeft =(game.scenes.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].x;
+                    let maxLeft =(game.scenes.viewed.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].x;
                     currentLeft = Math.min(maxLeft, game.scenes.current.flags.falemos.config[user.id].x*window.innerWidth/100);
                     
                 }else if (imageFormat == 'cover'){
-                    let minWidth = (game.scenes.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].width;
+                    let minWidth = (game.scenes.viewed.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].width;
                     cssWidth = `min-width: ${minWidth}px !important;`;
 
-                    let minTop =(game.scenes.data.height * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].y;
+                    let minTop =(game.scenes.viewed.height * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].y;
                     currentTop = Math.max(minTop, game.scenes.current.flags.falemos.config[user.id].y*window.innerHeight/100);
                     
-                    let minLeft =(game.scenes.data.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].x;
+                    let minLeft =(game.scenes.viewed.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.current.flags.falemos.config[user.id].x;
                     currentLeft = Math.max(minLeft, game.scenes.current.flags.falemos.config[user.id].x*window.innerWidth/100);
                     
                 }
