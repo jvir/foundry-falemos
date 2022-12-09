@@ -458,7 +458,7 @@ Hooks.on('renderDrawingHUD', async function(app, html, data){//TODO
 
 function canvasFit(mode='contain', force=false){
     
-    if(!canvas) return;
+    if(!canvas.stage) return;
     if(mode=='nofit') return;
     
     //console.log(canvas.stage.scale._x)
