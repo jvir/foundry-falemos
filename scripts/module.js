@@ -435,9 +435,9 @@ Hooks.on('canvasInit', async function(){
 
 Hooks.on('canvasPan', async function(canvas, view){
     
-    if (!game.scenes.flags?.falemos?.config?.enable){return;}
+    if (!game.scenes.viewed.flags?.falemos?.config?.enable){return;}
     
-    switch (game.scenes.flags.falemos.config[game.userId].fit){
+    switch (game.scenes.viewed.flags.falemos.config[game.userId].fit){
         case 'cover':
             canvasFit('cover');
             break;
@@ -461,7 +461,7 @@ function canvasFit(mode='contain', force=false){
     if(!canvas) return;
     if(mode=='nofit') return;
     
-    
+    //console.log(canvas.stage.scale._x)
     let view = {
         scale: canvas.stage.scale._x,
         x: canvas.stage.pivot._x,
