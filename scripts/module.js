@@ -462,42 +462,43 @@ Hooks.on('renderDrawingHUD', async function(app, html, data){//TODO
 function canvasFit(mode='contain', force=false){
     
     if(!canvas.stage) return;
-  if (mode === "nofit") {
-    canvas.pan({
-      x: null,
-      y: null,
-      scale: game.scenes.viewed.initial.scale,
-    });
-    createSceneStyles(mode);
-  } else if(mode === "contain" || mode === "cover") {
-    
     //console.log(canvas.stage.scale._x)
-    let view = {
-        scale: canvas.stage.scale._x,
-        x: canvas.stage.pivot._x,
-        y: canvas.stage.pivot._y
-    }
-    
-    let scaleW = window.innerWidth / canvas.dimensions.sceneWidth;
-    let scaleH = window.innerHeight / canvas.dimensions.sceneHeight;
-    let scaleContain = Math.round(Math.min(scaleW, scaleH)*100)/100;
-    let scaleCover = Math.round(Math.max(scaleW, scaleH)*100)/100;
-
-    let scale = mode=='contain' ? scaleContain : scaleCover;
-    let x = canvas.dimensions.paddingX + window.innerWidth/scale/2;
-    let y = canvas.dimensions.paddingY + window.innerHeight/scale/2;
-    
-    
-    if (Math.abs(view.scale-scale)>0.01 || Math.abs(view.x-x)>1 || Math.abs(view.y-y)>1 || force){
-        canvas.pan({
-            x: canvas.dimensions.paddingX + window.innerWidth/scale/2, 
-            y: canvas.dimensions.paddingY + window.innerHeight/scale/2, 
-            scale: scale});
-        //let scaleToH = scaleW > scaleH ? true : false;//if Horizontal is large side (in contain image not cover horizontal, in cover cut image in vertical)
+    if (mode === "nofit") {
+		let viewInit = {
+            scale: game.scenes.current.initial.scale,
+            x: (game.scenes.current.initial.x ? game.scenes.current.initial.x : 0) + game.scenes.current.dimensions.width/2,
+            y: (game.scenes.current.initial.y ? game.scenes.current.initial.y : 0) + game.scenes.current.dimensions.height/2
+        }
+	    //console.log("----------viewInit-----------\n");
+	    //console.log(viewInit);
+        canvas.pan(viewInit);
         createSceneStyles(mode);
-    }
-  }     
-     
+    } else if(mode === "contain" || mode === "cover") {
+	    let view = {
+            scale: canvas.stage.scale._x,
+            x: canvas.stage.pivot._x,
+            y: canvas.stage.pivot._y
+        }
+        let scaleW = window.innerWidth / canvas.dimensions.sceneWidth;
+        let scaleH = window.innerHeight / canvas.dimensions.sceneHeight;
+        let scaleContain = Math.round(Math.min(scaleW, scaleH)*100)/100;
+        let scaleCover = Math.round(Math.max(scaleW, scaleH)*100)/100;
+        let scaleFinal = mode=='contain' ? scaleContain : scaleCover;
+        //let x = canvas.dimensions.sceneX + window.innerWidth/scale/2;
+        //let y = canvas.dimensions.sceneY + window.innerHeight/scale/2;
+	    let viewFinal = {
+            x: canvas.dimensions.sceneX + window.innerWidth/scaleFinal/2, 
+            y: canvas.dimensions.sceneY + window.innerHeight/scaleFinal/2, 
+            scale: scaleFinal
+		}
+        if (Math.abs(view.scale-viewFinal.scale)>0.01 || Math.abs(view.x-viewFinal.x)>1 || Math.abs(view.y-viewFinal.y)>1 || force){
+		    //console.log("----------viewFinal-----------\n");
+		    //console.log(viewFinal);
+            canvas.pan(viewFinal);
+            //let scaleToH = scaleW > scaleH ? true : false;//if Horizontal is large side (in contain image not cover horizontal, in cover cut image in vertical)
+            createSceneStyles(mode);
+        }
+    }     
 }
 
 
