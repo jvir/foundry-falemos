@@ -464,8 +464,8 @@ function canvasFit(mode='contain', force=false){
     if(!canvas.stage) return;
   if (mode === "nofit") {
     canvas.pan({
-      x: game.scenes.viewed.initial.x,
-      y: game.scenes.viewed.initial.y,
+      x: null,
+      y: null,
       scale: game.scenes.viewed.initial.scale,
     });
     createSceneStyles(mode);
