@@ -373,6 +373,9 @@ Hooks.on('closeSceneConfig', async function(sceneConfig, html, data) {
         camerasStyling(camerashtml);
     
         switch (game.scenes.viewed.flags.falemos.config[game.userId].fit){
+            case 'nofit':
+                canvasFit('nofit');
+                break;
             case 'cover':
                 canvasFit('cover');
                 break;
@@ -459,7 +462,14 @@ Hooks.on('renderDrawingHUD', async function(app, html, data){//TODO
 function canvasFit(mode='contain', force=false){
     
     if(!canvas.stage) return;
-    if(mode=='nofit') return;
+  if (mode === "nofit") {
+    canvas.pan({
+      x: game.scenes.viewed.initial.x,
+      y: game.scenes.viewed.initial.y,
+      scale: game.scenes.viewed.initial.scale,
+    });
+    createSceneStyles(mode);
+  } else if(mode === "contain" || mode === "cover") {
     
     //console.log(canvas.stage.scale._x)
     let view = {
@@ -486,7 +496,7 @@ function canvasFit(mode='contain', force=false){
         //let scaleToH = scaleW > scaleH ? true : false;//if Horizontal is large side (in contain image not cover horizontal, in cover cut image in vertical)
         createSceneStyles(mode);
     }
-     
+  }     
      
 }
 
