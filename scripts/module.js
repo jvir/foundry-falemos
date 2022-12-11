@@ -383,7 +383,7 @@ Hooks.on('closeSceneConfig', async function(sceneConfig, html, data) {
                 canvasFit('contain');
                 break;
         }
-        
+		location.reload()
     }
 });
 
@@ -465,9 +465,12 @@ function canvasFit(mode='contain', force=false){
     //console.log(canvas.stage.scale._x)
     if (mode === "nofit") {
 		let viewInit = {
-            scale: game.scenes.current.initial.scale,
-            x: (game.scenes.current.initial.x ? game.scenes.current.initial.x : 0) + game.scenes.current.dimensions.width/2,
-            y: (game.scenes.current.initial.y ? game.scenes.current.initial.y : 0) + game.scenes.current.dimensions.height/2
+            //scale: game.scenes.current.initial.scale,
+            //x: (game.scenes.current.initial.x ? game.scenes.current.initial.x : 0) + game.scenes.current.dimensions.width/2,
+            //y: (game.scenes.current.initial.y ? game.scenes.current.initial.y : 0) + game.scenes.current.dimensions.height/2
+            scale: (game.scenes.current.initial.scale ? game.scenes.current.initial.scale :1),
+            x: (game.scenes.current.initial.x ? game.scenes.current.initial.x : game.scenes.current.dimensions.width/2),
+            y: (game.scenes.current.initial.y ? game.scenes.current.initial.y : game.scenes.current.dimensions.height/2) 
         }
 	    //console.log("----------viewInit-----------\n");
 	    //console.log(viewInit);
