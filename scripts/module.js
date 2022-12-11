@@ -383,7 +383,7 @@ Hooks.on('closeSceneConfig', async function(sceneConfig, html, data) {
                 canvasFit('contain');
                 break;
         }
-        
+		location.reload()
     }
 });
 
