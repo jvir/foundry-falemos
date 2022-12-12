@@ -59,6 +59,8 @@
     "FALEMOS.scene.fit.nofit": "Sin ajuste de escena",
     "FALEMOS.scene.fit.cover": "Cubrir con la imagen",
     "FALEMOS.scene.fit.contain": "Contener la imagen",
+    "FALEMOS.scene.fit.covercenter": "Cubrir con la imagen y centrar",
+    "FALEMOS.scene.fit.containcenter": "Contener la imagen y centrar",
     "FALEMOS.SceneFitText": "Ajuste de la escena",
     "FALEMOS.SceneFitNotes": "Ajusta la escena para que la imagen la cubra entera o para que la imagen se vea entera",
     "FALEMOS.ExportConfigToMacro": "Crear macro",
