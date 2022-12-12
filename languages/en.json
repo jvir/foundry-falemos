@@ -59,6 +59,8 @@
     "FALEMOS.scene.fit.nofit": "No fit",
     "FALEMOS.scene.fit.cover": "Fit to cover",
     "FALEMOS.scene.fit.contain": "Fit to contain",
+    "FALEMOS.scene.fit.covercenter": "Fit to cover and center",
+    "FALEMOS.scene.fit.containcenter": "Fit to contain and center",
     "FALEMOS.SceneFitText": "Scene fit",
     "FALEMOS.SceneFitNotes": "Fit the scene so that the image covers the entire scene or so that the image is seen in its entirety.",
     "FALEMOS.ExportConfigToMacro": "Create macro",

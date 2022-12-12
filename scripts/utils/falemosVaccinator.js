@@ -1,5 +1,5 @@
 //
-// falemos vaccinator 0.14
+// falemos vaccinator 0.15
 // by Viriato139ac
 //
 
@@ -839,8 +839,14 @@ function simularTabla(
           <option value="cover">${game.i18n.localize(
             "FALEMOS.scene.fit.cover"
           )}</option>
+          <option value="covercenter">${game.i18n.localize(
+            "FALEMOS.scene.fit.covercenter"
+          )}</option>
           <option value="contain">${game.i18n.localize(
             "FALEMOS.scene.fit.contain"
+          )}</option>
+          <option value="containcenter">${game.i18n.localize(
+            "FALEMOS.scene.fit.containcenter"
           )}</option>
         </select></td>
       </tr>

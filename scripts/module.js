@@ -34,7 +34,9 @@ Hooks.once('init', async function() {
         sceneFit: {
             nofit: {name: "FALEMOS.scene.fit.nofit", data: "nofit"},
             cover: {name: "FALEMOS.scene.fit.cover", data: "cover"},
-            contain: {name: "FALEMOS.scene.fit.contain", data: "contain"}
+            covercenter: {name: "FALEMOS.scene.fit.covercenter", data: "covercenter"},
+            contain: {name: "FALEMOS.scene.fit.contain", data: "contain"},
+            containcenter: {name: "FALEMOS.scene.fit.containcenter", data: "containcenter"}
         }
     }
     CONFIG.FALEMOS = MCCONFIG;
@@ -218,10 +220,18 @@ if (game.scenes.viewed === undefined) return;
             let tempFit = game.scenes.viewed.flags?.falemos?.config[game.userId]?.fit
             switch (tempFit) {
                 case 'cover':
+                    game.socket.emit('module.falemos', {event: "toggleFitHotkey", action:'command', data: {user: game.user, scene: game.scenes.viewed, mode: "covercenter"}});
+                    //game.scenes.viewed.setFlag('falemos', `config.${game.userId}.fit`, 'contain').then(()=>canvasFit('contain', true));
+                    break;
+                case 'covercenter':
                     game.socket.emit('module.falemos', {event: "toggleFitHotkey", action:'command', data: {user: game.user, scene: game.scenes.viewed, mode: "contain"}});
                     //game.scenes.viewed.setFlag('falemos', `config.${game.userId}.fit`, 'contain').then(()=>canvasFit('contain', true));
                     break;
                 case 'contain':
+                    game.socket.emit('module.falemos', {event: "toggleFitHotkey", action:'command', data: {user: game.user, scene: game.scenes.viewed, mode: "containcenter"}});
+                    //game.scenes.viewed.setFlag('falemos', `config.${game.userId}.fit`, 'nofit').then(()=>canvasFit('nofit', true));
+                    break;
+                case 'containcenter':
                     game.socket.emit('module.falemos', {event: "toggleFitHotkey", action:'command', data: {user: game.user, scene: game.scenes.viewed, mode: "nofit"}});
                     //game.scenes.viewed.setFlag('falemos', `config.${game.userId}.fit`, 'nofit').then(()=>canvasFit('nofit', true));
                     break;
@@ -278,7 +288,6 @@ if (game.scenes.viewed === undefined) return;
     
 });
 
-
 Hooks.on('renderCameraViews', async function(cameraviews, html) {
     if (game.scenes.viewed !== undefined) if (game.scenes.viewed.flags.falemos?.config?.enable){
 
@@ -306,11 +315,14 @@ Hooks.on('renderCameraViews', async function(cameraviews, html) {
             game.falemos.camToTile(ev.currentTarget.closest('.camera-view').dataset.user);
         });
 
-
         camerasToPopout(html);
         camerasStyling(html);
         canvasFit(game.scenes.viewed.flags.falemos.config[game.userId].fit, true);
-    }
+		
+    }else{
+		// when falemos is disabled, revert css styling (for example, the min-width of falemos of 100px return to 240px by default
+		document.getElementById('falemosStyles') ? document.getElementById('falemosStyles').remove() : null;
+	}
             
 });
 
@@ -322,9 +334,6 @@ Hooks.on('updateFalemosIsolated'. async function(data) {
     });
 });*/
 
-
-
-
 Hooks.on('renderSceneConfig', async function(sceneConfig, html, scene) {
     // console.log('sceneConfig');
     // console.log(sceneConfig);
@@ -332,6 +341,10 @@ Hooks.on('renderSceneConfig', async function(sceneConfig, html, scene) {
     // console.log(html);
     // console.log('data');
     // console.log(scene);
+	
+	// I create this flag to reload the window at closeSceneConfig when switching from falemos disabled to falemos enabled, I reload to clean the falemos css
+	game.scenes.viewed.setFlag('falemos', 'config.previouslyDisabled', !game.scenes.viewed.flags.falemos?.config?.enable);
+
         let falemosconfig = game.scenes.get(scene.data._id).getFlag('falemos', 'config') ? game.scenes.get(scene.data._id).getFlag('falemos', 'config') : null;
         let users = Array.from(game.users);
                 
@@ -352,17 +365,14 @@ Hooks.on('renderSceneConfig', async function(sceneConfig, html, scene) {
                 jQuery(`[name='flags.falemos.config.${ev.currentTarget.dataset.user}.y']`).first().val(offset.top/(window.innerHeight/100));
             });
         });
-        
-        
+                
         sceneConfig.activateListeners(html)
         //html.find('button.file-picker').each((i, button) => this._activateFilePicker(button));
 
-
 })
 
-
 Hooks.on('closeSceneConfig', async function(sceneConfig, html, data) {
-    
+	
     if (game.scenes.viewed.flags.falemos?.config?.enable){
         let camerashtml = jQuery("#camera-views");
         camerashtml.find('.camera-view').each((index, camera)=>{
@@ -382,11 +392,17 @@ Hooks.on('closeSceneConfig', async function(sceneConfig, html, data) {
             case 'contain':
                 canvasFit('contain');
                 break;
+            case 'covercenter':
+                canvasFit('covercenter');
+                break;
+            case 'covercenter':
+                canvasFit('covercenter');
+                break;
         }
+	    // I created this flag to reload the window at closeSceneConfig when switching from falemos disabled to falemos enabled, I reload to clean the falemos css
+	    game.scenes.viewed.flags.falemos?.config?.previouslyDisabled ? location.reload() : null;
     }
-	location.reload()
 });
-
 
 Hooks.on('renderSceneNavigation', async function(scene, html) { //TODO get form values and save in flag
         if (game.scenes.viewed !== undefined) if (game.scenes.viewed.flags.falemos?.config?.enable){
@@ -405,11 +421,10 @@ Hooks.on('renderSceneNavigation', async function(scene, html) { //TODO get form 
                 camera.removeAttribute('data-scene');
                 camera.parentNode.removeAttribute('data-scene');
             })
-            cameraToDOck(camerashtml);
+            cameraToDock(camerashtml);
             hideUi({}, 'all');
         }
 });
-
 
 //TODO: chat under camera test implementation (best with screenshot?)
 // Hooks.on('renderChatMessage', async function(chatMessage, html) {
@@ -424,8 +439,6 @@ Hooks.on('renderSceneNavigation', async function(scene, html) { //TODO get form 
 //     }, 5000);
 //     
 // });
-
-
 
 Hooks.on('rtcSettingsChanged', async function(cameraviews, html) {//TODO: for isolate audio for groups
 
@@ -447,6 +460,12 @@ Hooks.on('canvasPan', async function(canvas, view){
         case 'contain':
             canvasFit('contain');
             break;
+        case 'covercenter':
+            canvasFit('covercenter');
+            break;
+        case 'containcenter':
+            canvasFit('containcenter');
+            break;
     }
     
         
@@ -458,53 +477,103 @@ Hooks.on('renderDrawingHUD', async function(app, html, data){//TODO
       html.find('.control-icon.sort-down');
 })
 
+// function canvasFit(mode='contain', force=false){
+//     if(!canvas.stage) return;
+//     if (mode === "nofit") {
+// 		let viewInit = {
+//             scale: (game.scenes.viewed.initial.scale ? game.scenes.viewed.initial.scale :1),
+//             x: (game.scenes.viewed.initial.x ? game.scenes.viewed.initial.x : game.scenes.viewed.dimensions.width/2),
+//             y: (game.scenes.viewed.initial.y ? game.scenes.viewed.initial.y : game.scenes.viewed.dimensions.height/2) 
+//         }
+//         canvas.pan(viewInit);
+//         createSceneStyles(mode);
+//     } else if(mode === "contain" || mode === "cover") {
+// 	    let view = {
+//             scale: canvas.stage.scale._x,
+//             x: canvas.stage.pivot._x,
+//             y: canvas.stage.pivot._y
+//         }
+//         let scaleW = window.innerWidth / canvas.dimensions.sceneWidth;
+//         let scaleH = window.innerHeight / canvas.dimensions.sceneHeight;
+//         let scaleContain = Math.round(Math.min(scaleW, scaleH)*100)/100;
+//         let scaleCover = Math.round(Math.max(scaleW, scaleH)*100)/100;
+//         let scaleFinal = mode=='contain' ? scaleContain : scaleCover;
+// 	    let viewFinal = {
+//             x: canvas.dimensions.sceneX + window.innerWidth/scaleFinal/2, 
+//             y: canvas.dimensions.sceneY + window.innerHeight/scaleFinal/2, 
+//             scale: scaleFinal
+// 		}
+//         if (Math.abs(view.scale-viewFinal.scale)>0.01 || Math.abs(view.x-viewFinal.x)>1 || Math.abs(view.y-viewFinal.y)>1 || force){
+//             canvas.pan(viewFinal);
+//             createSceneStyles(mode);
+//         }
+//     }     
+// }
 
 function canvasFit(mode='contain', force=false){
-    
     if(!canvas.stage) return;
-    //console.log(canvas.stage.scale._x)
+    // Calculate padding
+    let padUnitsWidth=Math.ceil(game.scenes.viewed.dimensions.sceneWidth*game.scenes.viewed.padding/game.scenes.viewed.grid.size)
+    let padUnitsHeight=Math.ceil(game.scenes.viewed.dimensions.sceneHeight*game.scenes.viewed.padding/game.scenes.viewed.grid.size)
+    let padWidth=padUnitsWidth*game.scenes.viewed.grid.size // igual que game.scenes.viewed.dimensions.sceneX
+    let padHeight=padUnitsHeight*game.scenes.viewed.grid.size // igual que  game.scenes.viewed.dimensions.sceneY
+
+    // aspectratios
+    let scaleW = window.innerWidth / game.scenes.viewed.dimensions.sceneWidth;
+    let scaleH = window.innerHeight / game.scenes.viewed.dimensions.sceneHeight;
+
+    // input values to calculate the initial values for canvas.pan
+    let inputValues;
     if (mode === "nofit") {
-		let viewInit = {
-            //scale: game.scenes.current.initial.scale,
-            //x: (game.scenes.current.initial.x ? game.scenes.current.initial.x : 0) + game.scenes.current.dimensions.width/2,
-            //y: (game.scenes.current.initial.y ? game.scenes.current.initial.y : 0) + game.scenes.current.dimensions.height/2
-            scale: (game.scenes.current.initial.scale ? game.scenes.current.initial.scale :1),
-            x: (game.scenes.current.initial.x ? game.scenes.current.initial.x : game.scenes.current.dimensions.width/2),
-            y: (game.scenes.current.initial.y ? game.scenes.current.initial.y : game.scenes.current.dimensions.height/2) 
+	    inputValues = {
+            initialZoom: (game.scenes.viewed.initial.scale ? game.scenes.viewed.initial.scale :1),
+            imagePosX1: (padWidth - (game.scenes.viewed.initial.x ? game.scenes.viewed.initial.x : 0))*(game.scenes.viewed.initial.scale ? game.scenes.viewed.initial.scale :1)+window.innerWidth/2,
+            imagePosY1: (padHeight - (game.scenes.viewed.initial.y ? game.scenes.viewed.initial.y : 0))*(game.scenes.viewed.initial.scale ? game.scenes.viewed.initial.scale :1)+window.innerHeight/2
         }
-	    //console.log("----------viewInit-----------\n");
-	    //console.log(viewInit);
-        canvas.pan(viewInit);
+    }else if(mode === "contain") {
+	    inputValues = {
+            initialZoom: Math.min(scaleW, scaleH),
+            imagePosX1: 0,
+            imagePosY1: 0
+        }
+    }else if(mode === "containcenter") {
+	    inputValues = {
+            initialZoom: Math.min(scaleW, scaleH),
+            imagePosX1: (window.innerWidth-game.scenes.viewed.dimensions.sceneWidth*Math.min(scaleW, scaleH))/2,
+            imagePosY1: (window.innerHeight-game.scenes.viewed.dimensions.sceneHeight*Math.min(scaleW, scaleH))/2
+        }
+    }else if  (mode === "cover") {
+	    inputValues = {
+            initialZoom: Math.max(scaleW, scaleH),
+            imagePosX1: 0,
+            imagePosY1: 0
+        }
+    }else if  (mode === "covercenter") {
+	    inputValues = {
+            initialZoom: Math.max(scaleW, scaleH),
+            imagePosX1: (window.innerWidth-game.scenes.viewed.dimensions.sceneWidth*Math.max(scaleW, scaleH))/2,
+            imagePosY1: (window.innerHeight-game.scenes.viewed.dimensions.sceneHeight*Math.max(scaleW, scaleH))/2
+        }
+    }else return;
+
+    let viewOld = {
+        scale: canvas.stage.scale._x,
+        x: canvas.stage.pivot._x,
+        y: canvas.stage.pivot._y
+    }    
+	let viewNew = {
+        scale: inputValues.initialZoom,
+        x: (window.innerWidth/2-inputValues.imagePosX1)/inputValues.initialZoom+padWidth,
+        y: (window.innerHeight/2-inputValues.imagePosY1)/inputValues.initialZoom+padHeight
+    }
+
+    if (Math.abs(viewOld.scale-viewNew.scale)>0.01 || Math.abs(viewOld.x-viewNew.x)>1 || Math.abs(viewOld.y-viewNew.y)>1 || force){
+        //console.log("----------viewNew-----------\n");
+	    //console.log(viewNew);
+        canvas.pan(viewNew);
         createSceneStyles(mode);
-    } else if(mode === "contain" || mode === "cover") {
-	    let view = {
-            scale: canvas.stage.scale._x,
-            x: canvas.stage.pivot._x,
-            y: canvas.stage.pivot._y
-        }
-        let scaleW = window.innerWidth / canvas.dimensions.sceneWidth;
-        let scaleH = window.innerHeight / canvas.dimensions.sceneHeight;
-        let scaleContain = Math.round(Math.min(scaleW, scaleH)*100)/100;
-        let scaleCover = Math.round(Math.max(scaleW, scaleH)*100)/100;
-        let scaleFinal = mode=='contain' ? scaleContain : scaleCover;
-        //let x = canvas.dimensions.sceneX + window.innerWidth/scale/2;
-        //let y = canvas.dimensions.sceneY + window.innerHeight/scale/2;
-	    let viewFinal = {
-            x: canvas.dimensions.sceneX + window.innerWidth/scaleFinal/2, 
-            y: canvas.dimensions.sceneY + window.innerHeight/scaleFinal/2, 
-            scale: scaleFinal
-		}
-        if (Math.abs(view.scale-viewFinal.scale)>0.01 || Math.abs(view.x-viewFinal.x)>1 || Math.abs(view.y-viewFinal.y)>1 || force){
-		    //console.log("----------viewFinal-----------\n");
-		    //console.log(viewFinal);
-            canvas.pan(viewFinal);
-            //let scaleToH = scaleW > scaleH ? true : false;//if Horizontal is large side (in contain image not cover horizontal, in cover cut image in vertical)
-            createSceneStyles(mode);
-        }
-    }     
+    }
 }
-
-
 
 function hideUi (data, mode=null){ //hide/shoe UI elements
     mode ? data.mode = mode : null;
@@ -532,9 +601,7 @@ function hideUi (data, mode=null){ //hide/shoe UI elements
         };
 }
 
-
-
-function cameraToDOck(html){
+function cameraToDock(html){
         Array.from(game.users).forEach((user)=>{
             let userCamera = html.find(`.camera-view[data-user="${user.id}"]`);
             if (userCamera.length != 1) return; //no camera, next. 
@@ -625,7 +692,7 @@ function createSceneStyles(imageFormat=null){
                 let currentLeft = game.scenes.viewed.flags.falemos.config[user.id].x*window.innerWidth/100;
                 let currentTop = game.scenes.viewed.flags.falemos.config[user.id].y*window.innerHeight/100;
                 
-                if (imageFormat == 'contain'){
+                if (imageFormat === 'contain' || imageFormat === 'containcenter'){
                     let maxWidth = (game.scenes.viewed.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.flags.falemos.config[user.id].width;
                     cssWidth = `max-width: ${maxWidth}px !important;`;
                     
@@ -635,7 +702,7 @@ function createSceneStyles(imageFormat=null){
                     let maxLeft =(game.scenes.viewed.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.flags.falemos.config[user.id].x;
                     currentLeft = Math.min(maxLeft, game.scenes.viewed.flags.falemos.config[user.id].x*window.innerWidth/100);
                     
-                }else if (imageFormat == 'cover'){
+                }else if (imageFormat == 'cover' || imageFormat == 'covercenter'){
                     let minWidth = (game.scenes.viewed.width * game.scenes.viewed._viewPosition.scale / 100) * game.scenes.viewed.flags.falemos.config[user.id].width;
                     cssWidth = `min-width: ${minWidth}px !important;`;
 
@@ -681,10 +748,8 @@ function createSceneStyles(imageFormat=null){
         }
     })    
     
-    
     jQuery(`<style id='falemosStyles'>`).text(css).appendTo(document.head);
 }
-
 
 function onSocketData(data){
     let event = data.event;
@@ -700,13 +765,6 @@ function onSocketData(data){
         resultado.textContent = `Te gusta el sabor ${event.target.value}`
     }
 }
-
-
-
-
-
-
-
 
 /*
 function versionChangesPopup(){
@@ -804,13 +862,6 @@ function _addChatListeners(){
 
 
 }*/
-
-
-
-
-
-
-
 
 Handlebars.registerHelper('lookupProp', function (obj, key, prop) {
     if (!obj) return null;
