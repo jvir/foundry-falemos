@@ -401,7 +401,10 @@ Hooks.on('closeSceneConfig', async function(sceneConfig, html, data) {
         }
 	    // I created this flag to reload the window at closeSceneConfig when switching from falemos disabled to falemos enabled, I reload to clean the falemos css
 	    game.scenes.viewed.flags.falemos?.config?.previouslyDisabled ? location.reload() : null;
-    }
+    }else{
+			canvasFit("nofit");
+			!game.scenes.viewed.flags.falemos?.config?.previouslyDisabled ? location.reload() : null;
+		}
 });
 
 Hooks.on('renderSceneNavigation', async function(scene, html) { //TODO get form values and save in flag
