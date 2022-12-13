@@ -3,6 +3,8 @@
 // by Viriato139ac
 //
 
+const falemosVersion = "0.15";
+
 // Número de jugadores y listado de nombres
 
 let jugadores = [];
@@ -311,7 +313,7 @@ const myDialogOptions2 = {
 
 new Dialog(
   {
-    title: `${game.i18n.localize("FALEMOS.vaccinator.title")}`,
+    title: `${game.i18n.localize("FALEMOS.vaccinator.title")}` + ` v` + falemosVersion,
     content: `
   <script>
 function selectImage() {
