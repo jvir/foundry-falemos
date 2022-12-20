@@ -160,6 +160,17 @@ Hooks.once('ready', async function() {
 //                 }
 //             }
 //             console.log(data);
+if (!data.enable && game.scenes.viewed.flags.falemos.config.enable){
+	    let rtcSett = game.settings.get("core", "rtcClientSettings")
+
+    rtcSett.dockPosition = "left";
+    rtcSett.hideDock = false;
+    for(let [k,v] of Object.entries(game.settings.get("core", "rtcClientSettings").users)){
+        v.popout = false;
+        rtcSett.users[k] = v;
+    }
+    game.settings.set("core", "rtcClientSettings", rtcSett);
+}
             game.scenes.get(sceneId).setFlag('falemos', 'config', newData);
         },
         sceneConfigToMacro: function (sceneId, data) {
