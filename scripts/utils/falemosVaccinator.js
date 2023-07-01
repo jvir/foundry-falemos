@@ -1,9 +1,9 @@
 //
-// falemos vaccinator 0.15
+// falemos vaccinator 0.16
 // by Viriato139ac
 //
 
-const falemosVersion = "0.15";
+const falemosVersion = "0.16";
 
 // Número de jugadores y listado de nombres
 
@@ -306,9 +306,10 @@ let saveDisableMacro = false;
 
 const myDialogOptions2 = {
   width: 800,
-  height: 800,
-  top: 500,
-  left: 500,
+  resizable: true,
+  // height: 800,
+  // top: 500,
+  // left: 500,
 };
 
 new Dialog(
@@ -479,9 +480,10 @@ function simularTabla(
   tabla = tabla + '</tbody>\\n</table>';
 
   const myDialogOptions1 = {
-    width: 640,
-    top: 500,
-    left: 500
+    width: 800,
+    resizable: true,
+    // top: 500,
+    // left: 500
   };
 
   new Dialog({

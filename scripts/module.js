@@ -584,7 +584,7 @@ function canvasFit(mode='contain', force=false){
     if (Math.abs(viewOld.scale-viewNew.scale)>0.01 || Math.abs(viewOld.x-viewNew.x)>1 || Math.abs(viewOld.y-viewNew.y)>1 || force){
         //console.log("----------viewNew-----------\n");
 	    //console.log(viewNew);
-        canvas.pan(viewNew);
+        if (mode !== "nofit") canvas.pan(viewNew);
         createSceneStyles(mode);
     }
 }
