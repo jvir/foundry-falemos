@@ -4,10 +4,10 @@
   "description": "",
   "version": "This is auto replaced",
   "library": "false",
-  "manifestPlusVersion": "1.3.0",
+  "manifestPlusVersion": "1.3.1",
   "compatibility": {
     "minimum": "10",
-    "verified": "11.306",
+    "verified": "11.308",
     "maximum": "11"
     },
   "authors": [

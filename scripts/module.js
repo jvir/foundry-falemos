@@ -70,29 +70,100 @@ Hooks.once('ready', async function() {
        onSocketData(data); 
     });
     
+	    function updateMacro(macroFile) {
+
+        fetch(macroFile).then(res => res.text()).then((content) => {
+
+            let macroContents = content.split(`\n`);
+            let versionLine = -1;
+            for (var i = 0; i < macroContents.length; i++) {
+                if (macroContents[i].search(/macroVersion/) > -1) {
+                    versionLine = i;
+                    break;
+                }
+            }
+            let macroVersion = parseFloat(macroContents[versionLine].split("=")[1].replace(/\;/g, '').replace(/\"/g, ''));
+            let nameLine = -1;
+            for (var i = 0; i < macroContents.length; i++) {
+                if (macroContents[i].search(/macroName/) > -1) {
+                    nameLine = i;
+                    break;
+                }
+            }
+            let macroName = macroContents[nameLine].split("=")[1].replace(/\;/g, '').replace(/\"/g, '').trim();
+            let imageLine = -1;
+            for (var i = 0; i < macroContents.length; i++) {
+                if (macroContents[i].search(/macroImage/) > -1) {
+                    imageLine = i;
+                    break;
+                }
+            }
+            let macroImage = macroContents[imageLine].split("=")[1].replace(/\;/g, '').replace(/\"/g, '').trim();
+
+            let instMacro = game.macros.getName(macroName);
+            let instVersion = instMacro ? instMacro.flags.version : 0;
+            console.log("Analizando: " + macroFile)
+
+            if (!instMacro || instVersion === undefined || parseFloat(instVersion) < macroVersion) {
+                if (instMacro) {
+                    console.log("Macro: " + macroName + ", Versión: " + macroVersion + ", Instalada: ", instVersion, " --- Actualizamos macro actual");
+
+                    instMacro.update({
+                        name: macroName,
+                        type: 'script',
+                        img: macroImage,
+                        command: content,
+                        flags: {
+                            'version': macroVersion
+                        }
+                    });
+                } else {
+                    console.log("Macro: " + macroName + ", Versión: " + macroVersion + ", Instalada: ", instVersion, " --- Creamos macro");
+
+                    Macro.create({
+                        name: macroName,
+                        type: 'script',
+                        img: macroImage,
+                        command: content,
+                        flags: {
+                            'version': macroVersion
+                        }
+                    });
+                }
+            } else {
+                console.log("Macro: " + macroName + ", Versión: " + macroVersion + ", Instalada: ", instVersion, " --- No hacemos nada");
+
+            }
+
+        });
+
+    }
+	
     //create macro vaccinator if not exist or not updated
     if (game.user.isGM){
-        let falemosVersion;
-        falemosVersion = parseInt(game.modules.get('falemos').version.replace( /\./g, ''));
-        if (Number.isNaN(falemosVersion)) falemosVersion = 1; //used in testing enviroment
-        console.log('falemos vaccinator version: ' + falemosVersion);
-        let vaccinatorMacro = game.macros.getName('Falemos Vaccinator by Viriato139ac');
-        
-        if(!vaccinatorMacro || vaccinatorMacro.getFlag('falemos', 'vaccinatorVersion') === undefined || vaccinatorMacro.getFlag('falemos', 'vaccinatorVersion') < falemosVersion || vaccinatorMacro.getFlag('falemos', 'vaccinatorVersion') == 1){
-            console.log('Creating Falemos Vaccinator Macro by Viriato139ac');
-            if (vaccinatorMacro){
-                vaccinatorMacro.delete();
-            }
-            fetch('/modules/falemos/scripts/utils/falemosVaccinator.js').then(res => res.text()).then((content) => {
-                                                                                                                Macro.create({
-                                                                                                                            name: 'Falemos Vaccinator by Viriato139ac',
-                                                                                                                            type: 'script',
-                                                                                                                            img: "modules/falemos/assets/img/falemos.svg",
-                                                                                                                            command: content,
-                                                                                                                            flags: {'falemos': {'vaccinatorVersion': falemosVersion}}
-                                                                                                                        });      
-                                                                                                                });    
-        };    
+        //let falemosVersion;
+        //falemosVersion = parseInt(game.modules.get('falemos').version.replace( /\./g, ''));
+        //if (Number.isNaN(falemosVersion)) falemosVersion = 1; //used in testing enviroment
+        //console.log('falemos version: ' + falemosVersion);
+        //let vaccinatorMacro = game.macros.getName('Falemos Vaccinator by Viriato139ac');
+        //console.log('vaccinator version: ' + vaccinatorMacro.getFlag('falemos', 'vaccinatorVersion'));
+		//
+        //if(!vaccinatorMacro || vaccinatorMacro.getFlag('falemos', 'vaccinatorVersion') === undefined || vaccinatorMacro.getFlag('falemos', 'vaccinatorVersion') < falemosVersion || vaccinatorMacro.getFlag('falemos', 'vaccinatorVersion') == 1){
+        //    console.log('Creating Falemos Vaccinator Macro by Viriato139ac');
+        //    if (vaccinatorMacro){
+        //        vaccinatorMacro.delete();
+        //    }
+        //    fetch('/modules/falemos/scripts/utils/falemosVaccinator.js').then(res => res.text()).then((content) => {
+        //                                                                                                        Macro.create({
+        //                                                                                                                    name: 'Falemos Vaccinator by Viriato139ac',
+        //                                                                                                                    type: 'script',
+        //                                                                                                                    img: "modules/falemos/assets/img/falemos.svg",
+        //                                                                                                                    command: content,
+        //                                                                                                                    flags: {'falemos': {'vaccinatorVersion': falemosVersion}}
+        //                                                                                                                });      
+        //                                                                                                        });    
+        //};
+		updateMacro("/modules/falemos/scripts/utils/falemosVaccinator.js");
     };
     
     //exposed functions

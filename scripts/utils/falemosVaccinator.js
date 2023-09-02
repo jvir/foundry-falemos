@@ -1,9 +1,12 @@
 //
-// falemos vaccinator 0.16
+// falemos vaccinator 0.17
 // by Viriato139ac
 //
 
-const falemosVersion = "0.16";
+const macroName = "Falemos Vaccinator by Viriato139ac";
+const macroVersion = "0.17";
+const macroImage = "modules/falemos/assets/img/falemos.svg";
+
 
 // Número de jugadores y listado de nombres
 
@@ -314,7 +317,7 @@ const myDialogOptions2 = {
 
 new Dialog(
   {
-    title: `${game.i18n.localize("FALEMOS.vaccinator.title")}` + ` v` + falemosVersion,
+    title: `${game.i18n.localize("FALEMOS.vaccinator.title")}` + ` v` + macroVersion,
     content: `
   <script>
 function selectImage() {
@@ -709,7 +712,7 @@ function simularTabla(
         <td class="tg-d6y8" colspan="1">${game.i18n.localize(
           "FALEMOS.CameraNameFontText"
         )}:</td>
-        <td class="tg-d6y8" colspan="5"><input type="text" id="fuente" name="fuente" value="url('//db.onlinewebfonts.com/t/fe2027c27b6a24505f548c6fd2e1076d.woff2') format('woff2')"></td>
+        <td class="tg-d6y8" colspan="5"><input type="text" id="fuente" name="fuente" value='url("https://db.onlinewebfonts.com/t/2967a3c5ee426de27b245bcbc22ab82f.woff2")format("woff2")'></td>
         <td class="tg-d6y8" colspan="1">${game.i18n.localize(
           "FALEMOS.CameraNameFontSize"
         )}:</td>
@@ -937,7 +940,7 @@ function simularTabla(
         let efecto = html.find('[name="efecto"]')[0].value;
         let fuente = html.find('[name="fuente"]')[0].value;
         let ajuste = html.find('[name="ajuste"]')[0].value;
-        let fontsize = html.find('[name="fontsize"]')[0].value;
+        let fontsize = +(html.find('[name="fontsize"]')[0].value) || 2;
         let namecolor = html.find('[name="namecolor"]')[0].value;
 
         const idimensiones = [ancho, alto];
@@ -1014,7 +1017,7 @@ function simularTabla(
               100);
 
         let newfontsize;
-        fontsize === "0" || fontsize === ""
+        fontsize === 0 || fontsize === null
           ? (newfontsize = sNombre)
           : (newfontsize = fontsize);
 
@@ -1053,7 +1056,7 @@ function simularTabla(
             cameraNameOffsetY: yNombre,
             cameraNameFontSize: newfontsize,
             cameraNameColor: namecolor,
-            cameraNameFont: fuente,
+            cameraNameFont: fuente.replace(/["]/g, ""),
             fit: ajuste,
           };
         }
