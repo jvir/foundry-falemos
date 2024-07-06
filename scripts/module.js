@@ -69,6 +69,75 @@ Hooks.once('ready', async function() {
     game.socket.on('module.falemos', async (data) => {
        onSocketData(data); 
     });
+
+    function updateMacro(macroFile) {
+
+        fetch(macroFile).then(res => res.text()).then((content) => {
+
+            let macroContents = content.split(`\n`);
+            let versionLine = -1;
+            for (var i = 0; i < macroContents.length; i++) {
+                if (macroContents[i].search(/macroVersion/) > -1) {
+                    versionLine = i;
+                    break;
+                }
+            }
+            let macroVersion = parseFloat(macroContents[versionLine].split("=")[1].replace(/\;/g, '').replace(/\"/g, ''));
+            let nameLine = -1;
+            for (var i = 0; i < macroContents.length; i++) {
+                if (macroContents[i].search(/macroName/) > -1) {
+                    nameLine = i;
+                    break;
+                }
+            }
+            let macroName = macroContents[nameLine].split("=")[1].replace(/\;/g, '').replace(/\"/g, '').trim();
+            let imageLine = -1;
+            for (var i = 0; i < macroContents.length; i++) {
+                if (macroContents[i].search(/macroImage/) > -1) {
+                    imageLine = i;
+                    break;
+                }
+            }
+            let macroImage = macroContents[imageLine].split("=")[1].replace(/\;/g, '').replace(/\"/g, '').trim();
+
+            let instMacro = game.macros.getName(macroName);
+            let instVersion = instMacro ? instMacro.flags.version : 0;
+            console.log("Analizando: " + macroFile)
+
+            if (!instMacro || instVersion === undefined || parseFloat(instVersion) < macroVersion) {
+                if (instMacro) {
+                    console.log("Macro: " + macroName + ", Versión: " + macroVersion + ", Instalada: ", instVersion, " --- Actualizamos macro actual");
+
+                    instMacro.update({
+                        name: macroName,
+                        type: 'script',
+                        img: macroImage,
+                        command: content,
+                        flags: {
+                            'version': macroVersion
+                        }
+                    });
+                } else {
+                    console.log("Macro: " + macroName + ", Versión: " + macroVersion + ", Instalada: ", instVersion, " --- Creamos macro");
+
+                    Macro.create({
+                        name: macroName,
+                        type: 'script',
+                        img: macroImage,
+                        command: content,
+                        flags: {
+                            'version': macroVersion
+                        }
+                    });
+                }
+            } else {
+                console.log("Macro: " + macroName + ", Versión: " + macroVersion + ", Instalada: ", instVersion, " --- No hacemos nada");
+
+            }
+
+        });
+
+    }
     
     //create macro vaccinator if not exist or not updated
     if (game.user.isGM){
@@ -277,7 +346,6 @@ if (game.scenes.viewed === undefined) return;
                     }else{
                         game.scenes.viewed.setFlag('falemos', 'config.hide.mode', 'none');
                     }
-                    
             }            
             //scene.update({id: game.scenes.viewed.data._id, 'flags.falemos.config.hide': currentVisibility});
 //             .then(function(){
@@ -370,7 +438,7 @@ Hooks.on('renderSceneConfig', async function(sceneConfig, html, scene) {
         console.log (scene.data._id) 
         console.log ("CONFIG.FALEMOS")
         console.log (CONFIG.FALEMOS)   
-        let mchtml = await renderTemplate("modules/falemos/templates/scene/mc-config.html", {falemosconfig: falemosconfig, users:users, sceneid: scene._id, falemos: CONFIG.FALEMOS})
+        let mchtml = await renderTemplate("modules/falemos/templates/scene/mc-config.html", {falemosconfig: falemosconfig, users:users, sceneid: scene.data._id, falemos: CONFIG.FALEMOS})
         //let mchtml = await renderTemplate("modules/falemos/templates/scene/mc-config.html", {falemosconfig: falemosconfig, users:users, sceneid: scene._id, falemos: CONFIG.FALEMOS})  
         //insert tab
         //html.find('nav a:last').after('<a class="item" data-tab="falemos"><i class="fas fa-camera"></i> Falemos</a>');
