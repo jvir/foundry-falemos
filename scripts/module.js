@@ -921,15 +921,15 @@ function createSceneStyles(imageFormat = null) {
       }
 
       //base style
-      css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] { background: transparent; padding: 0; box-shadow: none; }\r\n `; //disable shadows and background
-      css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .control-bar.left, #camera-views-user-${user.id}[data-scene="${scene.data._id}"] .window-resizable-handle { display: none; } `;
-      css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .camera-view { background-image: none; background: rgba(250,250,250,0); border: 0px; /*indicador de hablando*/ box-shadow: none;  padding: 0px !important; /*Tamaño borde*/ }\r\n `;
-      css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .player-name { display: none; }\r\n `; //hidde player name
+      css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] { background: transparent; padding: 0; box-shadow: none; }\r\n `; //disable shadows and background
+      css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .control-bar.left, #camera-views-user-${user.id}[data-scene="${scene._id}"] .window-resizable-handle { display: none; } `;
+      css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .camera-view { background-image: none; background: rgba(250,250,250,0); border: 0px; /*indicador de hablando*/ box-shadow: none;  padding: 0px !important; /*Tamaño borde*/ }\r\n `;
+      css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .player-name { display: none; }\r\n `; //hidde player name
       //custom style
-      css += `.camera-view[data-user="${user.id}"][data-scene="${scene.data._id}"] video { object-fit: cover; filter: ${CONFIG.FALEMOS.cameraEffects[filterKey].data}; }\r\n `; //video filter
-      css += `.camera-view[data-user="${user.id}"][data-scene="${scene.data._id}"] video { ${CONFIG.FALEMOS.cameraGeometry[geometryKey].data} }\r\n `; //video geometry
-      css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .camera-box-popout { background: transparent !important; }\r\n `; // quita el fondo de color del video
-      css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .falemos-camera-overlay { z-index: 1; }\r\n `; // el marco lo pongo por encima de la camara pero por debajo de los controles de av
+      css += `.camera-view[data-user="${user.id}"][data-scene="${scene._id}"] video { object-fit: cover; filter: ${CONFIG.FALEMOS.cameraEffects[filterKey].data}; }\r\n `; //video filter
+      css += `.camera-view[data-user="${user.id}"][data-scene="${scene._id}"] video { ${CONFIG.FALEMOS.cameraGeometry[geometryKey].data} }\r\n `; //video geometry
+      css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .camera-box-popout { background: transparent !important; }\r\n `; // quita el fondo de color del video
+      css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .falemos-camera-overlay { z-index: 1; }\r\n `; // el marco lo pongo por encima de la camara pero por debajo de los controles de av
       css += `div#camera-views { --av-width: 100px; }\r\n `; // minimo tamaño de video a 100px (por defecto esta en 240px)
 
       //new relative units (vw) TODO: tener en cuenta para modo cover cual es el lado del cual no se ve aprte de la imagen (ahora solo funciona si el width se ve entero
@@ -1004,7 +1004,7 @@ function createSceneStyles(imageFormat = null) {
         );
       }
 
-      css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] {
+      css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] {
                             width: ${
                               game.scenes.viewed.flags.falemos.config[user.id]
                                 .width
@@ -1014,7 +1014,7 @@ function createSceneStyles(imageFormat = null) {
                             top: ${currentTop}px !important;
                             left: ${currentLeft}px !important; }`;
 
-      css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .falemos-camera-overlay { 
+      css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .falemos-camera-overlay { 
                             display: inherit; 
                             background-image: url('${overlayImg}'); 
                             width: calc(100% + ${overlayHSize}%); 
@@ -1022,10 +1022,10 @@ function createSceneStyles(imageFormat = null) {
                             top: -${overlayTop}%; 
                             left: -${overlayLeft}%;}\r\n `; //show camera overlay
 
-      //css += `#camera-views-user-${user.id}[data-scene="${scene.data._id}"] .falemos-chat-overlay { display: inherit; width: 300px; top: calc(100% + 10px); left: 0px; }\r\n `;//positioning chat overlay
+      //css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .falemos-chat-overlay { display: inherit; width: 300px; top: calc(100% + 10px); left: 0px; }\r\n `;//positioning chat overlay
 
       css += `@font-face {
-                            font-family: ${scene.data._id}${user.id}; 
+                            font-family: ${scene._id}${user.id}; 
                             src: ${
                               game.scenes.viewed.flags.falemos.config[user.id]
                                 .cameraNameFont
@@ -1034,7 +1034,7 @@ function createSceneStyles(imageFormat = null) {
       css += `.camera-view .shadow { visibility: hidden; }\r\n`; // quita el sombreado de la camara
 
       css += `#camera-views-user-${user.id}[data-scene="${
-        scene.data._id
+        scene._id
       }"] .falemos-name-overlay { 
                             display: inherit; 
                             top: ${
@@ -1045,7 +1045,7 @@ function createSceneStyles(imageFormat = null) {
                               game.scenes.viewed.flags.falemos.config[user.id]
                                 .cameraNameOffsetX
                             }%; 
-                            font-family: ${scene.data._id}${user.id}; 
+                            font-family: ${scene._id}${user.id}; 
                             font-size: ${
                               game.scenes.viewed.flags.falemos.config[user.id]
                                 .cameraNameFontSize
