@@ -14,18 +14,23 @@
     {
       "name": "jvir",
       "url": "https://github.com/jvir",
-      "discord": "JuanV#8807",
+      "discord": "JuanV",
       "ko-fi": "juanv"
     },
     {
       "name": "lozanoje",
       "url": "https://github.com/lozanoje",
-      "discord": "Viriato139ac#0342"
+      "discord": "Viriato139ac"
     },
     {
       "name": "javierriveracastro",
       "url": "https://github.com/javierriveracastro",
-      "discord": "javierrivera#4813"
+      "discord": "javierrivera"
+    },
+    {
+      "name": "ParvusDomus",
+      "url": "https://github.com/parvusdomus",
+      "discord": "ParvusDomus"
     }
   ],
   "esmodules": [
