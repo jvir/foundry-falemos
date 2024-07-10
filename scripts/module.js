@@ -316,7 +316,7 @@ Hooks.once("ready", async function () {
                 command:
                   "let sceneData = `" +
                   dataJSON +
-                  "`; game.falemos.putSceneConfig(null, sceneData);",
+                  "`; game.falemos.putSceneConfig(null, sceneData);location.reload();",
               });
             },
           },
@@ -413,6 +413,7 @@ Hooks.once("ready", async function () {
           //game.scenes.viewed.setFlag('falemos', `config.${game.userId}.fit`, 'cover').then(()=>canvasFit('cover', true));
           break;
       }
+			location.reload();
     }
     if (e.ctrlKey && e.altKey && e.which == 72) {
       //TODO toggle UI visibility in current scene (H) ONLY GM
@@ -459,6 +460,7 @@ Hooks.once("ready", async function () {
             game.scenes.viewed.setFlag("falemos", "config.hide.mode", "none");
           }
       }
+			location.reload();
     }
     if (e.ctrlKey && e.altKey && e.which == 86) {
       //run Falemos Vaccinator by Viriato139ac [V]
@@ -473,6 +475,7 @@ Hooks.once("ready", async function () {
         "config.enable",
         !game.scenes.viewed.flags.falemos.config.enable
       );
+			location.reload();
     }
   };
 });
