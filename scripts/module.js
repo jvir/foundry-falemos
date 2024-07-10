@@ -536,8 +536,8 @@ Hooks.on("renderCameraViews", async function (cameraviews, html) {
 });
 
 Hooks.on("renderSceneConfig", async function (sceneConfig, html, scene) {
-  console.log("renderSceneConfig:INI");
-  console.log(game.scenes.viewed.flags.falemos?.config);
+  //console.log("renderSceneConfig:INI");
+  //console.log(game.scenes.viewed.flags.falemos?.config);
   // I create this flag to reload the window at closeSceneConfig when switching from falemos disabled to falemos enabled, I reload to clean the falemos css
   game.scenes.viewed.setFlag(
     "falemos",
@@ -552,11 +552,11 @@ Hooks.on("renderSceneConfig", async function (sceneConfig, html, scene) {
     : null;
   let users = Array.from(game.users);
 
-  console.log("renderSceneConfig:ANTES DE PINTAR EL DIALOGO");
-  console.log(falemosconfig);
-  console.log(users);
-  console.log(scene.data._id);
-  console.log(CONFIG.FALEMOS);
+  //console.log("renderSceneConfig:ANTES DE PINTAR EL DIALOGO");
+  //console.log(falemosconfig);
+  //console.log(users);
+  //console.log(scene.data._id);
+  //console.log(CONFIG.FALEMOS);
 
   //renderTemplate con campos y data saliendo de los flags
   let mchtml = await renderTemplate(
@@ -571,15 +571,12 @@ Hooks.on("renderSceneConfig", async function (sceneConfig, html, scene) {
 
   //insert tab (v12 change)
   //html.find('nav a:last').after('<a class="item" data-tab="falemos"><i class="fas fa-camera"></i> Falemos</a>');
-  html
-    .find("nav a:eq(3)")
-    .after(
-      '<a class="item" data-tab="falemos"><i class="fas fa-camera"></i> Falemos</a>'
-    );
+  html.find('nav a.item:eq(3)').after('<a class="item" data-tab="falemos"><i class="fas fa-camera"></i> Falemos</a>');
 
   //insert mc html template (v12 change)
   //html.find('button>i.fa-save').parent().before(mchtml);
-  html.find("button").parent().before(mchtml);
+  //html.find("button").parent().before(mchtml);
+	html.find('.sheet-footer').before(mchtml);
 
   // enable listeners
   html.find(".capture-current").each(function (index) {
@@ -600,13 +597,13 @@ Hooks.on("renderSceneConfig", async function (sceneConfig, html, scene) {
 
   sceneConfig.activateListeners(html);
   //html.find('button.file-picker').each((i, button) => this._activateFilePicker(button));
-  console.log("renderSceneConfig:FIN");
-  console.log(game.scenes.viewed.flags.falemos?.config);
+  //console.log("renderSceneConfig:FIN");
+  //console.log(game.scenes.viewed.flags.falemos?.config);
 });
 
 Hooks.on("closeSceneConfig", async function (sceneConfig, html, data) {
-  console.log("closeSceneConfig:INI");
-  console.log(game.scenes.viewed.flags.falemos?.config);
+  //console.log("closeSceneConfig:INI");
+  //console.log(game.scenes.viewed.flags.falemos?.config);
   if (game.scenes.viewed.flags.falemos?.config?.enable) {
     let camerashtml = jQuery("#camera-views");
     camerashtml.find(".camera-view").each((index, camera) => {
@@ -643,13 +640,13 @@ Hooks.on("closeSceneConfig", async function (sceneConfig, html, data) {
       ? location.reload()
       : null;
   }
-  console.log("closeSceneConfig:FIN");
-  console.log(game.scenes.viewed.flags.falemos?.config);
+  //console.log("closeSceneConfig:FIN");
+  //console.log(game.scenes.viewed.flags.falemos?.config);
 });
 
 Hooks.on("renderSceneNavigation", async function (scene, html) {
-  console.log("renderSceneNavigation:INI");
-  console.log(game.scenes.viewed.flags.falemos?.config);
+  //console.log("renderSceneNavigation:INI");
+  //console.log(game.scenes.viewed.flags.falemos?.config);
   //TODO get form values and save in flag
   if (game.scenes.viewed !== undefined)
     if (game.scenes.viewed.flags.falemos?.config?.enable) {
@@ -671,8 +668,8 @@ Hooks.on("renderSceneNavigation", async function (scene, html) {
       cameraToDock(camerashtml);
       hideUi({}, "all");
     }
-  console.log("renderSceneNavigation:FIN");
-  console.log(game.scenes.viewed.flags.falemos?.config);
+  //console.log("renderSceneNavigation:FIN");
+  //console.log(game.scenes.viewed.flags.falemos?.config);
 });
 
 Hooks.on("rtcSettingsChanged", async function (cameraviews, html) {
