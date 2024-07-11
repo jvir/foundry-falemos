@@ -1,12 +1,11 @@
 //
-// falemos vaccinator 0.17
+// falemos vaccinator 0.18
 // by Viriato139ac
 //
 
 const macroName = "Falemos Vaccinator by Viriato139ac";
-const macroVersion = "0.17";
+const macroVersion = "0.18";
 const macroImage = "modules/falemos/assets/img/falemos.svg";
-
 
 // Número de jugadores y listado de nombres
 
@@ -89,7 +88,6 @@ function falemosCalculator(
   inames,
   iorden
 ) {
-
   console.log("---------------------------------");
   console.log("----   Falemos Calculator   -----");
   console.log("---------------------------------");
@@ -317,7 +315,8 @@ const myDialogOptions2 = {
 
 new Dialog(
   {
-    title: `${game.i18n.localize("FALEMOS.vaccinator.title")}` + ` v` + macroVersion,
+    title:
+      `${game.i18n.localize("FALEMOS.vaccinator.title")}` + ` v` + macroVersion,
     content: `
   <script>
 function selectImage() {
@@ -890,7 +889,7 @@ function simularTabla(
           "FALEMOS.vaccinator.ExportCustomToMacro"
         )}`,
         callback: () => {
-          applyChanges = true;
+          applyChanges = false;
           saveCustomMacro = true;
           saveDisableMacro = false;
         },
@@ -918,174 +917,187 @@ function simularTabla(
     },
     default: "cancel",
     close: (html) => {
-      if (applyChanges) {
-        let ancho = html.find('[name="ancho"]')[0].value || 1;
-        let alto = html.find('[name="alto"]')[0].value || 1;
-        let marizq = html.find('[name="marizq"]')[0].value || 0;
-        let mararr = html.find('[name="mararr"]')[0].value || 0;
-        let marder = html.find('[name="marder"]')[0].value || 0;
-        let maraba = html.find('[name="maraba"]')[0].value || 0;
-        let nRows = html.find('[name="nRows"]')[0].value || 1;
-        let nCols = html.find('[name="nCols"]')[0].value || 1;
-        let sepmin = html.find('[name="sepmin"]')[0].value || 0;
-        let orden = html.find('[name="orden"]')[0].value || 1;
-        let huecos = html.find('[name="huecos"]')[0].value;
-        let marcos = html.find('[name="marcos"]')[0].value;
-        let oveizq = html.find('[name="oveizq"]')[0].value || 0;
-        let ovearr = html.find('[name="ovearr"]')[0].value || 0;
-        let oveder = html.find('[name="oveder"]')[0].value || 0;
-        let oveaba = html.find('[name="oveaba"]')[0].value || 0;
-        let nombres = html.find('[name="nombres"]')[0].value;
-        let geometria = html.find('[name="geometria"]')[0].value;
-        let efecto = html.find('[name="efecto"]')[0].value;
-        let fuente = html.find('[name="fuente"]')[0].value;
-        let ajuste = html.find('[name="ajuste"]')[0].value;
-        let fontsize = +(html.find('[name="fontsize"]')[0].value) || 2;
-        let namecolor = html.find('[name="namecolor"]')[0].value;
+      let ancho = html.find('[name="ancho"]')[0].value || 1;
+      let alto = html.find('[name="alto"]')[0].value || 1;
+      let marizq = html.find('[name="marizq"]')[0].value || 0;
+      let mararr = html.find('[name="mararr"]')[0].value || 0;
+      let marder = html.find('[name="marder"]')[0].value || 0;
+      let maraba = html.find('[name="maraba"]')[0].value || 0;
+      let nRows = html.find('[name="nRows"]')[0].value || 1;
+      let nCols = html.find('[name="nCols"]')[0].value || 1;
+      let sepmin = html.find('[name="sepmin"]')[0].value || 0;
+      let orden = html.find('[name="orden"]')[0].value || 1;
+      let huecos = html.find('[name="huecos"]')[0].value;
+      let marcos = html.find('[name="marcos"]')[0].value;
+      let oveizq = html.find('[name="oveizq"]')[0].value || 0;
+      let ovearr = html.find('[name="ovearr"]')[0].value || 0;
+      let oveder = html.find('[name="oveder"]')[0].value || 0;
+      let oveaba = html.find('[name="oveaba"]')[0].value || 0;
+      let nombres = html.find('[name="nombres"]')[0].value;
+      let geometria = html.find('[name="geometria"]')[0].value;
+      let efecto = html.find('[name="efecto"]')[0].value;
+      let fuente = html.find('[name="fuente"]')[0].value;
+      let ajuste = html.find('[name="ajuste"]')[0].value;
+      let fontsize = +html.find('[name="fontsize"]')[0].value || 2;
+      let namecolor = html.find('[name="namecolor"]')[0].value;
 
-        const idimensiones = [ancho, alto];
-        const imargenes = [marizq, mararr, marder, maraba];
-        const ioverlays = [oveizq, ovearr, oveder, oveaba];
-        const irejilla = [nCols, nRows];
-        const iseparacionminima = sepmin;
-        const iordentxt = orden.split(",");
-        const iorden = iordentxt.map((num) => Number(num));
-        const ihuecosvaciostxt = huecos.split(",");
-        const ihuecosvacios = ihuecosvaciostxt.map((num) => Number(num));
-        const inames = nombres.split(",");
-        const imarcos = marcos.split(",");
+      const idimensiones = [ancho, alto];
+      const imargenes = [marizq, mararr, marder, maraba];
+      const ioverlays = [oveizq, ovearr, oveder, oveaba];
+      const irejilla = [nCols, nRows];
+      const iseparacionminima = sepmin;
+      const iordentxt = orden.split(",");
+      const iorden = iordentxt.map((num) => Number(num));
+      const ihuecosvaciostxt = huecos.split(",");
+      const ihuecosvacios = ihuecosvaciostxt.map((num) => Number(num));
+      const inames = nombres.split(",");
+      const imarcos = marcos.split(",");
 
-        let iusers = [];
-        for (let user of game.users.keys()) {
-          // console.log(game.users.get(user).name)
-          iusers.push(game.users.get(user).name);
-        }
-
-        console.log("---------------------------------");
-        console.log("----   Falemos Vaccinator   -----");
-        console.log("---------------------------------");
-        console.log("Dimensiones: " + idimensiones);
-        console.log("Márgenes: " + imargenes);
-        console.log("Rejilla: " + irejilla);
-        console.log("Overlays del marco: " + ioverlays);
-        console.log("Separación mínima: " + iseparacionminima);
-        console.log("Huecos vacíos: " + ihuecosvacios);
-        console.log("Usuarios: " + iusers);
-        console.log("Nombres: " + inames);
-        console.log("Orden jugadores: " + iorden);
-        console.log("Número de jugadores: " + numeroJugadores);
-        //console.log("Nombres de jugadores: " + nombresJugadores);
-        console.log("Marcos: " + imarcos);
-        console.log("Ocultar navegación: " + html.find('[name="cbnavigation"]')[0].checked);
-        console.log("Ocultar controles: " + html.find('[name="cbcontrols"]')[0].checked);
-        console.log("Ocultar jugadores: " + html.find('[name="cbplayers"]')[0].checked);
-        console.log("Ocultar barra: " + html.find('[name="cbsidebar"]')[0].checked);
-        console.log("Ocultar atajos: " + html.find('[name="cbhotbar"]')[0].checked);
-        console.log("---------------------------------");
-
-        let resultadofinal = falemosCalculator(
-          idimensiones,
-          imargenes,
-          irejilla,
-          ioverlays,
-          iseparacionminima,
-          ihuecosvacios,
-          iusers,
-          inames,
-          iorden
-        );
-
-        //console.log("Resultado final: ");
-        //console.log(resultadofinal);
-        //console.log("---------------------------------");
-
-        // calculos del tamaño de fuente, en base a la longitud del texto del usuario y el hueco disponible (el ancho del marco)
-        const porcNombre = 75;
-        let xNombre;
-        let yNombre;
-        let cName;
-        let sNombre;
-        let nMarco;
-        let sceneData1 = {};
-
-        const ljug = inames.map((num) => num.length);
-
-        inames[0] === "" && inames.length === 1
-          ? (sNombre = null)
-          : (sNombre =
-              ((resultadofinal[0][14] / Math.max(...ljug)) * porcNombre * 2) /
-              100);
-
-        let newfontsize;
-        fontsize === 0 || fontsize === null
-          ? (newfontsize = sNombre)
-          : (newfontsize = fontsize);
-
-        for (let i = 0; i < resultadofinal.length; i++) {
-          cName = resultadofinal[i][18];
-
-          cName === undefined
-            ? (xNombre = null)
-            : (xNombre =
-                100 * (1 - porcNombre / 100) * 0.5 +
-                ((1 - cName.length / Math.max(...ljug)) * porcNombre) / 2);
-
-          cName === undefined
-            ? (yNombre = null)
-            : (yNombre = 100 + Number(oveaba));
-
-          if (imarcos.length === 1) {
-            nMarco = imarcos[0];
-          } else {
-            i < imarcos.length ? (nMarco = imarcos[i]) : (nMarco = "");
-          }
-
-          sceneData1[i.toString()] = {
-            x: resultadofinal[i][12],
-            y: resultadofinal[i][13],
-            width: resultadofinal[i][14],
-            overlayImg: nMarco,
-            overlayLeft: Number(ioverlays[0]),
-            overlayRight: Number(ioverlays[2]),
-            overlayTop: Number(ioverlays[1]),
-            overlayBottom: Number(ioverlays[3]),
-            geometry: geometria,
-            filter: efecto,
-            cameraName: cName,
-            cameraNameOffsetX: xNombre,
-            cameraNameOffsetY: yNombre,
-            cameraNameFontSize: newfontsize,
-            cameraNameColor: namecolor,
-            cameraNameFont: fuente.replace(/["]/g, ""),
-            fit: ajuste,
-          };
-        }
-
-        let sceneData2 = {
-          enable: true,
-          hide: {
-            navigation: html.find('[name="cbnavigation"]')[0].checked,
-            controls: html.find('[name="cbcontrols"]')[0].checked,
-            players: html.find('[name="cbplayers"]')[0].checked,
-            sidebar: html.find('[name="cbsidebar"]')[0].checked,
-            hotbar: html.find('[name="cbhotbar"]')[0].checked,
-          },
-        };
-
-        let sceneData = {
-          ...sceneData1,
-          ...sceneData2,
-        };
-
-        //console.log("Datos de la escena:");
-        //console.log(sceneData);
-        //console.log("---------------------------------");
-        //console.log("---------------------------------");
-
-        game.falemos.putSceneConfig(null, JSON.stringify(sceneData));
-        if (saveCustomMacro)
-          game.falemos.sceneConfigToMacro(game.scenes.viewed.id, sceneData);
+      let iusers = [];
+      for (let user of game.users.keys()) {
+        // console.log(game.users.get(user).name)
+        iusers.push(game.users.get(user).name);
       }
+
+      console.log("---------------------------------");
+      console.log("----   Falemos Vaccinator   -----");
+      console.log("---------------------------------");
+      console.log("Dimensiones: " + idimensiones);
+      console.log("Márgenes: " + imargenes);
+      console.log("Rejilla: " + irejilla);
+      console.log("Overlays del marco: " + ioverlays);
+      console.log("Separación mínima: " + iseparacionminima);
+      console.log("Huecos vacíos: " + ihuecosvacios);
+      console.log("Usuarios: " + iusers);
+      console.log("Nombres: " + inames);
+      console.log("Orden jugadores: " + iorden);
+      console.log("Número de jugadores: " + numeroJugadores);
+      //console.log("Nombres de jugadores: " + nombresJugadores);
+      console.log("Marcos: " + imarcos);
+      console.log(
+        "Ocultar navegación: " + html.find('[name="cbnavigation"]')[0].checked
+      );
+      console.log(
+        "Ocultar controles: " + html.find('[name="cbcontrols"]')[0].checked
+      );
+      console.log(
+        "Ocultar jugadores: " + html.find('[name="cbplayers"]')[0].checked
+      );
+      console.log(
+        "Ocultar barra: " + html.find('[name="cbsidebar"]')[0].checked
+      );
+      console.log(
+        "Ocultar atajos: " + html.find('[name="cbhotbar"]')[0].checked
+      );
+      console.log("---------------------------------");
+
+      let resultadofinal = falemosCalculator(
+        idimensiones,
+        imargenes,
+        irejilla,
+        ioverlays,
+        iseparacionminima,
+        ihuecosvacios,
+        iusers,
+        inames,
+        iorden
+      );
+
+      //console.log("Resultado final: ");
+      //console.log(resultadofinal);
+      //console.log("---------------------------------");
+
+      // calculos del tamaño de fuente, en base a la longitud del texto del usuario y el hueco disponible (el ancho del marco)
+      const porcNombre = 75;
+      let xNombre;
+      let yNombre;
+      let cName;
+      let sNombre;
+      let nMarco;
+      let sceneData1 = {};
+
+      const ljug = inames.map((num) => num.length);
+
+      inames[0] === "" && inames.length === 1
+        ? (sNombre = null)
+        : (sNombre =
+            ((resultadofinal[0][14] / Math.max(...ljug)) * porcNombre * 2) /
+            100);
+
+      let newfontsize;
+      fontsize === 0 || fontsize === null
+        ? (newfontsize = sNombre)
+        : (newfontsize = fontsize);
+
+      for (let i = 0; i < resultadofinal.length; i++) {
+        cName = resultadofinal[i][18];
+
+        cName === undefined
+          ? (xNombre = null)
+          : (xNombre =
+              100 * (1 - porcNombre / 100) * 0.5 +
+              ((1 - cName.length / Math.max(...ljug)) * porcNombre) / 2);
+
+        cName === undefined
+          ? (yNombre = null)
+          : (yNombre = 100 + Number(oveaba));
+
+        if (imarcos.length === 1) {
+          nMarco = imarcos[0];
+        } else {
+          i < imarcos.length ? (nMarco = imarcos[i]) : (nMarco = "");
+        }
+
+        sceneData1[i.toString()] = {
+          x: resultadofinal[i][12],
+          y: resultadofinal[i][13],
+          width: resultadofinal[i][14],
+          overlayImg: nMarco,
+          overlayLeft: Number(ioverlays[0]),
+          overlayRight: Number(ioverlays[2]),
+          overlayTop: Number(ioverlays[1]),
+          overlayBottom: Number(ioverlays[3]),
+          geometry: geometria,
+          filter: efecto,
+          cameraName: cName,
+          cameraNameOffsetX: xNombre,
+          cameraNameOffsetY: yNombre,
+          cameraNameFontSize: newfontsize,
+          cameraNameColor: namecolor,
+          cameraNameFont: fuente.replace(/["]/g, ""),
+          fit: ajuste,
+        };
+      }
+
+      let sceneData2 = {
+        enable: true,
+        hide: {
+          navigation: html.find('[name="cbnavigation"]')[0].checked,
+          controls: html.find('[name="cbcontrols"]')[0].checked,
+          players: html.find('[name="cbplayers"]')[0].checked,
+          sidebar: html.find('[name="cbsidebar"]')[0].checked,
+          hotbar: html.find('[name="cbhotbar"]')[0].checked,
+        },
+      };
+
+      let sceneData = {
+        ...sceneData1,
+        ...sceneData2,
+      };
+
+      //console.log("Datos de la escena:");
+      //console.log(sceneData);
+      //console.log("---------------------------------");
+      //console.log("---------------------------------");
+
+      if (applyChanges) {
+        game.falemos.putSceneConfig(null, JSON.stringify(sceneData));
+      }
+
+      if (saveCustomMacro) {
+        game.falemos.sceneConfigToMacro(game.scenes.viewed.id, sceneData);
+      }
+
       if (saveDisableMacro) {
         let sceneDataDisable = {
           enable: false,

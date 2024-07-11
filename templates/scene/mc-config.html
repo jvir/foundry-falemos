@@ -7,30 +7,35 @@
             <p class="notes">{{localize "FALEMOS.ExportConfigToMacroNotes"}}</p>
         </div>
         <div class="form-group">
-            <label>{{localize "FALEMOS.EnableText"}}</label>
+            <label>{{localize "FALEMOS.Enable"}}</label>
             <input type="checkbox" name="flags.falemos.config.enable" data-dtype="Boolean" {{checked falemosconfig.enable}}>
-            <p class="notes">{{localize "FALEMOS.EnableNotes"}}</p>
+            <p class="notes">{{localize "FALEMOS.EnableHint"}}</p>
         </div>
         <!-- ocultar controles -->
         <div class="form-group">
             <label>{{localize "FALEMOS.HideNavigation"}}</label>
             <input type="checkbox" name="flags.falemos.config.hide.navigation" data-dtype="Boolean" {{checked falemosconfig.hide.navigation}}>
+			<p class="notes">{{localize "FALEMOS.HideNavigationHint"}}</p>
         </div>    
         <div class="form-group">
             <label>{{localize "FALEMOS.HideControls"}}</label>
             <input type="checkbox" name="flags.falemos.config.hide.controls" data-dtype="Boolean" {{checked falemosconfig.hide.controls}}>
+			<p class="notes">{{localize "FALEMOS.HideControlsHint"}}</p>
         </div>    
         <div class="form-group">
             <label>{{localize "FALEMOS.HidePlayers"}}</label>
             <input type="checkbox" name="flags.falemos.config.hide.players" data-dtype="Boolean" {{checked falemosconfig.hide.players}}>
+			<p class="notes">{{localize "FALEMOS.HidePlayersHint"}}</p>
         </div>    
         <div class="form-group">
             <label>{{localize "FALEMOS.HideSidebar"}}</label>
             <input type="checkbox" name="flags.falemos.config.hide.sidebar" data-dtype="Boolean" {{checked falemosconfig.hide.sidebar}}>
+			<p class="notes">{{localize "FALEMOS.HideSidebarHint"}}</p>
         </div>
         <div class="form-group">
             <label>{{localize "FALEMOS.HideHotbar"}}</label>
             <input type="checkbox" name="flags.falemos.config.hide.hotbar" data-dtype="Boolean" {{checked falemosconfig.hide.hotbar}}>
+			<p class="notes">{{localize "FALEMOS.HideHotbarHint"}}</p>
         </div>
     </div>
 
