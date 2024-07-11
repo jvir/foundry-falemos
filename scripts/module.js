@@ -287,6 +287,7 @@ Hooks.once("ready", async function () {
         game.settings.set("core", "rtcClientSettings", rtcSett);
       }
       game.scenes.get(sceneId).setFlag("falemos", "config", newData);
+      location.reload();
     },
     sceneConfigToMacro: function (sceneId, data) {
       if (game.scenes.viewed === undefined) {
@@ -316,7 +317,7 @@ Hooks.once("ready", async function () {
                 command:
                   "let sceneData = `" +
                   dataJSON +
-                  "`; game.falemos.putSceneConfig(null, sceneData);location.reload();",
+                  "`; game.falemos.putSceneConfig(null, sceneData);",
               });
             },
           },
@@ -413,7 +414,7 @@ Hooks.once("ready", async function () {
           //game.scenes.viewed.setFlag('falemos', `config.${game.userId}.fit`, 'cover').then(()=>canvasFit('cover', true));
           break;
       }
-			location.reload();
+      location.reload();
     }
     if (e.ctrlKey && e.altKey && e.which == 72) {
       //TODO toggle UI visibility in current scene (H) ONLY GM
@@ -460,7 +461,7 @@ Hooks.once("ready", async function () {
             game.scenes.viewed.setFlag("falemos", "config.hide.mode", "none");
           }
       }
-			location.reload();
+      location.reload();
     }
     if (e.ctrlKey && e.altKey && e.which == 86) {
       //run Falemos Vaccinator by Viriato139ac [V]
@@ -475,7 +476,7 @@ Hooks.once("ready", async function () {
         "config.enable",
         !game.scenes.viewed.flags.falemos.config.enable
       );
-			location.reload();
+      location.reload();
     }
   };
 });
@@ -574,12 +575,16 @@ Hooks.on("renderSceneConfig", async function (sceneConfig, html, scene) {
 
   //insert tab (v12 change)
   //html.find('nav a:last').after('<a class="item" data-tab="falemos"><i class="fas fa-camera"></i> Falemos</a>');
-  html.find('nav a.item:eq(3)').after('<a class="item" data-tab="falemos"><i class="fas fa-camera"></i> Falemos</a>');
+  html
+    .find("nav a.item:eq(3)")
+    .after(
+      '<a class="item" data-tab="falemos"><i class="fas fa-camera"></i> Falemos</a>'
+    );
 
   //insert mc html template (v12 change)
   //html.find('button>i.fa-save').parent().before(mchtml);
   //html.find("button").parent().before(mchtml);
-	html.find('.sheet-footer').before(mchtml);
+  html.find(".sheet-footer").before(mchtml);
 
   // enable listeners
   html.find(".capture-current").each(function (index) {
@@ -616,6 +621,8 @@ Hooks.on("closeSceneConfig", async function (sceneConfig, html, data) {
     camerasToPopout(camerashtml);
     camerasStyling(camerashtml);
 
+    hideUi(game.scenes.viewed.flags.falemos.config.hide);
+
     switch (game.scenes.viewed.flags.falemos.config[game.userId].fit) {
       case "nofit":
         canvasFit("nofit");
@@ -639,6 +646,7 @@ Hooks.on("closeSceneConfig", async function (sceneConfig, html, data) {
       : null;
   } else {
     canvasFit("nofit");
+    hideUi({}, "all");
     !game.scenes.viewed.flags.falemos?.config?.previouslyDisabled
       ? location.reload()
       : null;
