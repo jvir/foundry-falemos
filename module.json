@@ -7,8 +7,8 @@
   "manifestPlusVersion": "1.4.0",
     "compatibility": {
     "minimum": "11",
-    "verified": "12.328",
-    "maximum": "12"
+    "verified": "13.0",
+    "maximum": "13"
   },
   "authors": [
     {
@@ -71,23 +71,23 @@
   "media": [
     {
       "type": "icon",
-      "url": "https://github.com/jvir/foundry-falemos/blob/main/doc/icon/falemos.svg?raw=true"
+      "url": "https://github.com/HonzoNebro/foundry-falemos/blob/main/doc/icon/falemos.svg?raw=true"
     },
     {
       "type": "screenshot",
-      "url": "https://github.com/jvir/foundry-falemos/blob/main/doc/img/globalconfig.png?raw=true",
+      "url": "https://github.com/HonzoNebro/foundry-falemos/blob/main/doc/img/globalconfig.png?raw=true",
       "caption": "Global configuration"
     },
     {
       "type": "screenshot",
-      "url": "https://github.com/jvir/foundry-falemos/blob/main/doc/img/userconfig.png?raw=true",
+      "url": "https://github.com/HonzoNebro/foundry-falemos/blob/main/doc/img/userconfig.png?raw=true",
       "caption": "User camera configuration"
     },
     {
       "type": "video",
-      "url": "https://github.com/jvir/foundry-falemos/blob/main/doc/vid/scenecastleblack.webm?raw=true",
+      "url": "https://github.com/HonzoNebro/foundry-falemos/blob/main/doc/vid/scenecastleblack.webm?raw=true",
       "loop": false,
-      "thumbnail": "https://github.com/jvir/foundry-falemos/blob/main/doc/vid/scenecastleblack.jpg?raw=true",
+      "thumbnail": "https://github.com/HonzoNebro/foundry-falemos/blob/main/doc/vid/scenecastleblack.jpg?raw=true",
       "caption": "Castle black scene camera configuration"
     },
     {

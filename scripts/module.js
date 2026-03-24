@@ -102,16 +102,16 @@ Hooks.once("ready", async function () {
     default: true,
   });
 
-  let rtcconfiguration = Object.assign(
-    {},
-    game.settings.get("core", "rtcClientSettings")
-  );
-  if (
-    rtcconfiguration != "always" &&
-    game.settings.get("falemos", "enableAlwaysMicrophone")
-  ) {
-    rtcconfiguration.voice.mode = "always";
-    game.settings.set("core", "rtcClientSettings", rtcconfiguration);
+  let rtcconfiguration = game.settings.get("core", "rtcClientSettings");
+  if (game.settings.get("falemos", "enableAlwaysMicrophone")) {
+    try {
+      if (rtcconfiguration && rtcconfiguration.voice) {
+        rtcconfiguration.voice.mode = "always";
+        game.settings.set("core", "rtcClientSettings", rtcconfiguration);
+      }
+    } catch (e) {
+      console.warn("Falemos: unable to set rtcClientSettings voice.mode", e);
+    }
   }
 
   //sockets
@@ -539,21 +539,19 @@ Hooks.on("renderCameraViews", async function (cameraviews, html) {
     }
 });
 
-Hooks.on("renderSceneConfig", async function (sceneConfig, html, scene) {
+Hooks.on("renderSceneConfig", async function (app, element, context, options) {
   //console.log("renderSceneConfig:INI");
   //console.log(game.scenes.viewed.flags.falemos?.config);
   // I create this flag to reload the window at closeSceneConfig when switching from falemos disabled to falemos enabled, I reload to clean the falemos css
-  game.scenes.viewed.setFlag(
+  game.scenes.viewed?.setFlag(
     "falemos",
     "config.previouslyDisabled",
-    !game.scenes.viewed.flags.falemos?.config?.enable
+    !game.scenes.viewed?.flags.falemos?.config?.enable
   );
 
-  let falemosconfig = game.scenes
-    .get(scene.data._id)
-    .getFlag("falemos", "config")
-    ? game.scenes.get(scene.data._id).getFlag("falemos", "config")
-    : null;
+  // In v13 the app.document.id is the scene id
+  const sceneId = app?.document?.id;
+  let falemosconfig = game.scenes.get(sceneId)?.getFlag("falemos", "config") ?? null;
   let users = Array.from(game.users);
 
   //console.log("renderSceneConfig:ANTES DE PINTAR EL DIALOGO");
@@ -568,14 +566,15 @@ Hooks.on("renderSceneConfig", async function (sceneConfig, html, scene) {
     {
       falemosconfig: falemosconfig,
       users: users,
-      sceneid: scene.data._id,
+      sceneid: sceneId,
       falemos: CONFIG.FALEMOS,
     }
   );
 
   //insert tab (v12 change)
   //html.find('nav a:last').after('<a class="item" data-tab="falemos"><i class="fas fa-camera"></i> Falemos</a>');
-  html
+  const $html = jQuery(element);
+  $html
     .find("nav a.item:eq(3)")
     .after(
       '<a class="item" data-tab="falemos"><i class="fas fa-camera"></i> Falemos</a>'
@@ -584,10 +583,10 @@ Hooks.on("renderSceneConfig", async function (sceneConfig, html, scene) {
   //insert mc html template (v12 change)
   //html.find('button>i.fa-save').parent().before(mchtml);
   //html.find("button").parent().before(mchtml);
-  html.find(".sheet-footer").before(mchtml);
+  $html.find(".sheet-footer").before(mchtml);
 
   // enable listeners
-  html.find(".capture-current").each(function (index) {
+  $html.find(".capture-current").each(function (index) {
     $(this).on("click", function (ev) {
       let offset = jQuery(
         `.camera-view[data-user="${ev.currentTarget.dataset.user}"] video`
@@ -603,16 +602,17 @@ Hooks.on("renderSceneConfig", async function (sceneConfig, html, scene) {
     });
   });
 
-  sceneConfig.activateListeners(html);
+  // Activate listeners on the app (SceneConfig is an Application)
+  if (typeof app.activateListeners === "function") app.activateListeners(element);
   //html.find('button.file-picker').each((i, button) => this._activateFilePicker(button));
   //console.log("renderSceneConfig:FIN");
   //console.log(game.scenes.viewed.flags.falemos?.config);
 });
 
-Hooks.on("closeSceneConfig", async function (sceneConfig, html, data) {
+Hooks.on("closeSceneConfig", async function (app, element, context, options) {
   //console.log("closeSceneConfig:INI");
   //console.log(game.scenes.viewed.flags.falemos?.config);
-  if (game.scenes.viewed.flags.falemos?.config?.enable) {
+  if (game.scenes.viewed?.flags.falemos?.config?.enable) {
     let camerashtml = jQuery("#camera-views");
     camerashtml.find(".camera-view").each((index, camera) => {
       camera.dataset.scene = game.scenes.viewed.id;
@@ -929,15 +929,15 @@ function createSceneStyles(imageFormat = null) {
       }
 
       //base style
-      css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] { background: transparent; padding: 0; box-shadow: none; }\r\n `; //disable shadows and background
-      css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .control-bar.left, #camera-views-user-${user.id}[data-scene="${scene._id}"] .window-resizable-handle { display: none; } `;
-      css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .camera-view { background-image: none; background: rgba(250,250,250,0); border: 0px; /*indicador de hablando*/ box-shadow: none;  padding: 0px !important; /*Tamaño borde*/ }\r\n `;
-      css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .player-name { display: none; }\r\n `; //hidde player name
+        css += `#camera-views-user-${user.id}[data-scene="${scene.id}"] { background: transparent; padding: 0; box-shadow: none; }\r\n `; //disable shadows and background
+        css += `#camera-views-user-${user.id}[data-scene="${scene.id}"] .control-bar.left, #camera-views-user-${user.id}[data-scene="${scene.id}"] .window-resizable-handle { display: none; } `;
+        css += `#camera-views-user-${user.id}[data-scene="${scene.id}"] .camera-view { background-image: none; background: rgba(250,250,250,0); border: 0px; /*indicador de hablando*/ box-shadow: none;  padding: 0px !important; /*Tamaño borde*/ }\r\n `;
+        css += `#camera-views-user-${user.id}[data-scene="${scene.id}"] .player-name { display: none; }\r\n `; //hidde player name
       //custom style
-      css += `.camera-view[data-user="${user.id}"][data-scene="${scene._id}"] video { object-fit: cover; filter: ${CONFIG.FALEMOS.cameraEffects[filterKey].data}; }\r\n `; //video filter
-      css += `.camera-view[data-user="${user.id}"][data-scene="${scene._id}"] video { ${CONFIG.FALEMOS.cameraGeometry[geometryKey].data} }\r\n `; //video geometry
-      css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .camera-box-popout { background: transparent !important; }\r\n `; // quita el fondo de color del video
-      css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] .falemos-camera-overlay { z-index: 1; }\r\n `; // el marco lo pongo por encima de la camara pero por debajo de los controles de av
+    css += `.camera-view[data-user="${user.id}"][data-scene="${scene.id}"] video { object-fit: cover; filter: ${CONFIG.FALEMOS.cameraEffects[filterKey].data}; }\r\n `; //video filter
+    css += `.camera-view[data-user="${user.id}"][data-scene="${scene.id}"] video { ${CONFIG.FALEMOS.cameraGeometry[geometryKey].data} }\r\n `; //video geometry
+    css += `#camera-views-user-${user.id}[data-scene="${scene.id}"] .camera-box-popout { background: transparent !important; }\r\n `; // quita el fondo de color del video
+    css += `#camera-views-user-${user.id}[data-scene="${scene.id}"] .falemos-camera-overlay { z-index: 1; }\r\n `; // el marco lo pongo por encima de la camara pero por debajo de los controles de av
       css += `div#camera-views { --av-width: 100px; }\r\n `; // minimo tamaño de video a 100px (por defecto esta en 240px)
 
       //new relative units (vw) TODO: tener en cuenta para modo cover cual es el lado del cual no se ve aprte de la imagen (ahora solo funciona si el width se ve entero
@@ -1012,7 +1012,7 @@ function createSceneStyles(imageFormat = null) {
         );
       }
 
-      css += `#camera-views-user-${user.id}[data-scene="${scene._id}"] {
+      css += `#camera-views-user-${user.id}[data-scene="${scene.id}"] {
                             width: ${
                               game.scenes.viewed.flags.falemos.config[user.id]
                                 .width
@@ -1070,8 +1070,9 @@ function createSceneStyles(imageFormat = null) {
 
 function onSocketData(data) {
   let event = data.event;
-  let sceneId = data.scene.data._id;
-  let userId = data.user._id;
+  // In v13 sockets may pass scene and user documents; prefer .id
+  let sceneId = data?.scene?.id ?? data?.scene?.data?._id;
+  let userId = data?.user?.id ?? data?.user?._id;
   switch (event) {
     case "toggleFitHotkey":
       game.scenes

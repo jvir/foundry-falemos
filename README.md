@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/Foundry-v10-informational) ![Latest Release Download Count](https://img.shields.io/github/downloads/jvir/foundry-falemos/module.zip) ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Ffalemos&colorB=4aa94a)
+![](https://img.shields.io/badge/Foundry-v10-informational) ![Latest Release Download Count](https://img.shields.io/github/downloads/HonzoNebro/foundry-falemos/module.zip) ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Ffalemos&colorB=4aa94a)
 
 
 # Falemos (Let's talk)
@@ -33,7 +33,7 @@ Falemos is scene-dependent. In the configuration of each scene we have the confi
     - UI elements display control.
     - Export to macro.
 
-![Global config](https://github.com/jvir/foundry-falemos/blob/main/doc/img/globalconfig.png?raw=true)
+![Global config](https://github.com/HonzoNebro/foundry-falemos/blob/main/doc/img/globalconfig.png?raw=true)
 
 
 - Per user:
@@ -44,7 +44,7 @@ Falemos is scene-dependent. In the configuration of each scene we have the confi
     - Colour, position, size and font of the label.
     - Set optional scene fit, scene fit, an adjusted scene has the consequence that the cameras remain in the same position in the image and can always be used to simulate the anchoring of the camera to an area of the image.
 
-![User config](https://github.com/jvir/foundry-falemos/blob/main/doc/img/userconfig.png?raw=true)
+![User config](https://github.com/HonzoNebro/foundry-falemos/blob/main/doc/img/userconfig.png?raw=true)
 
 
 ## Assets

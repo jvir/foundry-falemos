@@ -88,7 +88,7 @@
             <div class="form-group">
                 <label>{{localize 'FALEMOS.CameraGeometryText'}}</label>
                 <select name="flags.falemos.config.{{ this.id }}.geometry" data-dtype="String">
-                {{#select (lookupProp ../falemosconfig this._id 'geometry') }}
+                {{#select (lookupProp ../falemosconfig this.id 'geometry') }}
                     {{#each ../falemos.cameraGeometry }}
                         <option value="{{@key}}">{{localize this.name}}</option>
                     {{/each}}
