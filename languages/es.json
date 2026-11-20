@@ -119,5 +119,10 @@
     "FALEMOS.vaccinator.othersettings": "Otros ajustes",
     "FALEMOS.vaccinator.hideHint": "Elija qué elementos del lienzo desea ocultar cuando se habilite Falemos",
     "FALEMOS.vaccinator.CameraNameFontSizeHint": "Tamaño en unidades vw 'https://css-tricks.com/viewport-sized-typography/'",
-    "FALEMOS.vaccinator.CameraNameColorHint": "Color de la fuente"
+    "FALEMOS.vaccinator.CameraNameColorHint": "Color de la fuente",
+    "FALEMOS.keybindings.toggleFit": "Ajustar escena a la ventana (ciclo)",
+    "FALEMOS.keybindings.toggleUi": "Mostrar/ocultar interfaz (GM)",
+    "FALEMOS.keybindings.runVaccinator": "Ejecutar Falemos Vaccinator (GM)",
+    "FALEMOS.keybindings.toggleEnable": "Activar/desactivar Falemos en esta escena (GM)",
+    "FALEMOS.NoPopoutToCapture": "Esa cámara no está en una ventana libre, no se puede capturar su posición."
 }

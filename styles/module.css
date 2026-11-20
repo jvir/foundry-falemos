@@ -1,40 +1,111 @@
-.falemos-camera-overlay {
-    display: none;
-    position: absolute;
-    background-size: 100% 100%;
-    background-repeat:no-repeat;
-    z-index: 100;
+/* ---------------------------------------------------------------------------
+   Falemos v14: estilos de las cámaras en ventana libre (CameraPopout).
+   Solo afectan a ventanas marcadas por el módulo con [data-falemos].
+   --------------------------------------------------------------------------- */
+
+/* Ventana sin marco ni fondo; el contenido puede desbordar (marcos y nombres) */
+[data-falemos] {
+    --background: transparent;
+    background: transparent !important;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    overflow: visible;
 }
 
-.falemos-chat-overlay {
-    display: none;
-    position: absolute;
-    background-size: 100% 100%;
-    background-repeat:no-repeat;
-    z-index: 100;
+[data-falemos] .window-content {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    overflow: visible;
 }
 
+.falemos-host {
+    position: relative;
+}
+
+[data-falemos] .window-resize-handle {
+    display: none;
+}
+
+/* La cabecera solo aparece al pasar el ratón: permite arrastrar la cámara
+   (por ejemplo para capturar su posición desde la configuración de escena). */
+[data-falemos] .window-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+[data-falemos]:hover .window-header {
+    opacity: 1;
+}
+
+/* Sin nombre del jugador ni sombreado del core: lo sustituye el nombre de Falemos */
+[data-falemos] .player-name,
+[data-falemos] [class*="nameplate"],
+[data-falemos] .shadow {
+    display: none;
+}
+
+[data-falemos] video {
+    object-fit: cover;
+}
+
+/* Overlays (marco y nombre) */
+.falemos-camera-overlay,
+.falemos-chat-overlay,
 .falemos-name-overlay {
     display: none;
     position: absolute;
     background-size: 100% 100%;
-    background-repeat:no-repeat;
-    z-index: 101;
+    background-repeat: no-repeat;
+    pointer-events: none;
 }
 
-.control-bar {
-    z-index: 102;
+[data-falemos] .falemos-camera-overlay {
+    display: block;
+    z-index: 1; /* por encima de la cámara, por debajo de los controles */
 }
 
+[data-falemos] .falemos-name-overlay {
+    display: block;
+    z-index: 2;
+    white-space: nowrap;
+}
+
+/* Botón "cámara como tile" (aparece al pasar el ratón) */
+.falemos-tile-btn {
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    z-index: 6;
+    padding: 2px 5px;
+    border-radius: 4px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    transition: opacity 0.15s;
+    cursor: pointer;
+}
+
+[data-falemos]:hover .falemos-tile-btn {
+    opacity: 1;
+}
+
+/* Pestaña de configuración de escena */
 .falemos-config-title {
     font-size: 20px;
     background-color: white;
 }
 
 .falemos-config-header {
- background-color:white;
+    background-color: white;
 }
 
-#falemos-config-scene.falemos-hidden { display: none}
-
-#camera-views{z-index: 29;}
+#falemos-config-scene.falemos-hidden {
+    display: none;
+}

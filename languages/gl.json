@@ -87,5 +87,10 @@
 	"FALEMOS.vaccinator.names": "Nomes",
 	"FALEMOS.vaccinator.namesHint": "Nomes que van debaixo das cámaras (separados por comas)",
 	"FALEMOS.vaccinator.apply": "Gardar",
-	"FALEMOS.vaccinator.cancel": "Cancelar"
+	"FALEMOS.vaccinator.cancel": "Cancelar",
+    "FALEMOS.keybindings.toggleFit": "Axustar a escena á xanela (ciclo)",
+    "FALEMOS.keybindings.toggleUi": "Amosar/agochar a interface (GM)",
+    "FALEMOS.keybindings.runVaccinator": "Executar Falemos Vaccinator (GM)",
+    "FALEMOS.keybindings.toggleEnable": "Activar/desactivar Falemos nesta escena (GM)",
+    "FALEMOS.NoPopoutToCapture": "Esa cámara non está nunha xanela libre, non se pode capturar a súa posición."
 }

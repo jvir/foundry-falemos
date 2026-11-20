@@ -1,14 +1,14 @@
 {
-  "name": "falemos",
+  "id": "falemos",
   "title": "Falemos (let's talk)",
   "description": "",
-  "version": "This is auto replaced",
-  "library": "false",
+  "version": "2.0.0",
+  "library": false,
   "manifestPlusVersion": "1.4.0",
-    "compatibility": {
-    "minimum": "11",
-    "verified": "12.328",
-    "maximum": "12"
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14.370",
+    "maximum": "14"
   },
   "authors": [
     {
@@ -36,9 +36,6 @@
   "esmodules": [
     "/scripts/module.js"
   ],
-  "scripts": [
-    "/scripts/lib/html2canvas.js"
-  ],
   "socket": true,
   "styles": [
     "/styles/module.css"
@@ -65,9 +62,9 @@
       "path": "languages/ca.json"
     }
   ],
-  "url": "This is auto replaced",
-  "manifest": "This is auto replaced",
-  "download": "This is auto replaced",
+  "url": "https://github.com/jvir/foundry-falemos",
+  "manifest": "https://github.com/jvir/foundry-falemos/releases/latest/download/module.json",
+  "download": "https://github.com/jvir/foundry-falemos/releases/download/v2.0.0/module.zip",
   "media": [
     {
       "type": "icon",
