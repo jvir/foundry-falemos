@@ -364,12 +364,35 @@ function scheduleRefresh({ force = false } = {}) {
   refreshTimer = setTimeout(() => refresh({ force }), 50);
 }
 
+let refreshing = false;
+let refreshAgain = null;
+
 async function refresh({ force = false } = {}) {
   if (!game.ready) return;
+  // Un refresco a la vez: si llega otro mientras trabajamos, se repite una sola vez al final
+  if (refreshing) {
+    refreshAgain = { force: force || !!refreshAgain?.force };
+    return;
+  }
+  refreshing = true;
+  try {
+    await doRefresh({ force });
+  } finally {
+    refreshing = false;
+    if (refreshAgain) {
+      const next = refreshAgain;
+      refreshAgain = null;
+      scheduleRefresh(next);
+    }
+  }
+}
+
+async function doRefresh({ force = false } = {}) {
   const scene = game.scenes.viewed;
   const cfg = cfgOf(scene);
 
   if (scene && cfg?.enable) {
+    if (!active) popTries.clear();
     active = true;
     await popOutAll();
     hideUi(cfg.hide ?? {});
@@ -379,6 +402,7 @@ async function refresh({ force = false } = {}) {
   } else {
     const wasActive = active;
     active = false;
+    popTries.clear();
     await dockPopped();
     undecorateAll();
     removeFonts();
@@ -386,17 +410,54 @@ async function refresh({ force = false } = {}) {
   }
 }
 
+/**
+ * Ids de usuarios con cámara en ventana libre. Se consultan tanto `cv.popouts` como las
+ * instancias de CameraPopout abiertas, porque una ventana recién creada puede tardar
+ * en aparecer en `cv.popouts`.
+ */
+function poppedUserIds(cv) {
+  const ids = new Set(cv.popouts.map((p) => p.user?.id));
+  const CameraPopout = foundry.applications.apps.av.CameraPopout;
+  for (const app of foundry.applications.instances.values()) {
+    if (app instanceof CameraPopout) ids.add(app.user?.id);
+  }
+  return ids;
+}
+
+// Protección anti-bucle: cuántas veces y cuándo pulsamos "sacar del dock" por usuario.
+// Pulsar el botón de una cámara que ya es ventana la devolvería al dock (y repetiría el ciclo).
+const POP_COOLDOWN_MS = 3000;
+const POP_MAX_TRIES = 3;
+const popTries = new Map(); // userId -> { n, t }
+
 /** Saca del dock todas las cámaras que aún no son ventanas libres. */
 async function popOutAll() {
   const cv = getCameraViews();
-  if (!cv?.rendered) return;
-  const popped = new Set(cv.popouts.map((p) => p.user?.id));
+  if (!cv?.rendered || !cv.element) return;
+  const popped = poppedUserIds(cv);
   const ids = new Set(game.settings.get(MODULE_ID, "poppedByFalemos")?.ids ?? []);
+  const now = Date.now();
   let changed = false;
+
   for (const user of game.users) {
-    if (popped.has(user.id)) continue;
-    const button = cv.getUserCameraView(user.id)?.querySelector('[data-action="toggleDocked"]');
-    if (!button) continue; // el usuario no tiene cámara
+    if (popped.has(user.id)) {
+      popTries.delete(user.id); // ya es ventana: se reinicia el contador
+      continue;
+    }
+    const tries = popTries.get(user.id) ?? { n: 0, t: 0 };
+    if (now - tries.t < POP_COOLDOWN_MS) continue; // acabamos de intentarlo
+    if (tries.n >= POP_MAX_TRIES) continue; // no insistir: evita el parpadeo infinito
+
+    // Solo se pulsa un botón que esté DENTRO del dock (nunca el de una ventana)
+    const view = cv.getUserCameraView(user.id);
+    if (!view || !cv.element.contains(view)) continue; // sin cámara o no está en el dock
+    const button = view.querySelector('[data-action="toggleDocked"]');
+    if (!button) continue;
+
+    popTries.set(user.id, { n: tries.n + 1, t: now });
+    if (tries.n + 1 >= POP_MAX_TRIES) {
+      console.warn(`Falemos | No se pudo sacar del dock la cámara de ${user.name}; se deja de insistir`);
+    }
     button.click();
     ids.add(user.id);
     changed = true;
@@ -686,7 +747,9 @@ function canvasFit(mode = "nofit", force = false) {
 /* -------------------------------------------------------------------------- */
 
 // El dock se ha (re)renderizado: puede haber cámaras nuevas que sacar a ventana
-Hooks.on("renderCameraViews", () => scheduleRefresh());
+Hooks.on("renderCameraViews", () => {
+  if (isEnabled() || active) scheduleRefresh();
+});
 
 // Cada cámara en ventana libre: aplicar el estilo Falemos
 Hooks.on("renderCameraPopout", (app) => decoratePopout(app));

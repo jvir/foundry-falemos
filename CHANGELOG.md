@@ -9,6 +9,7 @@
 - Los jugadores piden el cambio de ajuste (Ctrl+Alt+F) por socket y lo aplica el GM activo.
 - Falemos Vaccinator 0.20: `Dialog` sustituido por `DialogV2` (sin `<script>` ni `onclick` incrustados). El cálculo de la rejilla no cambia.
 - Las macros exportadas ahora serializan los datos con `JSON.stringify` (se mantienen compatibles las macros antiguas).
+- Anti-bucle al sacar cámaras del dock: solo se pulsa el botón del propio dock, con enfriamiento y máximo de 3 intentos por usuario, y los refrescos no se solapan.
 - Eliminados ficheros sin uso: `html2canvas`, `templates/hud/camera-views.html`, `styles/test.css`, `styles/module.css.bak`.
 
 # 1.3.0
