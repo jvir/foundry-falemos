@@ -1,11 +1,21 @@
 //
-// falemos vaccinator 0.18
+// falemos vaccinator 0.20
 // by Viriato139ac
 //
 
 const macroName = "Falemos Vaccinator by Viriato139ac";
-const macroVersion = "0.19";
+const macroVersion = "0.20";
 const macroImage = "modules/falemos/assets/img/falemos.svg";
+
+// Mide un elemento de la interfaz de Foundry probando varios ids (cambian entre
+// versiones). Si no existe o está oculto, devuelve el valor por defecto.
+const medir = (ids, propiedad, porDefecto) => {
+  for (const id of ids) {
+    const el = document.getElementById(id);
+    if (el && el[propiedad] > 0) return el[propiedad];
+  }
+  return porDefecto;
+};
 
 // Número de jugadores y listado de nombres
 
@@ -502,18 +512,16 @@ const formHtml = `
           "FALEMOS.vaccinator.margins"
         )}:</td>
         <td class="tg-d6y8" colspan="1"><input type="number" id="marizq" name="marizq" min=0 value=${
-          document.getElementById("controls").clientWidth
+          medir(["scene-controls", "controls"], "clientWidth", 50)
         }></td>
         <td class="tg-d6y8" colspan="1"><input type="number" id="mararr" name="mararr" min=0 value=${
-          document.getElementById("scene-list") === null
-            ? 50
-            : document.getElementById("scene-list").clientHeight
+          medir(["scene-navigation", "scene-list"], "clientHeight", 50)
         }></td>
         <td class="tg-d6y8" colspan="1"><input type="number" id="marder" name="marder" min=0 value=${
-          document.getElementById("sidebar").offsetWidth
+          medir(["sidebar"], "offsetWidth", 0)
         }></td>
         <td class="tg-d6y8" colspan="1"><input type="number" id="maraba" name="maraba" min=0 value=${
-          document.getElementById("macro-list").clientHeight
+          medir(["hotbar", "macro-list"], "clientHeight", 0)
         }></td>
       </tr>
       <tr>

@@ -7,7 +7,7 @@
 - Pestaña Falemos de la configuración de escena adaptada a `SceneConfig` (ApplicationV2): `<file-picker>`, `selectOptions`, hooks con `HTMLElement`.
 - Atajos (Ctrl+Alt+F/H/V/D) migrados a `game.keybindings` (reasignables). H, V y D son solo GM. El ciclo de H es ahora: todo, escena, nada.
 - Los jugadores piden el cambio de ajuste (Ctrl+Alt+F) por socket y lo aplica el GM activo.
-- Falemos Vaccinator 0.19: `Dialog` sustituido por `DialogV2` (sin `<script>` ni `onclick` incrustados). El cálculo de la rejilla no cambia.
+- Falemos Vaccinator 0.20: `Dialog` sustituido por `DialogV2` (sin `<script>` ni `onclick` incrustados). El cálculo de la rejilla no cambia.
 - Las macros exportadas ahora serializan los datos con `JSON.stringify` (se mantienen compatibles las macros antiguas).
 - Eliminados ficheros sin uso: `html2canvas`, `templates/hud/camera-views.html`, `styles/test.css`, `styles/module.css.bak`.
 
