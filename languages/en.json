@@ -119,5 +119,10 @@
     "FALEMOS.vaccinator.othersettings": "Other settings",
     "FALEMOS.vaccinator.hideHint": "Select which layout elements to hide when enabling Falemos",
     "FALEMOS.vaccinator.CameraNameFontSizeHint": "Font size in vw units 'https://css-tricks.com/viewport-sized-typography/'",
-    "FALEMOS.vaccinator.CameraNameColorHint": "Font color"
+    "FALEMOS.vaccinator.CameraNameColorHint": "Font color",
+    "FALEMOS.keybindings.toggleFit": "Fit scene to window (cycle)",
+    "FALEMOS.keybindings.toggleUi": "Toggle UI visibility (GM)",
+    "FALEMOS.keybindings.runVaccinator": "Run Falemos Vaccinator (GM)",
+    "FALEMOS.keybindings.toggleEnable": "Enable/disable Falemos in this scene (GM)",
+    "FALEMOS.NoPopoutToCapture": "That camera is not popped out, so its position cannot be captured."
 }

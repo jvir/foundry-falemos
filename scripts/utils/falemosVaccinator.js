@@ -1,11 +1,21 @@
 //
-// falemos vaccinator 0.18
+// falemos vaccinator 0.20
 // by Viriato139ac
 //
 
 const macroName = "Falemos Vaccinator by Viriato139ac";
-const macroVersion = "0.18";
+const macroVersion = "0.20";
 const macroImage = "modules/falemos/assets/img/falemos.svg";
+
+// Mide un elemento de la interfaz de Foundry probando varios ids (cambian entre
+// versiones). Si no existe o está oculto, devuelve el valor por defecto.
+const medir = (ids, propiedad, porDefecto) => {
+  for (const id of ids) {
+    const el = document.getElementById(id);
+    if (el && el[propiedad] > 0) return el[propiedad];
+  }
+  return porDefecto;
+};
 
 // Número de jugadores y listado de nombres
 
@@ -301,50 +311,12 @@ function falemosCalculator(
 
 // Aquí se comienza a definir el formulario de entrada de datos
 
-let applyChanges = false;
-let saveCustomMacro = false;
-let saveDisableMacro = false;
+// ---------------------------------------------------------------------------
+// v14: Dialog (V1) fue sustituido por DialogV2. Las funciones que antes vivían
+// en <script> incrustados y en atributos onclick (que DialogV2 no ejecuta) son
+// ahora funciones normales enlazadas desde el callback de render.
+// ---------------------------------------------------------------------------
 
-const myDialogOptions2 = {
-  width: 800,
-  resizable: true,
-  // height: 800,
-  // top: 500,
-  // left: 500,
-};
-
-new Dialog(
-  {
-    title:
-      `${game.i18n.localize("FALEMOS.vaccinator.title")}` + ` v` + macroVersion,
-    content: `
-  <script>
-function selectImage() {
-  const fp1 = new FilePicker({
-    type: "image",
-    button: "image-picker",
-    callback: (url) => {
-      $("#marcos").val(url);
-    }
-  });
-  fp1.browse();
-}
-  </script>
-  <script>
-function selectImageMult() {
-  const fp2 = new FilePicker({
-    type: "image",
-    button: "image-picker",
-    callback: (url) => {
-      $("#marcos").val() === ""
-       ? $("#marcos").val(url)
-       : $("#marcos").val([$("#marcos").val(), url].join());
-    }
-  });
-  fp2.browse();
-}
-  </script>
-  <script>
 function simularTabla(
   nuFilas,
   nuColumnas,
@@ -446,11 +418,11 @@ function simularTabla(
 
   //console.log(datostabla);
 
-  let tabla = '<table align="center" style="margin: 0px auto;"">' + '\\n' + '<tbody>\\n';
+  let tabla = '<table align="center" style="margin: 0px auto;"">' + '\n' + '<tbody>\n';
   k = 0;
   let colorCelda;
   for (let i = 0; i < nuFilas; i++) {
-    tabla = tabla + '<tr>\\n';
+    tabla = tabla + '<tr>\n';
     for (let j = 0; j < nuColumnas; j++) {
       switch (datostabla[k][5]) {
       case 1:
@@ -469,40 +441,41 @@ function simularTabla(
         colorCelda = "#EC7063";
       }
       if (datostabla[k][2] === true) {
-        tabla = tabla + '<td style="text-align:center;background-color:' + colorCelda + '">' + 'u: ' + datostabla[k][3] + '</br>n: ' + datostabla[k][4] + '</br>r: ' + datostabla[k][5] + '</td>\\n';
+        tabla = tabla + '<td style="text-align:center;background-color:' + colorCelda + '">' + 'u: ' + datostabla[k][3] + '</br>n: ' + datostabla[k][4] + '</br>r: ' + datostabla[k][5] + '</td>\n';
       } else {
-        tabla = tabla + '<td style="text-align:center;background-color:' + colorCelda + '">' + '${game.i18n.localize(
+        tabla = tabla + '<td style="text-align:center;background-color:' + colorCelda + '">' + game.i18n.localize(
           "FALEMOS.vaccinator.simulateEmpty"
-        )}' + '</td>\\n';
+        ) + '</td>\n';
       }
       k++
     }
-    tabla = tabla + '</tr>\\n';
+    tabla = tabla + '</tr>\n';
   }
-  tabla = tabla + '</tbody>\\n</table>';
+  tabla = tabla + '</tbody>\n</table>';
 
-  const myDialogOptions1 = {
-    width: 800,
-    resizable: true,
-    // top: 500,
-    // left: 500
-  };
-
-  new Dialog({
-    title: '${game.i18n.localize("FALEMOS.vaccinator.simulateTable")}',
-    content: tabla,
-    buttons: {
-      yes: {
-        icon: "<i class='fas fa-chevron-circle-left'></i>",
-        label: '${game.i18n.localize("FALEMOS.vaccinator.return")}',
-      },
+  const contenido = document.createElement("div");
+  contenido.innerHTML = tabla;
+  foundry.applications.api.DialogV2.wait({
+    window: {
+      title: game.i18n.localize("FALEMOS.vaccinator.simulateTable"),
+      resizable: true,
     },
-  default:
-    "yes",
-    close: (html) => {},
-  }, myDialogOptions1).render(true);
+    position: { width: 800 },
+    content: contenido,
+    buttons: [
+      {
+        action: "yes",
+        label: game.i18n.localize("FALEMOS.vaccinator.return"),
+        icon: "fa-solid fa-chevron-circle-left",
+        default: true,
+      },
+    ],
+    rejectClose: false,
+  });
 }
-  </script>
+
+
+const formHtml = `
   <form>
     <style type="text/css">
     .tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
@@ -539,18 +512,16 @@ function simularTabla(
           "FALEMOS.vaccinator.margins"
         )}:</td>
         <td class="tg-d6y8" colspan="1"><input type="number" id="marizq" name="marizq" min=0 value=${
-          document.getElementById("controls").clientWidth
+          medir(["scene-controls", "controls"], "clientWidth", 50)
         }></td>
         <td class="tg-d6y8" colspan="1"><input type="number" id="mararr" name="mararr" min=0 value=${
-          document.getElementById("scene-list") === null
-            ? 50
-            : document.getElementById("scene-list").clientHeight
+          medir(["scene-navigation", "scene-list"], "clientHeight", 50)
         }></td>
         <td class="tg-d6y8" colspan="1"><input type="number" id="marder" name="marder" min=0 value=${
-          document.getElementById("sidebar").offsetWidth
+          medir(["sidebar"], "offsetWidth", 0)
         }></td>
         <td class="tg-d6y8" colspan="1"><input type="number" id="maraba" name="maraba" min=0 value=${
-          document.getElementById("macro-list").clientHeight
+          medir(["hotbar", "macro-list"], "clientHeight", 0)
         }></td>
       </tr>
       <tr>
@@ -635,13 +606,7 @@ function simularTabla(
           "FALEMOS.vaccinator.playerorder"
         )}:</td>
         <td class="tg-d6y8" colspan="3"><input type="text" id="orden" name="orden" value="${numeracionJugadores}"></td>
-        <td class="tg-d6y8" colspan="2"><button id="simular" onclick="simularTabla(document.getElementById('nRows').value,
-        document.getElementById('nCols').value,
-        document.getElementById('orden').value,
-        document.getElementById('huecos').value,
-        document.getElementById('nombres').value,
-        document.getElementById('usuarios').value,
-        document.getElementById('roles').value)" type="button">${game.i18n.localize(
+        <td class="tg-d6y8" colspan="2"><button id="simular" type="button">${game.i18n.localize(
           "FALEMOS.vaccinator.simulate"
         )}</button></td>
       </tr>
@@ -726,7 +691,7 @@ function simularTabla(
           "FALEMOS.vaccinator.frames"
         )}:</td>
         <td class="tg-d6y8" colspan="8"><input type="text" id="marcos" name="marcos" value=""></td>
-        <td class="tg-d6y8" colspan="1"><button id="marcosSeleccionar" onclick="selectImageMult()" type="button">${game.i18n.localize(
+        <td class="tg-d6y8" colspan="1"><button id="marcosSeleccionar" type="button">${game.i18n.localize(
           "File Path"
         )}</button></td>
       </tr>
@@ -872,74 +837,47 @@ function simularTabla(
     </tbody>
     </table>
   </form>
-  `,
-    buttons: {
-      apply: {
-        icon: "<i class='fas fa-check-circle'></i>",
-        label: `${game.i18n.localize("FALEMOS.vaccinator.apply")}`,
-        callback: () => {
-          applyChanges = true;
-          saveCustomMacro = false;
-          saveDisableMacro = false;
-        },
-      },
-      macrocustom: {
-        icon: "<i class='fas fa-plus-circle'></i>",
-        label: `${game.i18n.localize(
-          "FALEMOS.vaccinator.ExportCustomToMacro"
-        )}`,
-        callback: () => {
-          applyChanges = false;
-          saveCustomMacro = true;
-          saveDisableMacro = false;
-        },
-      },
-      macrodisable: {
-        icon: "<i class='fas fa-minus-circle'></i>",
-        label: `${game.i18n.localize(
-          "FALEMOS.vaccinator.ExportDisableToMacro"
-        )}`,
-        callback: () => {
-          applyChanges = false;
-          saveCustomMacro = false;
-          saveDisableMacro = true;
-        },
-      },
-      cancel: {
-        icon: "<i class='fas fa-times-circle'></i>",
-        label: `${game.i18n.localize("FALEMOS.vaccinator.cancel")}`,
-        callback: () => {
-          applyChanges = false;
-          saveCustomMacro = false;
-          saveDisableMacro = false;
-        },
-      },
+`;
+
+function selectImage(root, multiple) {
+  const input = root.querySelector('[name="marcos"]');
+  new (foundry.applications.apps.FilePicker.implementation ?? foundry.applications.apps.FilePicker)({
+    type: "image",
+    callback: (url) => {
+      input.value = multiple && input.value ? [input.value, url].join() : url;
     },
-    default: "cancel",
-    close: (html) => {
-      let ancho = html.find('[name="ancho"]')[0].value || 1;
-      let alto = html.find('[name="alto"]')[0].value || 1;
-      let marizq = html.find('[name="marizq"]')[0].value || 0;
-      let mararr = html.find('[name="mararr"]')[0].value || 0;
-      let marder = html.find('[name="marder"]')[0].value || 0;
-      let maraba = html.find('[name="maraba"]')[0].value || 0;
-      let nRows = html.find('[name="nRows"]')[0].value || 1;
-      let nCols = html.find('[name="nCols"]')[0].value || 1;
-      let sepmin = html.find('[name="sepmin"]')[0].value || 0;
-      let orden = html.find('[name="orden"]')[0].value || 1;
-      let huecos = html.find('[name="huecos"]')[0].value;
-      let marcos = html.find('[name="marcos"]')[0].value;
-      let oveizq = html.find('[name="oveizq"]')[0].value || 0;
-      let ovearr = html.find('[name="ovearr"]')[0].value || 0;
-      let oveder = html.find('[name="oveder"]')[0].value || 0;
-      let oveaba = html.find('[name="oveaba"]')[0].value || 0;
-      let nombres = html.find('[name="nombres"]')[0].value;
-      let geometria = html.find('[name="geometria"]')[0].value;
-      let efecto = html.find('[name="efecto"]')[0].value;
-      let fuente = html.find('[name="fuente"]')[0].value;
-      let ajuste = html.find('[name="ajuste"]')[0].value;
-      let fontsize = +html.find('[name="fontsize"]')[0].value || 2;
-      let namecolor = html.find('[name="namecolor"]')[0].value;
+  }).browse();
+}
+
+function procesarFormulario(root, modo) {
+  const field = (name) => root.querySelector(`[name="${name}"]`);
+  const applyChanges = modo === "apply";
+  const saveCustomMacro = modo === "macrocustom";
+  const saveDisableMacro = modo === "macrodisable";
+
+      let ancho = field("ancho").value || 1;
+      let alto = field("alto").value || 1;
+      let marizq = field("marizq").value || 0;
+      let mararr = field("mararr").value || 0;
+      let marder = field("marder").value || 0;
+      let maraba = field("maraba").value || 0;
+      let nRows = field("nRows").value || 1;
+      let nCols = field("nCols").value || 1;
+      let sepmin = field("sepmin").value || 0;
+      let orden = field("orden").value || 1;
+      let huecos = field("huecos").value;
+      let marcos = field("marcos").value;
+      let oveizq = field("oveizq").value || 0;
+      let ovearr = field("ovearr").value || 0;
+      let oveder = field("oveder").value || 0;
+      let oveaba = field("oveaba").value || 0;
+      let nombres = field("nombres").value;
+      let geometria = field("geometria").value;
+      let efecto = field("efecto").value;
+      let fuente = field("fuente").value;
+      let ajuste = field("ajuste").value;
+      let fontsize = +field("fontsize").value || 2;
+      let namecolor = field("namecolor").value;
 
       const idimensiones = [ancho, alto];
       const imargenes = [marizq, mararr, marder, maraba];
@@ -975,19 +913,19 @@ function simularTabla(
       //console.log("Nombres de jugadores: " + nombresJugadores);
       console.log("Marcos: " + imarcos);
       console.log(
-        "Ocultar navegación: " + html.find('[name="cbnavigation"]')[0].checked
+        "Ocultar navegación: " + field("cbnavigation").checked
       );
       console.log(
-        "Ocultar controles: " + html.find('[name="cbcontrols"]')[0].checked
+        "Ocultar controles: " + field("cbcontrols").checked
       );
       console.log(
-        "Ocultar jugadores: " + html.find('[name="cbplayers"]')[0].checked
+        "Ocultar jugadores: " + field("cbplayers").checked
       );
       console.log(
-        "Ocultar barra: " + html.find('[name="cbsidebar"]')[0].checked
+        "Ocultar barra: " + field("cbsidebar").checked
       );
       console.log(
-        "Ocultar atajos: " + html.find('[name="cbhotbar"]')[0].checked
+        "Ocultar atajos: " + field("cbhotbar").checked
       );
       console.log("---------------------------------");
 
@@ -1072,11 +1010,11 @@ function simularTabla(
       let sceneData2 = {
         enable: true,
         hide: {
-          navigation: html.find('[name="cbnavigation"]')[0].checked,
-          controls: html.find('[name="cbcontrols"]')[0].checked,
-          players: html.find('[name="cbplayers"]')[0].checked,
-          sidebar: html.find('[name="cbsidebar"]')[0].checked,
-          hotbar: html.find('[name="cbhotbar"]')[0].checked,
+          navigation: field("cbnavigation").checked,
+          controls: field("cbcontrols").checked,
+          players: field("cbplayers").checked,
+          sidebar: field("cbsidebar").checked,
+          hotbar: field("cbhotbar").checked,
         },
       };
 
@@ -1119,7 +1057,54 @@ function simularTabla(
           sceneDataDisable
         );
       }
-    },
+}
+
+const contenidoForm = document.createElement("div");
+contenidoForm.innerHTML = formHtml;
+
+foundry.applications.api.DialogV2.wait({
+  window: {
+    title: `${game.i18n.localize("FALEMOS.vaccinator.title")} v${macroVersion}`,
+    resizable: true,
   },
-  myDialogOptions2
-).render(true);
+  position: { width: 800 },
+  content: contenidoForm,
+  rejectClose: false,
+  render: (event, dialog) => {
+    const root = dialog.element;
+    const val = (id) => root.querySelector(`#${id}`).value;
+    root.querySelector("#simular")?.addEventListener("click", () =>
+      simularTabla(val("nRows"), val("nCols"), val("orden"), val("huecos"),
+        val("nombres"), val("usuarios"), val("roles"))
+    );
+    root.querySelector("#marcosSeleccionar")?.addEventListener("click", () =>
+      selectImage(root, true)
+    );
+  },
+  buttons: [
+    {
+      action: "apply",
+      icon: "fa-solid fa-check-circle",
+      label: game.i18n.localize("FALEMOS.vaccinator.apply"),
+      callback: (event, button, dialog) => procesarFormulario(dialog.element, "apply"),
+    },
+    {
+      action: "macrocustom",
+      icon: "fa-solid fa-plus-circle",
+      label: game.i18n.localize("FALEMOS.vaccinator.ExportCustomToMacro"),
+      callback: (event, button, dialog) => procesarFormulario(dialog.element, "macrocustom"),
+    },
+    {
+      action: "macrodisable",
+      icon: "fa-solid fa-minus-circle",
+      label: game.i18n.localize("FALEMOS.vaccinator.ExportDisableToMacro"),
+      callback: (event, button, dialog) => procesarFormulario(dialog.element, "macrodisable"),
+    },
+    {
+      action: "cancel",
+      icon: "fa-solid fa-times-circle",
+      label: game.i18n.localize("FALEMOS.vaccinator.cancel"),
+      default: true,
+    },
+  ],
+});

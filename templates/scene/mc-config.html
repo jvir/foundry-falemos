@@ -8,33 +8,33 @@
         </div>
         <div class="form-group">
             <label>{{localize "FALEMOS.Enable"}}</label>
-            <input type="checkbox" name="flags.falemos.config.enable" data-dtype="Boolean" {{checked falemosconfig.enable}}>
+            <input type="checkbox" name="flags.falemos.config.enable" data-dtype="Boolean" {{#if falemosconfig.enable}}checked{{/if}}>
             <p class="notes">{{localize "FALEMOS.EnableHint"}}</p>
         </div>
         <!-- ocultar controles -->
         <div class="form-group">
             <label>{{localize "FALEMOS.HideNavigation"}}</label>
-            <input type="checkbox" name="flags.falemos.config.hide.navigation" data-dtype="Boolean" {{checked falemosconfig.hide.navigation}}>
+            <input type="checkbox" name="flags.falemos.config.hide.navigation" data-dtype="Boolean" {{#if falemosconfig.hide.navigation}}checked{{/if}}>
 			<p class="notes">{{localize "FALEMOS.HideNavigationHint"}}</p>
         </div>    
         <div class="form-group">
             <label>{{localize "FALEMOS.HideControls"}}</label>
-            <input type="checkbox" name="flags.falemos.config.hide.controls" data-dtype="Boolean" {{checked falemosconfig.hide.controls}}>
+            <input type="checkbox" name="flags.falemos.config.hide.controls" data-dtype="Boolean" {{#if falemosconfig.hide.controls}}checked{{/if}}>
 			<p class="notes">{{localize "FALEMOS.HideControlsHint"}}</p>
         </div>    
         <div class="form-group">
             <label>{{localize "FALEMOS.HidePlayers"}}</label>
-            <input type="checkbox" name="flags.falemos.config.hide.players" data-dtype="Boolean" {{checked falemosconfig.hide.players}}>
+            <input type="checkbox" name="flags.falemos.config.hide.players" data-dtype="Boolean" {{#if falemosconfig.hide.players}}checked{{/if}}>
 			<p class="notes">{{localize "FALEMOS.HidePlayersHint"}}</p>
         </div>    
         <div class="form-group">
             <label>{{localize "FALEMOS.HideSidebar"}}</label>
-            <input type="checkbox" name="flags.falemos.config.hide.sidebar" data-dtype="Boolean" {{checked falemosconfig.hide.sidebar}}>
+            <input type="checkbox" name="flags.falemos.config.hide.sidebar" data-dtype="Boolean" {{#if falemosconfig.hide.sidebar}}checked{{/if}}>
 			<p class="notes">{{localize "FALEMOS.HideSidebarHint"}}</p>
         </div>
         <div class="form-group">
             <label>{{localize "FALEMOS.HideHotbar"}}</label>
-            <input type="checkbox" name="flags.falemos.config.hide.hotbar" data-dtype="Boolean" {{checked falemosconfig.hide.hotbar}}>
+            <input type="checkbox" name="flags.falemos.config.hide.hotbar" data-dtype="Boolean" {{#if falemosconfig.hide.hotbar}}checked{{/if}}>
 			<p class="notes">{{localize "FALEMOS.HideHotbarHint"}}</p>
         </div>
     </div>
@@ -61,8 +61,7 @@
             <div class="form-group">
                 <label>{{localize "FALEMOS.CameraOverlayText"}}</label>
                 <div class="form-fields">
-                    {{filePicker target=(concat3 'flags.falemos.config.' this.id '.overlayImg') type="imagevideo"}}
-                    <input class="image" type="text" name="flags.falemos.config.{{ this.id }}.overlayImg" placeholder="{{localize 'File Path'}}" value="{{lookupProp ../falemosconfig this.id 'overlayImg'}}"/>
+                    <file-picker name="flags.falemos.config.{{ this.id }}.overlayImg" type="imagevideo" value="{{lookupProp ../falemosconfig this.id 'overlayImg'}}"></file-picker>
                 </div>
                     <p class="notes">{{localize "FALEMOS.CameraOverlayNotes"}}</p>
             </div>
@@ -88,11 +87,7 @@
             <div class="form-group">
                 <label>{{localize 'FALEMOS.CameraGeometryText'}}</label>
                 <select name="flags.falemos.config.{{ this.id }}.geometry" data-dtype="String">
-                {{#select (lookupProp ../falemosconfig this._id 'geometry') }}
-                    {{#each ../falemos.cameraGeometry }}
-                        <option value="{{@key}}">{{localize this.name}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions ../falemos.cameraGeometry selected=(lookupProp ../falemosconfig this.id 'geometry') localize=true labelAttr="name"}}
                 </select>
                 <p class="notes">{{localize 'FALEMOS.CameraGeometryNotes'}}</p>
             </div>
@@ -100,11 +95,7 @@
             <div class="form-group">
                 <label>{{localize 'FALEMOS.CameraEffectText'}}</label>
                 <select name="flags.falemos.config.{{ this.id }}.filter" data-dtype="String">
-                {{#select (lookupProp ../falemosconfig this.id 'filter') }}
-                    {{#each ../falemos.cameraEffects }}
-                        <option value="{{@key}}">{{localize this.name}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions ../falemos.cameraEffects selected=(lookupProp ../falemosconfig this.id 'filter') localize=true labelAttr="name"}}
                 </select>
                 <p class="notes">{{localize 'FALEMOS.CameraEffectNotes'}}</p>
             </div>
@@ -138,11 +129,7 @@
             <div class="form-group">
                 <label>{{localize 'FALEMOS.SceneFitText'}}</label>
                 <select name="flags.falemos.config.{{ this.id }}.fit" data-dtype="String">
-                {{#select (lookupProp ../falemosconfig this.id 'fit') }}
-                    {{#each ../falemos.sceneFit }}
-                        <option value="{{@key}}">{{localize this.name}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions ../falemos.sceneFit selected=(lookupProp ../falemosconfig this.id 'fit') localize=true labelAttr="name"}}
                 </select>
                 <p class="notes">{{localize 'FALEMOS.SceneFitNotes'}}</p>
             </div>    

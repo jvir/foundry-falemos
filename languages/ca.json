@@ -49,5 +49,10 @@
     "FALEMOS.SceneFitText": "Ajust d'escena",
     "FALEMOS.CameraNameColorNotes": "Configura el color, posició i mida del rètol",
     "FALEMOS.scene.fit.nofit": "Sense ajust d’escena",
-    "FALEMOS.SceneFitNotes": "Ajusta l'escena de manera que la imatge la cobreixi totalment o perquè la imatge sembli plena"
+    "FALEMOS.SceneFitNotes": "Ajusta l'escena de manera que la imatge la cobreixi totalment o perquè la imatge sembli plena",
+    "FALEMOS.keybindings.toggleFit": "Ajustar l'escena a la finestra (cicle)",
+    "FALEMOS.keybindings.toggleUi": "Mostra/amaga la interfície (GM)",
+    "FALEMOS.keybindings.runVaccinator": "Executa Falemos Vaccinator (GM)",
+    "FALEMOS.keybindings.toggleEnable": "Activa/desactiva Falemos en aquesta escena (GM)",
+    "FALEMOS.NoPopoutToCapture": "Aquesta càmera no està en una finestra lliure, no es pot capturar la seva posició."
 }
